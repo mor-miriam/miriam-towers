@@ -555,9 +555,11 @@
     <input type="text" id="adm-pay-url" placeholder="https://... (ריק = מצב דמו)">
     <label class="flabel">מייל לקבלת בקשות תיאום פגישה</label>
     <input type="text" id="adm-lead-email">
-    <label class="flabel">מייל לוח לידים במאנדיי — כל ליד ייפתח כפריט בלוח</label>
+    <label class="flabel">Webhook למאנדיי (Make) — לידים והזמנות נפתחים אוטומטית בלוחות</label>
+    <input type="text" id="adm-webhook-url" placeholder="https://hook.eu2.make.com/...">
+    <label class="flabel">מייל לוח לידים (גיבוי — לא נדרש כש-Webhook פעיל)</label>
     <input type="text" id="adm-monday-email" placeholder="something@mx.monday.com">
-    <label class="flabel">מייל לוח הצעות מחיר במאנדיי — הזמנות אחרי תשלום ייפתחו גם שם</label>
+    <label class="flabel">מייל לוח הצעות מחיר (גיבוי — לא נדרש כש-Webhook פעיל)</label>
     <input type="text" id="adm-quotes-email" placeholder="something@mx.monday.com">
     <label class="flabel">מספר וואטסאפ לכפתור הצף (פורמט בינלאומי, למשל 972501234567)</label>
     <input type="text" id="adm-wa-number" placeholder="ריק = הכפתור מוסתר">
@@ -667,8 +669,9 @@ const CONTENT_DEFAULT = /*CJSON*/{
   "pmName": "מור",
   "pmEmail": "mor@miriam.co.il",
   "leadEmail": "office@miriam.co.il",
-  "mondayEmail": "miriamorgon-force_board_1574449599_6ed66be12f1e779abb07__63905784@euc1.mx.monday.com",
-  "quotesEmail": "miriamorgon-force_board_1575969870_6ed66be12f1e779abb07__63905784@euc1.mx.monday.com",
+  "webhookUrl": "https://hook.eu2.make.com/jvo7b0q9at73f60imp4v0xcgik13brub",
+  "mondayEmail": "",
+  "quotesEmail": "",
   "waNumber": "972775521871",
   "waMsg": "היי, אני דייר/ת במגדלי כיכר המדינה ואשמח לפרטים על הטבת הוילונות",
   "visitImg": "https://www.miriam.co.il/cdn/shop/files/1.-showroom.jpg?width=1400",
@@ -679,7 +682,16 @@ const CONTENT_DEFAULT = /*CJSON*/{
 }/*CJSONEND*/;
 
 const PRICES_KEY = 'miriam-towers-prices-v4';
-const CONTENT_KEY = 'miriam-towers-content-v5';
+const CONTENT_KEY = 'miriam-towers-content-v6';
+/* שליחה למאנדיי דרך Make — ליד או הזמנה */
+function sendToMake(payload) {
+  if (!CONTENT.webhookUrl) return Promise.resolve();
+  return fetch(CONTENT.webhookUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+}
 const ADMIN_HASH = '2e7b4cdf720c0d4e19c6cbcba53f4ca099fd1094c36303cd9e7194b559511daf';
 
 function loadJSON(key, def) {
@@ -916,7 +928,12 @@ function buildOrder() {
       cell.innerHTML = fmt(price) + (addon > 0
         ? `<small>${(p.unit==='rm' ? t('elec_add_rm') : t('elec_add_sqm')).replace('{x}', fmt(addon))}</small>`
         : `<small>${t('excl_vat')}</small>`);
-      lines.push({ label:`${prodLabel(p)} · ${t('rooms')[roomKey]} (${type==='electric'?t('op_electric'):t('op_manual')})`, dims:`${w}×${h}`, price });
+      lines.push({
+        label:`${prodLabel(p)} · ${t('rooms')[roomKey]} (${type==='electric'?t('op_electric'):t('op_manual')})`,
+        product:`${p.label} — ${type==='electric'?'חשמלי':'ידני'}`,
+        room: I18N.he.rooms[roomKey], dims:`${w}×${h}`, price,
+        priceInc: price * (1 + (CFG.vatRate || 18) / 100)
+      });
     } else {
       cell.textContent = '—';
     }
@@ -1001,10 +1018,11 @@ function submitModal() {
     else { alert(t('a_res')); }
     return;
   }
-  /* תיאום פגישה — שליחת מייל דרך FormSubmit */
+  /* תיאום פגישה — פתיחת ליד במאנדיי דרך Make + מייל גיבוי */
   const btn = document.getElementById('modalBtn');
   btn.disabled = true;
   btn.textContent = LANG==='en' ? 'Sending…' : 'שולח…';
+  sendToMake({ type:'lead', name, phone, apt, notes:'בקשת תיאום פגישה מדף הנחיתה' }).catch(()=>{});
   fetch('https://formsubmit.co/ajax/' + encodeURIComponent(CONTENT.leadEmail || 'mor@miriam.co.il'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -1224,6 +1242,7 @@ function renderAdmin() {
   document.getElementById('adm-pay-amount').value = CONTENT.payAmount;
   document.getElementById('adm-pay-url').value = CONTENT.payUrl || '';
   document.getElementById('adm-lead-email').value = CONTENT.leadEmail || '';
+  document.getElementById('adm-webhook-url').value = CONTENT.webhookUrl || '';
   document.getElementById('adm-monday-email').value = CONTENT.mondayEmail || '';
   document.getElementById('adm-quotes-email').value = CONTENT.quotesEmail || '';
   document.getElementById('adm-wa-number').value = CONTENT.waNumber || '';
@@ -1254,6 +1273,7 @@ function collectAdmin() {
   CONTENT.payAmount = parseFloat(document.getElementById('adm-pay-amount').value) || 400;
   CONTENT.payUrl = document.getElementById('adm-pay-url').value.trim();
   CONTENT.leadEmail = document.getElementById('adm-lead-email').value.trim() || 'mor@miriam.co.il';
+  CONTENT.webhookUrl = document.getElementById('adm-webhook-url').value.trim();
   CONTENT.mondayEmail = document.getElementById('adm-monday-email').value.trim();
   CONTENT.quotesEmail = document.getElementById('adm-quotes-email').value.trim();
   CONTENT.waNumber = document.getElementById('adm-wa-number').value.trim();
@@ -1349,6 +1369,17 @@ function sendOrderIfPaid() {
     + `\nמע״מ ${order.vatRate}%: ₪${Math.round(order.vat)}`
     + `\nסה״כ כולל מע״מ: ₪${Math.round(order.totalInc)}`
     + `\nשולמה מקדמה: ₪${CONTENT.payAmount || 400} (מתקזזת מההזמנה)`;
+  /* פתיחת הזמנה מלאה במאנדיי: ליד + הצעת מחיר + תת-פריט לכל חלון */
+  sendToMake({
+    type:'order', name: order.name, phone: order.phone, apt: order.apt,
+    deposit: CONTENT.payAmount || 400,
+    installEx: Math.round(order.install), subtotalEx: Math.round(order.subtotalEx),
+    vat: Math.round(order.vat), totalInc: Math.round(order.totalInc),
+    lines: (order.lines || []).map(l => ({
+      product: l.product || l.label, room: l.room || '', dims: l.dims || '',
+      priceInc: Math.round(l.priceInc || l.price)
+    }))
+  }).catch(()=>{});
   const cc = [CONTENT.mondayEmail, CONTENT.quotesEmail].filter(Boolean).join(',');
   fetch('https://formsubmit.co/ajax/' + encodeURIComponent(CONTENT.leadEmail || 'office@miriam.co.il'), {
     method: 'POST',
