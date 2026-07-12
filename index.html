@@ -36,7 +36,7 @@
 
   .hero { padding:132px 56px 72px; }
   .hero-grid { max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
-  .hero-kicker { display:inline-block; border:1px solid var(--ink); padding:7px 20px; border-radius:100px; font-size:12.5px; letter-spacing:.1em; margin-bottom:24px; font-weight:400; }
+  .hero-kicker { display:inline-block; background:var(--ink); color:var(--white); padding:11px 30px; border-radius:100px; font-size:16px; letter-spacing:.06em; margin-bottom:26px; font-weight:600; }
   .hero h1 { font-size:clamp(40px,5vw,64px); font-weight:700; line-height:1.1; letter-spacing:-.01em; margin-bottom:10px; }
   .hero .loc { font-size:15px; color:var(--gray); margin-bottom:20px; }
   .hero p.sub { font-size:16.5px; color:#333; max-width:520px; margin-bottom:32px; }
@@ -136,8 +136,8 @@
   .visit-img { aspect-ratio:16/11; border-radius:14px; background-position:center; background-size:cover; background-repeat:no-repeat; background-color:#f2f0ed; }
 
   .services { background:var(--band); padding:56px 24px; }
-  .services-row { max-width:1120px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:36px; text-align:center; }
-  .srv svg { width:52px; height:52px; stroke:var(--ink); fill:none; stroke-width:1.3; margin-bottom:14px; }
+  .services-row { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:36px; text-align:center; }
+  .srv img.sicon { height:58px; margin-bottom:14px; }
   .srv b { display:block; font-size:19px; font-weight:600; margin-bottom:8px; }
   .srv p { font-size:14.5px; color:#3c3c3c; max-width:270px; margin:0 auto; }
 
@@ -228,7 +228,9 @@
 <nav>
   <div class="nav-right">
     <a onclick="go('config')" class="hide-m" data-i18n="nav_quote"></a>
+    <a onclick="go('products')" data-i18n="nav_products"></a>
     <a onclick="go('gallery')" data-i18n="nav_projects"></a>
+    <a onclick="go('motion')" class="hide-m">Coulisse</a>
     <a onclick="go('visit')" class="hide-m" data-i18n="nav_showroom"></a>
     <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
     <button class="nav-cta" onclick="go('config')" data-i18n="nav_cta"></button>
@@ -312,6 +314,17 @@
   </div>
 </section>
 
+<section id="products" style="background:#fafafa; border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker" data-c="prodKicker"></div>
+      <h2 data-c="prodTitle"></h2>
+      <p class="lead" data-c="prodLead"></p>
+    </div>
+    <div class="gallery-grid" id="productsGrid"></div>
+  </div>
+</section>
+
 <section class="config" id="config">
   <div class="wrap">
     <div class="center">
@@ -345,7 +358,7 @@
       <div class="summary-note" data-i18n="sum_note"></div>
     </div>
     <div class="config-ctas">
-      <button class="btn btn-solid" onclick="openModal('reserve')" data-i18n="cta_reserve"></button>
+      <button class="btn btn-solid" onclick="reserveClick()" data-i18n="cta_reserve"></button>
       <button class="btn btn-outline" onclick="openModal('visit')" data-i18n="cta_visit"></button>
     </div>
     <p class="cta-sub" data-i18n="cta_sub"></p>
@@ -371,8 +384,8 @@
       <p class="lead" data-c="visitLead"></p>
       <div class="visit-info">
         <div><b data-i18n="v_addr_l"></b> <span data-c="visitAddr"></span></div>
-        <div><b data-i18n="v_consult_l"></b> <span data-i18n="v_consult"></span></div>
-        <div><b data-i18n="v_service_l"></b> <span data-i18n="v_service"></span></div>
+        <div><b data-i18n="v_pm_l"></b> <span data-c="pmName"></span></div>
+        <div><b data-i18n="v_mail_l"></b> <span data-c="pmEmail"></span></div>
       </div>
       <div style="margin-top:28px">
         <button class="btn btn-solid" onclick="openModal('visit')" data-i18n="v_btn"></button>
@@ -385,20 +398,16 @@
 <div class="services">
   <div class="services-row">
     <div class="srv">
-      <svg viewBox="0 0 64 64"><path d="M32 6C21 6 13 14.5 13 25c0 13 19 33 19 33s19-20 19-33C51 14.5 43 6 32 6z"/><path d="M25 28v-6l7-5 7 5v6h-4v-5h-6v5z"/></svg>
+      <img class="sicon" src="https://www.miriam.co.il/cdn/shop/files/1.png" alt="">
       <b data-i18n="srv1t"></b><p data-i18n="srv1p"></p>
     </div>
     <div class="srv">
-      <svg viewBox="0 0 64 64"><circle cx="24" cy="34" r="14"/><path d="M24 30v8M20 34h8M38 34h16M38 28v12M46 28v12M54 28v12"/></svg>
+      <img class="sicon" src="https://www.miriam.co.il/cdn/shop/files/3.png" alt="">
       <b data-i18n="srv2t"></b><p data-i18n="srv2p"></p>
     </div>
     <div class="srv">
-      <svg viewBox="0 0 64 64"><path d="M14 20h36v10H14zM18 30v6M26 30v4M34 30v6M42 30v4M14 20l4-8h28l4 8"/></svg>
+      <img class="sicon" src="https://www.miriam.co.il/cdn/shop/files/2.png" alt="">
       <b data-i18n="srv3t"></b><p data-i18n="srv3p"></p>
-    </div>
-    <div class="srv">
-      <svg viewBox="0 0 64 64"><path d="M12 26h22v14H12zM34 30h10l8-4v18l-8-4H34zM16 40v8M28 40v8"/></svg>
-      <b data-i18n="srv4t"></b><p data-i18n="srv4p"></p>
     </div>
   </div>
 </div>
@@ -491,14 +500,22 @@
   <div class="apane" id="t-content"></div>
 
   <div class="apane" id="t-gallery">
-    <div class="sub">גריד הפרויקטים בדף. אפשר להעלות תמונות מהמחשב (נדחסות אוטומטית) או להדביק קישור.</div>
+    <h4>גריד המוצרים</h4>
+    <div id="prodGridAdmin"></div>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:8px">
+      <button class="abtn" onclick="document.getElementById('prodFiles').click()">העלאת תמונות</button>
+      <input type="file" id="prodFiles" accept="image/*" multiple style="display:none" onchange="addGridFiles('productsGrid', this.files)">
+      <input type="text" id="prodUrl" placeholder="או הדביקו קישור לתמונה" style="flex:1; min-width:160px">
+      <button class="abtn abtn-ghost" onclick="addGridUrl('productsGrid','prodUrl')">הוספה מקישור</button>
+    </div>
+    <h4 style="margin-top:28px">גריד הפרויקטים</h4>
+    <div class="sub">תמונות מהמחשב נדחסות אוטומטית לגודל אינטרנט.</div>
     <div id="galAdmin"></div>
-    <h4>הוספת תמונות</h4>
-    <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center">
-      <button class="abtn" onclick="document.getElementById('galFiles').click()">העלאת תמונות מהמחשב</button>
-      <input type="file" id="galFiles" accept="image/*" multiple style="display:none" onchange="addGalleryFiles(this.files)">
-      <input type="text" id="galUrl" placeholder="או הדביקו קישור לתמונה" style="flex:1; min-width:180px">
-      <button class="abtn abtn-ghost" onclick="addGalleryUrl()">הוספה מקישור</button>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:8px">
+      <button class="abtn" onclick="document.getElementById('galFiles').click()">העלאת תמונות</button>
+      <input type="file" id="galFiles" accept="image/*" multiple style="display:none" onchange="addGridFiles('gallery', this.files)">
+      <input type="text" id="galUrl" placeholder="או הדביקו קישור לתמונה" style="flex:1; min-width:160px">
+      <button class="abtn abtn-ghost" onclick="addGridUrl('gallery','galUrl')">הוספה מקישור</button>
     </div>
   </div>
 
@@ -512,9 +529,11 @@
   <div class="apane" id="t-pay">
     <label class="flabel">סכום מקדמה (₪)</label>
     <input type="number" id="adm-pay-amount" min="0">
-    <label class="flabel">קישור לעמוד סליקה (Apple Pay / אשראי) — יופעל בלחיצה על «מעבר לתשלום»</label>
+    <label class="flabel">קישור סליקה PayPlus — «שריינו את המחיר» יפתח אותו ישירות</label>
     <input type="text" id="adm-pay-url" placeholder="https://... (ריק = מצב דמו)">
-    <div class="sub" style="margin-top:10px">כשריק, הכפתור יציג הודעת דמו. אחרי חיבור הסליקה שלך (משולם / Grow / קארדקום וכו׳) פשוט הדביקו כאן את הקישור.</div>
+    <label class="flabel">מייל לקבלת בקשות תיאום פגישה</label>
+    <input type="text" id="adm-lead-email">
+    <div class="sub" style="margin-top:10px">כשקישור הסליקה ריק, הכפתור מציג הודעת דמו. שליחת המיילים דרך FormSubmit — בפעם הראשונה יישלח אליכם מייל אימות חד־פעמי שיש לאשר.</div>
   </div>
 
   <div class="apane" id="t-pub">
@@ -558,7 +577,7 @@ const CONTENT_DEFAULT = /*CJSON*/{
   "heroKicker": "הטבה בלעדית לדיירי הפרויקט",
   "heroTitle": "מגדלי כיכר המדינה",
   "heroLoc": "תל אביב־יפו · כיכר המדינה",
-  "heroSub": "וילונות ופתרונות הצללה בהתאמה אישית לדירתכם החדשה — במחירי פרויקט מיוחדים, כולל ייעוץ, מדידה והתקנה מקצועית.",
+  "heroSub": "וילונות ופתרונות הצללה מעוצבים בהתאמה אישית לדירתכם החדשה — במחירי פרויקט מיוחדים, כולל ייעוץ, מדידה והתקנה מקצועית.",
   "aboutTitle": "החלון שלכם, היצירה שלנו",
   "aboutLead": "בית עיצוב ישראלי המתמחה בווילונות ופתרונות הצללה בהתאמה אישית, הממשיך את המסורת והניסיון של וילונות מרים אורגון. אנו משלבים עיצוב מוקפד, טכנולוגיה מתקדמת וחומרי גלם מהאיכות הגבוהה ביותר — לבתים פרטיים, משרדים ופרויקטים אדריכליים.",
   "check1": "איכות ללא פשרות — תפירה מקצועית וגימור מושלם, עמידות לאורך שנים",
@@ -572,12 +591,24 @@ const CONTENT_DEFAULT = /*CJSON*/{
   "featImg": "https://www.miriam.co.il/cdn/shop/files/3bdba103a9f2882d665a347d017b1b31_c15c8287-7ae3-4558-9343-164c4447c847.webp?v=1768863300&width=1200",
   "motionKicker": "וילונות חשמליים חכמים",
   "motionTitle": "מנועי MotionBlinds מבית Coulisse",
-  "motionLead": "אנחנו עובדים עם Coulisse ההולנדית — מהמובילות בעולם בפתרונות הצללה — ומתקינים את מנועי ה-MotionBlinds שלה: הדור החדש של וילונות חשמליים חכמים, שקטים במיוחד ופשוטים לתפעול. המנוע מוסתר בתוך הגלגלת, בלי כבלים גלויים ובלי רעש.",
+  "motionLead": "אנחנו עובדים עם Coulisse ההולנדית — מהמובילות בעולם בפתרונות הצללה — ומתקינים את מנועי ה-MotionBlinds שלה: הדור החדש של וילונות חשמליים חכמים, שקטים במיוחד ופשוטים לתפעול. המנועים מתאימים לכל סוגי הוילונות — וילונות הסטה (Curtains) על מסילה חשמלית, וילונות גלילה, דאבל רולר ודואט — כשהמנוע מוסתר בתוך הגלגלת או המסילה, בלי כבלים גלויים ובלי רעש.",
   "mp1": "שקט במיוחד — פעולה חלקה וכמעט בלתי נשמעת",
   "mp2": "שליטה מהנייד, משלט או בפקודת קול",
   "mp3": "תואם בית חכם — Apple Home, Google ו-Alexa (Matter)",
-  "mp4": "סוללה נטענת USB-C או חיבור קבוע — התקנה נקייה בכל חלון",
+  "mp4": "סוללה נטענת USB-C או חיבור קבוע — לוילונות הסטה, גלילה וכל סוגי ההצללה",
   "motionImg": "https://www.miriam.co.il/cdn/shop/files/EVE_Motionblinds_Richmond-0100_8a6573d4-2c76-4dd0-9930-84fc068a8a9b.jpg?v=1774957432&width=1200",
+  "prodKicker": "המוצרים שלנו",
+  "prodTitle": "קטלוג הפתרונות שלנו",
+  "prodLead": "כל פתרונות ההצללה שלנו בהתאמה אישית מלאה לכל חלון — לחצו על מוצר להתרשמות מקרוב.",
+  "productsGrid": [
+    { "src": "https://www.miriam.co.il/cdn/shop/files/850_6944AAA_copy_82b365a4-35d1-4e16-a65d-48f56d8163b3.jpg?width=900", "cap": "וילונות בד דקורטיבי" },
+    { "src": "https://www.miriam.co.il/cdn/shop/files/850_4171AAA_copy.jpg?v=1782672567&width=900", "cap": "וילונות בד האפלה" },
+    { "src": "https://www.miriam.co.il/cdn/shop/files/Cou_MB10_SCR-3005-08.jpg?v=1773682226&width=900", "cap": "וילונות גלילה" },
+    { "src": "https://www.miriam.co.il/cdn/shop/files/NAXOS-0200-Window-Double-Roller.jpg?v=1775390724&width=900", "cap": "דאבל רולר" },
+    { "src": "https://www.miriam.co.il/cdn/shop/files/1773598891_0.jpg?v=1775025241&width=900", "cap": "תריס ונציאני עץ" },
+    { "src": "https://www.miriam.co.il/cdn/shop/files/HONEYCOMB1.jpg?v=1775391624&width=900", "cap": "דואט Honeycomb" },
+    { "src": "https://www.miriam.co.il/cdn/shop/files/Home-decor_Web-R.jpg?v=1774945931&width=900", "cap": "וילונות פאנלים" }
+  ],
   "galKicker": "הפרויקטים שלנו",
   "galTitle": "בתים שכבר בחרו בנו",
   "galLead": "מבחר פרויקטים של בתים פרטיים, מלונות ומשרדים — עיצוב, תפירה והתקנה של Miriam House of Design.",
@@ -590,17 +621,20 @@ const CONTENT_DEFAULT = /*CJSON*/{
     { "src": "https://www.miriam.co.il/cdn/shop/files/rotchils_22_e26e380d-4d70-492e-8165-65d40390c956.jpg?v=1772556532&width=900", "cap": "משרדים · רוטשילד 22, תל אביב" }
   ],
   "visitTitle": "בואו להתרשם מקרוב",
-  "visitLead": "באולם התצוגה שלנו תמצאו קולקציה רחבה של בדים איכותיים ממיטב היצרנים בעולם — בדי וילונות, בדי האפלה, בדים חצי־שקופים וטקסטורליים. תקבלו ייעוץ מקצועי ואישי, ללא עלות, באווירה משפחתית חמה.",
+  "visitLead": "באולם התצוגה שלנו תמצאו קולקציה רחבה של בדים איכותיים ממיטב היצרנים בעולם — בדי וילונות, בדי האפלה, בדים חצי־שקופים וטקסטורליים. תקבלו ייעוץ מקצועי ואישי, באווירה משפחתית חמה.",
   "visitAddr": "לח״י 2, בני ברק — מתחם דן דיזיין סנטר",
-  "visitImg": "https://www.miriam.co.il/cdn/shop/files/naturals_trimmings_dekoma_22.04.14_60868_7dd6e24e-d700-40d1-88e3-3545c0278093.webp?v=1768839581&width=900",
+  "pmName": "מור",
+  "pmEmail": "mor@miriam.co.il",
+  "leadEmail": "mor@miriam.co.il",
+  "visitImg": "https://www.miriam.co.il/cdn/shop/files/1.-showroom.jpg?width=1400",
   "termsTitle": "תקנון ותנאי שימוש",
-  "termsText": "1. כללי\nהאתר מופעל על ידי MIRIAM House of Design (להלן: «החברה»). השימוש באתר ובמחשבון הצעת המחיר כפוף לתנאים אלה.\n\n2. ההטבה\nהמחירים המוצגים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה בלבד, ובתוקף עד להודעה חדשה. החברה רשאית לעדכן את המחירון בכל עת.\n\n3. הצעת המחיר\nהחישוב באתר מהווה הערכה בלבד על בסיס המידות שהוזנו על ידי הלקוח. ההצעה הסופית תיקבע לאחר מדידה מקצועית בדירה על ידי מודד מטעם החברה. כל המחירים לפני מע״מ אלא אם צוין אחרת.\n\n4. שריון מחיר ומקדמה\nשריון המחיר מתבצע באמצעות תשלום מקדמה. המקדמה מתקזזת במלואה מסכום ההזמנה הסופי. ביטול בהתאם לחוק הגנת הצרכן, התשמ״א-1981 — ניתן לבטל עסקה בתוך 14 יום ממועד התשלום ולקבל החזר מלא, בניכוי דמי ביטול כדין.\n\n5. אספקה והתקנה\nמועדי האספקה וההתקנה ייקבעו מול הלקוח לאחר המדידה. החברה מתחייבת לעמידה בלוחות הזמנים שיסוכמו בהזמנה הסופית.\n\n6. אחריות\nעל כל המוצרים חלה אחריות יצרן רשמית ומלאה בהתאם לתעודת האחריות שתימסר עם ההתקנה.\n\n7. פרטיות\nהפרטים הנמסרים באתר משמשים ליצירת קשר ולטיפול בהזמנה בלבד, ולא יועברו לצד שלישי למעט לצורך השלמת העסקה.\n\n8. יצירת קשר\nלשאלות ובירורים: אולם התצוגה — לח״י 2, בני ברק, מתחם דן דיזיין סנטר.",
+  "termsText": "1. כללי\nהאתר מופעל על ידי MIRIAM House of Design (להלן: «החברה»). השימוש באתר ובמחשבון הצעת המחיר כפוף לתנאים אלה.\n\n2. ההטבה\nהמחירים המוצגים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה בלבד, ובתוקף עד להודעה חדשה. החברה רשאית לעדכן את המחירון בכל עת.\n\n3. הצעת המחיר\nהחישוב באתר מהווה הערכה בלבד על בסיס המידות שהוזנו על ידי הלקוח. ההצעה הסופית תיקבע לאחר מדידה מקצועית בדירה על ידי מודד מטעם החברה. כל המחירים לפני מע״מ אלא אם צוין אחרת.\n\n4. שריון מחיר ומקדמה\nשריון המחיר מתבצע באמצעות תשלום מקדמה. המקדמה מתקזזת במלואה מסכום ההזמנה הסופי. ביטול בהתאם לחוק הגנת הצרכן, התשמ״א-1981 — ניתן לבטל עסקה בתוך 14 יום ממועד התשלום ולקבל החזר מלא, בניכוי דמי ביטול כדין.\n\n5. אספקה והתקנה\nמועדי האספקה וההתקנה ייקבעו מול הלקוח לאחר המדידה. החברה מתחייבת לעמידה בלוחות הזמנים שיסוכמו בהזמנה הסופית.\n\n6. אחריות\nעל כל המוצרים חלה אחריות יצרן רשמית ומלאה בהתאם לתעודת האחריות שתימסר עם ההתקנה.\n\n7. פרטיות\nהפרטים הנמסרים באתר משמשים ליצירת קשר ולטיפול בהזמנה בלבד, ולא יועברו לצד שלישי למעט לצורך השלמת העסקה.\n\n8. יצירת קשר\nלשאלות ובירורים: אולם התצוגה — לח״י 2, בני ברק, מתחם דן דיזיין סנטר.\nטלפון: 03-5509795 · מייל: office@miriam.co.il",
   "payAmount": 400,
   "payUrl": ""
 }/*CJSONEND*/;
 
 const PRICES_KEY = 'miriam-towers-prices-v4';
-const CONTENT_KEY = 'miriam-towers-content-v1';
+const CONTENT_KEY = 'miriam-towers-content-v2';
 const ADMIN_HASH = '2e7b4cdf720c0d4e19c6cbcba53f4ca099fd1094c36303cd9e7194b559511daf';
 
 function loadJSON(key, def) {
@@ -619,7 +653,7 @@ function persist() {
 /* ============ תרגומים (טקסטים קבועים + fallback אנגלית לתוכן) ============ */
 const I18N = {
   he: {
-    nav_quote:'הצעת מחיר', nav_projects:'פרויקטים', nav_showroom:'אולם התצוגה', nav_cta:'להטבת הדיירים',
+    nav_quote:'הצעת מחיר', nav_products:'המוצרים שלנו', nav_projects:'פרויקטים', nav_showroom:'אולם התצוגה', nav_cta:'להטבת הדיירים',
     stat_towers:'מגדלי מגורים', stat_units:'יחידות דיור', stat_floors:'קומות',
     hero_cta1:'בנו הצעת מחיר לדירה שלכם', hero_cta2:'לתיאום פגישה באולם התצוגה',
     cfg_kicker:'הטבת דיירי מגדלי כיכר המדינה', cfg_title:'בנו הצעת מחיר לדירה שלכם',
@@ -635,12 +669,10 @@ const I18N = {
     cta_reserve:'שריינו את מחיר ההזמנה', cta_visit:'תיאום פגישה באולם התצוגה',
     cta_sub:'שריון המחיר מתבצע באמצעות מקדמה סמלית המתקזזת מסכום ההזמנה הסופי.',
     visit_kicker:'אולם התצוגה',
-    v_addr_l:'כתובת:', v_consult_l:'ייעוץ מקצועי:', v_consult:'חינם וללא התחייבות',
-    v_service_l:'שירות והתקנה:', v_service:'בפריסה ארצית', v_btn:'לתיאום פגישה',
-    srv1t:'אולם התצוגה', srv1p:'יחד עם הצוות המקצועי שלנו נבחר באולם התצוגה את העיצוב, הבד ושיטת ההתקנה המתאימה לבית שלכם',
-    srv2t:'מדידה מקצועית', srv2p:'מודד מקצועי מטעמנו מגיע לדירתכם במגדל למדידה מדויקת של כל חלון — ללא עלות',
-    srv3t:'ייעוץ אישי', srv3p:'אצלנו בחברה קיים שירות ליעוץ ומדידה אצלכם בבית לאחר ביצוע ההזמנה, לוודא שהכל מדויק',
-    srv4t:'התקנה מקצועית', srv4p:'לאחר ההזמנה תקבלו שירות התקנה מקצועי מצוות המומחים שלנו, עם אחריות רשמית ומלאה',
+    v_addr_l:'כתובת:', v_pm_l:'מנהל פרויקט:', v_mail_l:'מייל:', v_btn:'לתיאום פגישה',
+    srv1t:'אולם התצוגה', srv1p:'יחד עם הצוות המקצועי שלנו נוכל באולם התצוגה לבחור לכם את העיצוב, הבד ושיטת ההתקנה המתאימה ביותר לבית שלכם',
+    srv2t:'יעוץ אישי', srv2p:'אצלנו בחברה קיים השירות ליעוץ ומדידה אצלכם בבית לאחר ביצוע ההזמנה. נבדוק את התאורה וההצללה הכי נכונה ונוודא שהכל מדויק',
+    srv3t:'התקנה מקצועית', srv3p:'תנו למקצוענים שלנו לעשות את מה שהם עושים הכי טוב. לאחר ההזמנה ניתן להזמין שירות התקנה מקצועי מצוות המומחים שלנו',
     footer2:'ההטבה בתוקף לדיירי מגדלי כיכר המדינה בלבד · © 2026 MIRIAM',
     terms_link:'תקנון ותנאי שימוש',
     ph_name:'שם מלא', ph_phone:'טלפון', ph_apt:'מגדל / קומה / דירה',
@@ -656,7 +688,7 @@ const I18N = {
     rooms:{ living:'סלון', kitchen:'מטבח', bedroom:'חדר שינה', mamad:'ממ״ד', kids:'חדר ילדים', dining:'פינת אוכל', office:'חדר עבודה', other:'אחר' }
   },
   en: {
-    nav_quote:'Get a Quote', nav_projects:'Projects', nav_showroom:'Showroom', nav_cta:'Residents’ Offer',
+    nav_quote:'Get a Quote', nav_products:'Our Products', nav_projects:'Projects', nav_showroom:'Showroom', nav_cta:'Residents’ Offer',
     stat_towers:'Residential towers', stat_units:'Residences', stat_floors:'Floors',
     hero_cta1:'Build your quote', hero_cta2:'Book a showroom visit',
     cfg_kicker:'Kikar Hamedina Towers residents’ offer', cfg_title:'Build a quote for your apartment',
@@ -672,12 +704,10 @@ const I18N = {
     cta_reserve:'Reserve your price', cta_visit:'Book a showroom visit',
     cta_sub:'Price reservation is secured with a small deposit, credited toward your final order.',
     visit_kicker:'THE SHOWROOM',
-    v_addr_l:'Address:', v_consult_l:'Consultation:', v_consult:'Free, with no obligation',
-    v_service_l:'Service & installation:', v_service:'Nationwide', v_btn:'Book a visit',
-    srv1t:'The Showroom', srv1p:'Together with our professional team, choose the design, fabric and installation method that suit your home',
-    srv2t:'Professional Measurement', srv2p:'Our professional surveyor visits your apartment in the tower for precise measurement of every window — free of charge',
-    srv3t:'Personal Consultation', srv3p:'We provide in-home consultation and verification after your order is placed, to make sure everything is exact',
-    srv4t:'Professional Installation', srv4p:'After your order, our expert team provides professional installation with a full official warranty',
+    v_addr_l:'Address:', v_pm_l:'Project manager:', v_mail_l:'Email:', v_btn:'Book a visit',
+    srv1t:'The Showroom', srv1p:'Together with our professional team, choose the design, fabric and installation method that suit your home best',
+    srv2t:'Personal Consultation', srv2p:'We provide in-home consultation and measurement after your order is placed — verifying light, shading and precision',
+    srv3t:'Professional Installation', srv3p:'Let our professionals do what they do best — expert installation by our specialist team after your order',
     footer2:'Offer valid for Kikar Hamedina Towers residents only · © 2026 MIRIAM',
     terms_link:'Terms & Conditions',
     ph_name:'Full name', ph_phone:'Phone', ph_apt:'Tower / Floor / Apt.',
@@ -708,11 +738,14 @@ const I18N = {
       mp2:'Control from your phone, remote or voice',
       mp3:'Smart-home ready — Apple Home, Google and Alexa (Matter)',
       mp4:'USB-C rechargeable battery or wired power — clean installation on any window',
+      prodKicker:'OUR PRODUCTS', prodTitle:'Our solutions catalog',
+      prodLead:'All of our fully custom shading solutions for every window — click a product for a closer look.',
       galKicker:'OUR PROJECTS', galTitle:'Homes that chose us',
       galLead:'A selection of private homes, hotels and office projects — designed, tailored and installed by Miriam House of Design.',
       visitTitle:'Come see it up close',
       visitLead:'Our showroom features a wide collection of premium fabrics from the world’s leading manufacturers — curtain fabrics, blackout, semi-sheer and textured weaves. Enjoy personal, professional consultation, free of charge, in a warm family atmosphere.',
       visitAddr:'2 Lehi St., Bnei Brak — Dan Design Center',
+      pmName:'Mor', pmEmail:'mor@miriam.co.il',
       termsTitle:'Terms & Conditions'
     }
   }
@@ -734,15 +767,19 @@ function applyContent() {
   document.getElementById('termsBody').textContent = CONTENT.termsText;
 }
 function renderGallery() {
-  const grid = document.getElementById('galleryGrid');
-  grid.innerHTML = (CONTENT.gallery || []).map((g,i) => `
-    <div class="gitem" onclick="openLightbox(${i})">
+  renderGrid('galleryGrid', 'gallery');
+  renderGrid('productsGrid', 'productsGrid');
+}
+function renderGrid(elId, listKey) {
+  const grid = document.getElementById(elId);
+  grid.innerHTML = (CONTENT[listKey] || []).map((g,i) => `
+    <div class="gitem" onclick="openLightbox('${listKey}',${i})">
       <img src="${g.src}" loading="lazy" alt="${g.cap || ''}">
       ${g.cap ? `<div class="cap">${g.cap}</div>` : ''}
     </div>`).join('');
 }
-function openLightbox(i) {
-  const g = CONTENT.gallery[i];
+function openLightbox(listKey, i) {
+  const g = (CONTENT[listKey] || [])[i];
   if (!g) return;
   document.getElementById('lbImg').src = g.src;
   document.getElementById('lbCap').textContent = g.cap || '';
@@ -859,6 +896,11 @@ function toggleLang() {
 
 /* ============ מודאלים ============ */
 let currentModal = null;
+/* שריון מחיר: אם מוגדר קישור סליקה — פתיחה ישירה של עמוד התשלום */
+function reserveClick() {
+  if (CONTENT.payUrl) { window.open(CONTENT.payUrl, '_blank'); }
+  else { openModal('reserve'); }
+}
 function openModal(kind) {
   currentModal = kind;
   const pfx = kind === 'visit' ? 'm_visit' : 'm_res';
@@ -875,14 +917,42 @@ function closeModal() { document.getElementById('modalBg').classList.remove('ope
 function submitModal() {
   const name = document.getElementById('leadName').value.trim();
   const phone = document.getElementById('leadPhone').value.trim();
+  const apt = document.getElementById('leadApt').value.trim();
   if (!name || !phone) { alert(LANG==='en' ? 'Please fill in name and phone' : 'נא למלא שם וטלפון'); return; }
-  closeModal();
   if (currentModal === 'reserve') {
+    closeModal();
     if (CONTENT.payUrl) { window.open(CONTENT.payUrl, '_blank'); }
     else { alert(t('a_res')); }
-  } else {
-    alert(t('a_visit'));
+    return;
   }
+  /* תיאום פגישה — שליחת מייל דרך FormSubmit */
+  const btn = document.getElementById('modalBtn');
+  btn.disabled = true;
+  btn.textContent = LANG==='en' ? 'Sending…' : 'שולח…';
+  fetch('https://formsubmit.co/ajax/' + encodeURIComponent(CONTENT.leadEmail || 'mor@miriam.co.il'), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      _subject: 'בקשת תיאום פגישה — דף נחיתה מגדלי כיכר המדינה',
+      'שם מלא': name,
+      'טלפון': phone,
+      'מגדל / קומה / דירה': apt || '-',
+      'מקור': 'דף נחיתה — מגדלי כיכר המדינה'
+    })
+  })
+  .then(r => r.json())
+  .then(() => {
+    closeModal();
+    btn.disabled = false;
+    alert(LANG==='en'
+      ? 'Thank you! Your request was received — we will call you to schedule.'
+      : 'תודה! הבקשה התקבלה — ניצור איתכם קשר לתיאום הפגישה.');
+  })
+  .catch(() => {
+    btn.disabled = false;
+    btn.textContent = t('m_visit_b');
+    alert(LANG==='en' ? 'Sending failed — please call us.' : 'השליחה נכשלה — אנא התקשרו אלינו: 03-5509795');
+  });
 }
 function openTerms() { document.getElementById('termsBg').classList.add('open'); }
 function closeTerms() { document.getElementById('termsBg').classList.remove('open'); }
@@ -942,6 +1012,10 @@ const FIELDS = [
   { k:'mp1', l:'יתרון 1', t:'text' }, { k:'mp2', l:'יתרון 2', t:'text' },
   { k:'mp3', l:'יתרון 3', t:'text' }, { k:'mp4', l:'יתרון 4', t:'text' },
   { k:'motionImg', l:'תמונה', t:'img' },
+  { h:'המוצרים שלנו — כותרות' },
+  { k:'prodKicker', l:'תגית', t:'text' },
+  { k:'prodTitle', l:'כותרת', t:'text' },
+  { k:'prodLead', l:'פסקה', t:'area' },
   { h:'גלריה — כותרות' },
   { k:'galKicker', l:'תגית', t:'text' },
   { k:'galTitle', l:'כותרת', t:'text' },
@@ -950,6 +1024,8 @@ const FIELDS = [
   { k:'visitTitle', l:'כותרת', t:'text' },
   { k:'visitLead', l:'פסקה', t:'area' },
   { k:'visitAddr', l:'כתובת', t:'text' },
+  { k:'pmName', l:'מנהל פרויקט', t:'text' },
+  { k:'pmEmail', l:'מייל מנהל פרויקט', t:'text' },
   { k:'visitImg', l:'תמונת האולם', t:'img' }
 ];
 
@@ -994,39 +1070,43 @@ function compressFile(file, cb) {
   img.src = URL.createObjectURL(file);
 }
 
-/* --- גלריה --- */
+/* --- ניהול גרידים (מוצרים + פרויקטים) --- */
+const GRID_BOX = { gallery:'galAdmin', productsGrid:'prodGridAdmin' };
 function renderGalleryAdmin() {
-  const box = document.getElementById('galAdmin');
-  box.innerHTML = (CONTENT.gallery || []).map((g,i) => `
-    <div class="gal-admin-item">
-      <img src="${g.src}">
-      <input type="text" value="${(g.cap||'').replace(/"/g,'&quot;')}" placeholder="כיתוב (אופציונלי)" oninput="CONTENT.gallery[${i}].cap=this.value">
-      <button class="del" title="למעלה" onclick="moveGal(${i},-1)">↑</button>
-      <button class="del" title="למטה" onclick="moveGal(${i},1)">↓</button>
-      <button class="del" title="מחיקה" onclick="delGal(${i})">×</button>
-    </div>`).join('') || '<div class="sub">אין תמונות עדיין</div>';
+  Object.entries(GRID_BOX).forEach(([listKey, boxId]) => {
+    const box = document.getElementById(boxId);
+    box.innerHTML = (CONTENT[listKey] || []).map((g,i) => `
+      <div class="gal-admin-item">
+        <img src="${g.src}">
+        <input type="text" value="${(g.cap||'').replace(/"/g,'&quot;')}" placeholder="כיתוב (אופציונלי)" oninput="CONTENT['${listKey}'][${i}].cap=this.value">
+        <button class="del" title="למעלה" onclick="moveGrid('${listKey}',${i},-1)">↑</button>
+        <button class="del" title="למטה" onclick="moveGrid('${listKey}',${i},1)">↓</button>
+        <button class="del" title="מחיקה" onclick="delGrid('${listKey}',${i})">×</button>
+      </div>`).join('') || '<div class="sub">אין תמונות עדיין</div>';
+  });
 }
-function moveGal(i, d) {
-  const g = CONTENT.gallery;
+function moveGrid(listKey, i, d) {
+  const g = CONTENT[listKey];
   const j = i + d;
   if (j < 0 || j >= g.length) return;
   [g[i], g[j]] = [g[j], g[i]];
   renderGalleryAdmin();
 }
-function delGal(i) {
-  CONTENT.gallery.splice(i, 1);
+function delGrid(listKey, i) {
+  CONTENT[listKey].splice(i, 1);
   renderGalleryAdmin();
 }
-function addGalleryUrl() {
-  const v = document.getElementById('galUrl').value.trim();
+function addGridUrl(listKey, inputId) {
+  const el = document.getElementById(inputId);
+  const v = el.value.trim();
   if (!v) return;
-  CONTENT.gallery.push({ src: v, cap: '' });
-  document.getElementById('galUrl').value = '';
+  CONTENT[listKey].push({ src: v, cap: '' });
+  el.value = '';
   renderGalleryAdmin();
 }
-function addGalleryFiles(files) {
+function addGridFiles(listKey, files) {
   [...files].forEach(f => compressFile(f, dataUrl => {
-    CONTENT.gallery.push({ src: dataUrl, cap: '' });
+    CONTENT[listKey].push({ src: dataUrl, cap: '' });
     renderGalleryAdmin();
   }));
 }
@@ -1059,6 +1139,7 @@ function renderAdmin() {
   document.getElementById('adm-terms').value = CONTENT.termsText;
   document.getElementById('adm-pay-amount').value = CONTENT.payAmount;
   document.getElementById('adm-pay-url').value = CONTENT.payUrl || '';
+  document.getElementById('adm-lead-email').value = CONTENT.leadEmail || '';
 }
 function collectAdmin() {
   document.querySelectorAll('#adminRows tr').forEach(tr => {
@@ -1083,6 +1164,7 @@ function collectAdmin() {
   CONTENT.termsText = document.getElementById('adm-terms').value;
   CONTENT.payAmount = parseFloat(document.getElementById('adm-pay-amount').value) || 400;
   CONTENT.payUrl = document.getElementById('adm-pay-url').value.trim();
+  CONTENT.leadEmail = document.getElementById('adm-lead-email').value.trim() || 'mor@miriam.co.il';
 }
 function refreshQuoteSelects() {
   [...tbody.children].forEach(tr => {
@@ -1163,8 +1245,9 @@ function exportSite() {
 
 /* ============ אתחול ============ */
 applyI18n();
-addRow({ room:'living', w:400, h:260 });
-addRow({ room:'bedroom', w:240, h:260 });
+/* שורות פתיחה ללא מידות — המחיר מופיע רק לאחר הזנת רוחב וגובה */
+addRow({ room:'living' });
+addRow({ room:'bedroom' });
 </script>
 
 
