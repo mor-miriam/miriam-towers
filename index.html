@@ -805,7 +805,21 @@ function renderAdmin() {
   document.getElementById('adm-install').value = CFG.installRate;
   document.getElementById('adm-min').value = CFG.minCharge;
 }
-function openAdmin() {
+/* סיסמת פאנל ניהול — נשמרת כ-hash בלבד. ברירת מחדל: miriam2026 */
+const ADMIN_HASH = '2e7b4cdf720c0d4e19c6cbcba53f4ca099fd1094c36303cd9e7194b559511daf';
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+}
+async function openAdmin() {
+  if (sessionStorage.getItem('miriam-admin-auth') !== 'ok') {
+    const pw = prompt('פאנל ניהול — הזינו סיסמה:');
+    if (pw === null) return;
+    let hash = '';
+    try { hash = await sha256(pw); } catch(e) {}
+    if (hash !== ADMIN_HASH) { alert('סיסמה שגויה'); return; }
+    sessionStorage.setItem('miriam-admin-auth', 'ok');
+  }
   renderAdmin();
   document.getElementById('adminBg').classList.add('open');
   document.getElementById('adminPanel').classList.add('open');
