@@ -8,83 +8,43 @@
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Archivo:wght@700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --white:#FFFFFF;
-    --ink:#111111;
-    --logo:#3a3033;
-    --gray:#6b6b6b;
-    --line:#e6e6e6;
-    --band:#EDE7E4;
-    --footer:#332a2c;
-    --radius:6px;
+    --white:#FFFFFF; --ink:#111111; --logo:#3a3033; --gray:#6b6b6b;
+    --line:#e6e6e6; --band:#EDE7E4; --footer:#332a2c; --radius:6px;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior:smooth; }
-  body {
-    font-family:'Heebo',sans-serif; background:var(--white); color:var(--ink);
-    line-height:1.65; -webkit-font-smoothing:antialiased; font-weight:300;
-  }
+  body { font-family:'Heebo',sans-serif; background:var(--white); color:var(--ink); line-height:1.65; -webkit-font-smoothing:antialiased; font-weight:300; }
 
-  /* ============ NAV — לוגו קבוע בצד שמאל ============ */
-  nav {
-    position:fixed; top:0; right:0; left:0; z-index:100;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:14px 56px; background:rgba(255,255,255,.94);
-    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--line);
-  }
+  nav { position:fixed; top:0; right:0; left:0; z-index:100; display:flex; align-items:center; justify-content:space-between;
+    padding:14px 56px; background:rgba(255,255,255,.94); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
   html[dir=ltr] nav { flex-direction:row-reverse; }
-  .nav-right { display:flex; align-items:center; gap:26px; font-size:14px; }
+  .nav-right { display:flex; align-items:center; gap:24px; font-size:14px; }
   .nav-right a { color:var(--ink); text-decoration:none; transition:opacity .2s; cursor:pointer; }
   .nav-right a:hover { opacity:.55; }
-  .nav-cta {
-    background:var(--ink); color:var(--white); border:none;
-    padding:10px 24px; border-radius:var(--radius);
-    font-family:inherit; font-size:13.5px; font-weight:400; cursor:pointer; transition:opacity .2s;
-  }
+  .nav-cta { background:var(--ink); color:var(--white); border:none; padding:10px 24px; border-radius:var(--radius);
+    font-family:inherit; font-size:13.5px; font-weight:400; cursor:pointer; transition:opacity .2s; }
   .nav-cta:hover { opacity:.8; }
-  .lang-btn {
-    background:none; border:1px solid var(--line); color:var(--ink);
-    padding:7px 14px; border-radius:var(--radius); font-family:inherit;
-    font-size:12.5px; letter-spacing:.08em; cursor:pointer; transition:all .2s;
-  }
+  .lang-btn { background:none; border:1px solid var(--line); color:var(--ink); padding:7px 14px; border-radius:var(--radius);
+    font-family:inherit; font-size:12.5px; letter-spacing:.08em; cursor:pointer; transition:all .2s; }
   .lang-btn:hover { border-color:var(--ink); }
-  /* לוגו — אם קיים logo.png בתיקייה הוא יוצג, אחרת גרסת טקסט נאמנה למקור */
   .logo-side { display:flex; align-items:center; }
   .logo-side img { height:44px; display:block; }
-  .logo-text {
-    display:none; font-family:'Archivo',sans-serif; font-weight:800; color:var(--logo);
-    text-align:center; line-height:1; letter-spacing:.01em; text-transform:uppercase;
-  }
+  .logo-text { display:none; font-family:'Archivo',sans-serif; font-weight:800; color:var(--logo); text-align:center; line-height:1; letter-spacing:.01em; text-transform:uppercase; }
   .logo-text .l1 { font-size:19px; }
   .logo-text .l2 { font-size:12.5px; letter-spacing:.03em; }
   .logo-text .l2 small { font-size:8.5px; vertical-align:2px; letter-spacing:.05em; }
 
-  /* ============ HERO — נקי, מפוצל, בהשראת עמוד הפרויקט ============ */
   .hero { padding:132px 56px 72px; }
-  .hero-grid {
-    max-width:1240px; margin:0 auto; display:grid;
-    grid-template-columns:1fr 1fr; gap:64px; align-items:center;
-  }
-  .hero-kicker {
-    display:inline-block; border:1px solid var(--ink);
-    padding:7px 20px; border-radius:100px;
-    font-size:12.5px; letter-spacing:.1em; margin-bottom:24px; font-weight:400;
-  }
-  .hero h1 {
-    font-size:clamp(40px,5vw,64px); font-weight:700; line-height:1.1;
-    letter-spacing:-.01em; margin-bottom:10px;
-  }
+  .hero-grid { max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+  .hero-kicker { display:inline-block; border:1px solid var(--ink); padding:7px 20px; border-radius:100px; font-size:12.5px; letter-spacing:.1em; margin-bottom:24px; font-weight:400; }
+  .hero h1 { font-size:clamp(40px,5vw,64px); font-weight:700; line-height:1.1; letter-spacing:-.01em; margin-bottom:10px; }
   .hero .loc { font-size:15px; color:var(--gray); margin-bottom:20px; }
   .hero p.sub { font-size:16.5px; color:#333; max-width:520px; margin-bottom:32px; }
   .stats { display:flex; gap:48px; margin-bottom:36px; }
   .stat b { display:block; font-size:34px; font-weight:700; line-height:1.15; }
   .stat span { font-size:13px; color:var(--gray); }
   .hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
-  .btn {
-    font-family:inherit; font-size:15px; font-weight:400; cursor:pointer;
-    padding:15px 34px; border-radius:var(--radius); border:1px solid var(--ink);
-    transition:all .2s ease;
-  }
+  .btn { font-family:inherit; font-size:15px; font-weight:400; cursor:pointer; padding:15px 34px; border-radius:var(--radius); border:1px solid var(--ink); transition:all .2s ease; }
   .btn-solid { background:var(--ink); color:var(--white); }
   .btn-solid:hover { background:#333; }
   .btn-outline { background:var(--white); color:var(--ink); }
@@ -92,7 +52,6 @@
   .hero-img { border-radius:14px; overflow:hidden; }
   .hero-img img { width:100%; height:100%; max-height:640px; object-fit:cover; display:block; }
 
-  /* ============ SECTIONS ============ */
   section { padding:88px 24px; }
   .wrap { max-width:1120px; margin:0 auto; }
   .center { text-align:center; }
@@ -101,42 +60,52 @@
   .lead { font-size:17px; color:#444; max-width:660px; }
   .center .lead { margin:0 auto; }
 
-  /* about */
   .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
   .about ul.checks { list-style:none; margin-top:26px; display:grid; gap:12px; font-size:15.5px; }
   .about ul.checks li { padding-right:26px; position:relative; }
   .about ul.checks li::before { content:'✓'; position:absolute; right:0; font-weight:600; }
   html[dir=ltr] .about ul.checks li { padding-right:0; padding-left:26px; }
   html[dir=ltr] .about ul.checks li::before { right:auto; left:0; }
-  .about-img {
-    aspect-ratio:4/5; border-radius:14px; overflow:hidden;
-    background:url('https://www.miriam.co.il/cdn/shop/files/WhatsApp_2024-08-25_18.02.06_94cc69a5.jpg?v=1725979388&width=900') center/cover no-repeat, #f2f0ed;
-  }
+  .about-img, .feat-img, .motion-img { aspect-ratio:4/5; border-radius:14px; background-position:center; background-size:cover; background-repeat:no-repeat; background-color:#f2f0ed; }
+  .feat-img, .motion-img { aspect-ratio:16/12; }
 
-  /* ============ CONFIGURATOR ============ */
+  /* פרויקט נבחר */
+  .featured { background:var(--band); }
+  .feat-badge { display:inline-block; background:var(--ink); color:var(--white); font-size:11.5px; letter-spacing:.2em; padding:6px 16px; border-radius:100px; margin-bottom:16px; }
+
+  /* MotionBlinds */
+  .motion ul.mpoints { list-style:none; margin-top:24px; display:grid; gap:12px; font-size:15.5px; }
+  .motion ul.mpoints li { padding-right:26px; position:relative; }
+  .motion ul.mpoints li::before { content:'—'; position:absolute; right:0; font-weight:600; }
+  html[dir=ltr] .motion ul.mpoints li { padding-right:0; padding-left:26px; }
+  html[dir=ltr] .motion ul.mpoints li::before { right:auto; left:0; }
+  .motion-brand { display:inline-flex; align-items:center; gap:10px; margin-top:24px; font-size:13px; color:var(--gray); letter-spacing:.06em; }
+
+  /* גלריה */
+  .gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:44px; }
+  .gallery-grid .gitem { aspect-ratio:1/1; border-radius:10px; overflow:hidden; cursor:pointer; position:relative; background:#f2f0ed; }
+  .gallery-grid .gitem img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .35s ease; }
+  .gallery-grid .gitem:hover img { transform:scale(1.04); }
+  .gallery-grid .gitem .cap { position:absolute; inset-inline:0; bottom:0; padding:24px 14px 10px; font-size:12.5px; color:#fff;
+    background:linear-gradient(transparent, rgba(0,0,0,.55)); opacity:0; transition:opacity .25s; }
+  .gallery-grid .gitem:hover .cap { opacity:1; }
+  .lightbox { position:fixed; inset:0; z-index:400; background:rgba(10,10,10,.92); display:none; align-items:center; justify-content:center; padding:30px; }
+  .lightbox.open { display:flex; }
+  .lightbox img { max-width:92vw; max-height:86vh; border-radius:8px; }
+  .lightbox .lb-close { position:absolute; top:18px; left:24px; background:none; border:none; color:#fff; font-size:30px; cursor:pointer; }
+  .lightbox .lb-cap { position:absolute; bottom:22px; inset-inline:0; text-align:center; color:rgba(255,255,255,.85); font-size:14px; }
+
   .config { background:#fafafa; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  .config-card {
-    background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
-    margin-top:44px; overflow-x:auto;
-  }
+  .config-card { background:var(--white); border:1px solid var(--line); border-radius:var(--radius); margin-top:44px; overflow-x:auto; }
   table.quote { width:100%; border-collapse:collapse; min-width:760px; }
-  table.quote th {
-    font-size:12.5px; font-weight:600; letter-spacing:.06em; color:var(--gray);
-    text-align:right; padding:16px 14px; border-bottom:1px solid var(--line);
-    white-space:nowrap; background:#fcfcfc;
-  }
+  table.quote th { font-size:12.5px; font-weight:600; letter-spacing:.06em; color:var(--gray); text-align:right; padding:16px 14px;
+    border-bottom:1px solid var(--line); white-space:nowrap; background:#fcfcfc; }
   html[dir=ltr] table.quote th { text-align:left; }
   table.quote td { padding:10px 8px; border-bottom:1px solid var(--line); vertical-align:middle; }
-  .quote select, .quote input {
-    width:100%; font-family:inherit; font-size:14.5px; color:var(--ink); font-weight:300;
-    background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
-    padding:11px 12px; outline:none; transition:border .2s;
-    appearance:none; -webkit-appearance:none;
-  }
-  .quote select {
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23111' fill='none' stroke-width='1.3'/%3E%3C/svg%3E");
-    background-repeat:no-repeat; background-position:left 12px center; padding-left:30px;
-  }
+  .quote select, .quote input { width:100%; font-family:inherit; font-size:14.5px; color:var(--ink); font-weight:300; background:var(--white);
+    border:1px solid var(--line); border-radius:var(--radius); padding:11px 12px; outline:none; transition:border .2s; appearance:none; -webkit-appearance:none; }
+  .quote select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23111' fill='none' stroke-width='1.3'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:left 12px center; padding-left:30px; }
   html[dir=ltr] .quote select { background-position:right 12px center; padding-left:12px; padding-right:30px; }
   .quote select:focus, .quote input:focus { border-color:var(--ink); }
   .quote input[type=number] { text-align:center; }
@@ -144,24 +113,13 @@
   td.price-cell { font-weight:600; font-size:15px; white-space:nowrap; text-align:left; min-width:104px; padding-left:16px; }
   html[dir=ltr] td.price-cell { text-align:right; padding-left:8px; padding-right:16px; }
   td.price-cell small { display:block; font-weight:300; font-size:11px; color:var(--gray); }
-  .row-remove {
-    background:none; border:none; cursor:pointer; color:#c5c5c5;
-    font-size:17px; padding:6px 10px; transition:color .2s;
-  }
+  .row-remove { background:none; border:none; cursor:pointer; color:#c5c5c5; font-size:17px; padding:6px 10px; transition:color .2s; }
   .row-remove:hover { color:#a33; }
-  .add-row {
-    margin:16px; background:none; border:1px solid var(--ink); color:var(--ink);
-    font-family:inherit; font-size:14px; padding:11px 28px; border-radius:var(--radius);
-    cursor:pointer; transition:all .2s;
-  }
+  .add-row { margin:16px; background:none; border:1px solid var(--ink); color:var(--ink); font-family:inherit; font-size:14px; padding:11px 28px; border-radius:var(--radius); cursor:pointer; transition:all .2s; }
   .add-row:hover { background:var(--ink); color:var(--white); }
 
-  /* summary */
-  .summary {
-    margin-top:36px; border:1px solid var(--ink); border-radius:var(--radius);
-    background:var(--white); padding:34px 38px;
-    display:grid; grid-template-columns:1fr auto; gap:28px; align-items:center;
-  }
+  .summary { margin-top:36px; border:1px solid var(--ink); border-radius:var(--radius); background:var(--white); padding:34px 38px;
+    display:grid; grid-template-columns:1fr auto; gap:28px; align-items:center; }
   .summary .lines { display:grid; gap:7px; font-size:15px; }
   .summary .lines div { display:flex; justify-content:space-between; gap:40px; max-width:460px; }
   .summary .lines .inst { border-top:1px solid var(--line); padding-top:9px; margin-top:4px; }
@@ -169,105 +127,90 @@
   .summary .total { font-size:clamp(30px,4vw,42px); font-weight:700; white-space:nowrap; line-height:1.15; }
   .summary .total small { font-size:14px; font-weight:300; color:var(--gray); display:block; }
   .summary-note { grid-column:1 / -1; font-size:12.5px; color:var(--gray); border-top:1px solid var(--line); padding-top:14px; }
-
   .config-ctas { display:flex; gap:12px; justify-content:center; margin-top:36px; flex-wrap:wrap; }
   .cta-sub { text-align:center; font-size:13px; color:var(--gray); margin-top:12px; }
 
-  /* ============ VISIT ============ */
   .visit-grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
   .visit-info { display:grid; gap:6px; margin-top:24px; font-size:15.5px; color:#333; }
   .visit-info b { font-weight:600; color:var(--ink); }
-  .visit-img {
-    aspect-ratio:16/11; border-radius:14px;
-    /* תמונת אולם התצוגה — showroom.jpg מקומי גובר אם קיים */
-    background:url('showroom.jpg') center/cover no-repeat,
-               url('https://cdn.shopify.com/s/files/1/0708/5932/5717/files/850_4171AAA_copy.jpg?v=1782672567&width=1200') center/cover no-repeat,
-               #f2f0ed;
-  }
+  .visit-img { aspect-ratio:16/11; border-radius:14px; background-position:center; background-size:cover; background-repeat:no-repeat; background-color:#f2f0ed; }
 
-  /* ============ פס שירותים — מעל הפוטר ============ */
   .services { background:var(--band); padding:56px 24px; }
-  .services-row {
-    max-width:1120px; margin:0 auto; display:grid;
-    grid-template-columns:repeat(4,1fr); gap:36px; text-align:center;
-  }
+  .services-row { max-width:1120px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:36px; text-align:center; }
   .srv svg { width:52px; height:52px; stroke:var(--ink); fill:none; stroke-width:1.3; margin-bottom:14px; }
   .srv b { display:block; font-size:19px; font-weight:600; margin-bottom:8px; }
   .srv p { font-size:14.5px; color:#3c3c3c; max-width:270px; margin:0 auto; }
 
-  /* ============ FOOTER ============ */
   footer { background:var(--footer); color:rgba(255,255,255,.75); text-align:center; padding:56px 24px 40px; font-size:14px; }
   footer .flogo { font-family:'Archivo',sans-serif; font-weight:800; color:var(--white); font-size:20px; letter-spacing:.02em; margin-bottom:2px; }
   footer .flogo small { display:block; font-size:11px; letter-spacing:.06em; }
+  footer a.terms-link { color:rgba(255,255,255,.6); text-decoration:underline; cursor:pointer; }
   footer .admin-link { margin-top:22px; }
-  footer .admin-link button {
-    background:none; border:none; color:rgba(255,255,255,.35); font-family:inherit;
-    font-size:12px; cursor:pointer; letter-spacing:.08em;
-  }
+  footer .admin-link button { background:none; border:none; color:rgba(255,255,255,.35); font-family:inherit; font-size:12px; cursor:pointer; letter-spacing:.08em; }
   footer .admin-link button:hover { color:rgba(255,255,255,.7); }
 
-  /* ============ MODAL ============ */
-  .modal-bg {
-    position:fixed; inset:0; background:rgba(17,17,17,.45); z-index:200;
-    display:none; align-items:center; justify-content:center; padding:24px;
-  }
+  .modal-bg { position:fixed; inset:0; background:rgba(17,17,17,.45); z-index:200; display:none; align-items:center; justify-content:center; padding:24px; }
   .modal-bg.open { display:flex; }
-  .modal {
-    background:var(--white); border-radius:10px; max-width:440px; width:100%;
-    padding:40px 36px; text-align:center; position:relative;
-  }
+  .modal { background:var(--white); border-radius:10px; max-width:460px; width:100%; padding:40px 36px; text-align:center; position:relative; max-height:88vh; overflow-y:auto; }
+  .modal.wide { max-width:640px; text-align:right; }
+  html[dir=ltr] .modal.wide { text-align:left; }
   .modal h3 { font-size:21px; font-weight:600; margin-bottom:8px; }
   .modal p { font-size:14.5px; color:var(--gray); margin-bottom:22px; }
-  .modal input {
-    width:100%; font-family:inherit; font-size:15px; font-weight:300; padding:13px 15px;
-    border:1px solid var(--line); border-radius:var(--radius); margin-bottom:10px; outline:none;
-  }
+  .modal input { width:100%; font-family:inherit; font-size:15px; font-weight:300; padding:13px 15px; border:1px solid var(--line); border-radius:var(--radius); margin-bottom:10px; outline:none; }
   .modal input:focus { border-color:var(--ink); }
   .modal .btn { width:100%; margin-top:6px; }
-  .close-x { position:absolute; top:12px; left:16px; background:none; border:none; font-size:22px; cursor:pointer; color:var(--gray); }
+  .close-x { position:absolute; top:12px; left:16px; background:none; border:none; font-size:22px; cursor:pointer; color:var(--gray); z-index:2; }
+  .pay-box { border:1px solid var(--line); border-radius:10px; padding:18px; margin:14px 0; background:#fafafa; }
+  .pay-box .amt { font-size:30px; font-weight:700; }
+  .pay-box small { color:var(--gray); }
+  .applepay-hint { display:flex; align-items:center; justify-content:center; gap:8px; font-size:12.5px; color:var(--gray); margin-top:10px; }
+  .terms-body { font-size:14px; color:#333; white-space:pre-wrap; text-align:right; max-height:55vh; overflow-y:auto; padding-left:8px; }
+  html[dir=ltr] .terms-body { text-align:left; }
 
   /* ============ פאנל ניהול ============ */
   .admin-bg { position:fixed; inset:0; background:rgba(17,17,17,.45); z-index:300; display:none; }
   .admin-bg.open { display:block; }
-  .admin {
-    position:fixed; top:0; bottom:0; left:0; width:min(620px,100%); z-index:301;
-    background:var(--white); box-shadow:8px 0 40px rgba(0,0,0,.18);
-    transform:translateX(-100%); transition:transform .3s ease; overflow-y:auto;
-    padding:32px 30px 48px; direction:rtl;
-  }
+  .admin { position:fixed; top:0; bottom:0; left:0; width:min(680px,100%); z-index:301; background:var(--white);
+    box-shadow:8px 0 40px rgba(0,0,0,.18); transform:translateX(-100%); transition:transform .3s ease; overflow-y:auto; padding:28px 28px 48px; direction:rtl; }
   .admin.open { transform:none; }
   .admin h3 { font-size:20px; font-weight:600; margin-bottom:4px; }
-  .admin .sub { font-size:13px; color:var(--gray); margin-bottom:24px; }
-  .admin h4 { font-size:14px; font-weight:600; margin:26px 0 10px; }
+  .admin .sub { font-size:13px; color:var(--gray); margin-bottom:18px; }
+  .admin h4 { font-size:14px; font-weight:600; margin:22px 0 10px; }
+  .atabs { display:flex; gap:6px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding-bottom:12px; margin-bottom:18px; }
+  .atabs button { font-family:inherit; font-size:13px; padding:8px 16px; border-radius:100px; border:1px solid var(--line); background:var(--white); cursor:pointer; }
+  .atabs button.on { background:var(--ink); color:var(--white); border-color:var(--ink); }
+  .apane { display:none; }
+  .apane.on { display:block; }
   .admin table { width:100%; border-collapse:collapse; font-size:13.5px; }
   .admin th { text-align:right; font-weight:600; color:var(--gray); font-size:11.5px; letter-spacing:.05em; padding:8px 6px; border-bottom:1px solid var(--line); }
   .admin td { padding:7px 4px; border-bottom:1px solid var(--line); }
-  .admin input, .admin select {
-    width:100%; font-family:inherit; font-size:13.5px; padding:8px;
-    border:1px solid var(--line); border-radius:var(--radius); outline:none; background:var(--white);
-  }
-  .admin input:focus, .admin select:focus { border-color:var(--ink); }
-  .admin .del {
-    background:none; border:none; cursor:pointer; color:#c5c5c5; font-size:16px; padding:4px 8px;
-  }
+  .admin input, .admin select, .admin textarea { width:100%; font-family:inherit; font-size:13.5px; padding:9px; border:1px solid var(--line);
+    border-radius:var(--radius); outline:none; background:var(--white); }
+  .admin textarea { min-height:84px; resize:vertical; line-height:1.6; }
+  .admin input:focus, .admin select:focus, .admin textarea:focus { border-color:var(--ink); }
+  .admin label.flabel { display:block; font-size:12px; color:var(--gray); margin:14px 0 5px; font-weight:500; }
+  .admin .del { background:none; border:none; cursor:pointer; color:#c5c5c5; font-size:16px; padding:4px 8px; }
   .admin .del:hover { color:#a33; }
-  .new-product { display:grid; grid-template-columns:1.6fr 1fr .8fr .8fr auto; gap:8px; align-items:center; }
-  .new-product button {
-    background:var(--ink); color:var(--white); border:none; border-radius:var(--radius);
-    font-family:inherit; font-size:13px; padding:9px 16px; cursor:pointer; white-space:nowrap;
-  }
-  .admin .global { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:22px 0 0; }
+  .new-product { display:grid; grid-template-columns:1.6fr 1fr .8fr auto auto; gap:8px; align-items:center; }
+  .new-product button, .abtn { background:var(--ink); color:var(--white); border:none; border-radius:var(--radius); font-family:inherit; font-size:13px; padding:9px 16px; cursor:pointer; white-space:nowrap; }
+  .abtn-ghost { background:none; border:1px solid var(--line); color:var(--ink); }
+  .admin .global { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0 0; }
   .admin .global label { font-size:12.5px; color:var(--gray); display:block; margin-bottom:4px; }
-  .admin-actions { display:flex; gap:10px; margin-top:26px; }
+  .admin-actions { display:flex; gap:10px; margin-top:22px; position:sticky; bottom:0; background:var(--white); padding:14px 0 0; border-top:1px solid var(--line); }
   .admin-actions .btn { flex:1; padding:12px; font-size:14px; }
   .btn-reset { background:none; border:1px solid var(--line); color:var(--gray); }
   .btn-reset:hover { border-color:#a33; color:#a33; }
   .admin .close-x { top:20px; }
-  .saved-flash { text-align:center; font-size:13px; color:#1d7a3e; margin-top:12px; min-height:18px; }
+  .saved-flash { text-align:center; font-size:13px; color:#1d7a3e; margin-top:10px; min-height:18px; }
+  .img-field { display:grid; grid-template-columns:64px 1fr auto; gap:10px; align-items:center; margin-bottom:8px; }
+  .img-field .thumb { width:64px; height:48px; border-radius:6px; object-fit:cover; background:#f2f0ed; border:1px solid var(--line); }
+  .gal-admin-item { display:grid; grid-template-columns:64px 1fr auto auto auto; gap:8px; align-items:center; padding:6px 0; border-bottom:1px solid var(--line); }
+  .gal-admin-item img { width:64px; height:48px; border-radius:6px; object-fit:cover; }
+  .pub-steps { font-size:13.5px; color:#333; background:#fafafa; border:1px solid var(--line); border-radius:10px; padding:16px; line-height:2; }
 
   @media (max-width:900px) {
     nav { padding:12px 18px; }
-    .nav-right { gap:14px; }
+    .nav-right { gap:12px; }
     .nav-right .hide-m { display:none; }
     section { padding:60px 18px; }
     .hero { padding:110px 18px 48px; }
@@ -276,21 +219,21 @@
     .services-row { grid-template-columns:repeat(2,1fr); gap:32px 20px; }
     .about-grid, .visit-grid { grid-template-columns:1fr; gap:36px; }
     .summary { grid-template-columns:1fr; padding:26px 22px; }
+    .gallery-grid { grid-template-columns:repeat(2,1fr); gap:8px; }
     .new-product { grid-template-columns:1fr 1fr; }
   }
 </style>
 </head>
 <body>
-
 <nav>
   <div class="nav-right">
     <a onclick="go('config')" class="hide-m" data-i18n="nav_quote"></a>
+    <a onclick="go('gallery')" data-i18n="nav_projects"></a>
     <a onclick="go('visit')" class="hide-m" data-i18n="nav_showroom"></a>
     <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
     <button class="nav-cta" onclick="go('config')" data-i18n="nav_cta"></button>
   </div>
   <div class="logo-side">
-    <!-- שמרו את הלוגו בשם logo.png באותה תיקייה והוא יוצג אוטומטית -->
     <img src="logo.png" alt="MIRIAM House of Design" onerror="this.style.display='none';document.getElementById('logoText').style.display='block'">
     <div class="logo-text" id="logoText">
       <div class="l1">MIRIAM</div>
@@ -299,14 +242,13 @@
   </div>
 </nav>
 
-<!-- ================= HERO ================= -->
 <header class="hero">
   <div class="hero-grid">
     <div>
-      <div class="hero-kicker" data-i18n="hero_kicker"></div>
-      <h1 data-i18n="hero_title"></h1>
-      <div class="loc" data-i18n="hero_loc"></div>
-      <p class="sub" data-i18n="hero_sub"></p>
+      <div class="hero-kicker" data-c="heroKicker"></div>
+      <h1 data-c="heroTitle"></h1>
+      <div class="loc" data-c="heroLoc"></div>
+      <p class="sub" data-c="heroSub"></p>
       <div class="stats">
         <div class="stat"><b>3</b><span data-i18n="stat_towers"></span></div>
         <div class="stat"><b>453</b><span data-i18n="stat_units"></span></div>
@@ -318,32 +260,58 @@
       </div>
     </div>
     <div class="hero-img">
-      <!-- שמרו את תמונת המגדלים בשם towers.jpg — אחרת תוצג תמונת הפרויקט הרשמית -->
-      <img src="towers.jpg" alt="מגדלי כיכר המדינה"
+      <img id="heroImg" src="towers.jpg" alt="מגדלי כיכר המדינה"
            onerror="this.onerror=null;this.src='https://cdn-cms2.ashtrom.co.il/media/ogvpxcj3/images-projects-2026-02-03t105353398.png'">
     </div>
   </div>
 </header>
 
-<!-- ================= ABOUT ================= -->
 <section class="about">
   <div class="wrap about-grid">
     <div>
       <div class="kicker">MIRIAM HOUSE OF DESIGN</div>
-      <h2 data-i18n="about_title"></h2>
-      <p class="lead" data-i18n="about_lead"></p>
+      <h2 data-c="aboutTitle"></h2>
+      <p class="lead" data-c="aboutLead"></p>
       <ul class="checks">
-        <li data-i18n="check1"></li>
-        <li data-i18n="check2"></li>
-        <li data-i18n="check3"></li>
-        <li data-i18n="check4"></li>
+        <li data-c="check1"></li>
+        <li data-c="check2"></li>
+        <li data-c="check3"></li>
+        <li data-c="check4"></li>
       </ul>
     </div>
-    <div class="about-img"></div>
+    <div class="about-img" id="aboutImg"></div>
   </div>
 </section>
 
-<!-- ================= CONFIGURATOR ================= -->
+<section class="featured" id="featured">
+  <div class="wrap about-grid">
+    <div class="feat-img" id="featImg"></div>
+    <div>
+      <div class="feat-badge" data-c="featKicker"></div>
+      <h2 data-c="featTitle"></h2>
+      <p class="lead" data-c="featText"></p>
+    </div>
+  </div>
+</section>
+
+<section class="motion" id="motion">
+  <div class="wrap about-grid">
+    <div>
+      <div class="kicker" data-c="motionKicker"></div>
+      <h2 data-c="motionTitle"></h2>
+      <p class="lead" data-c="motionLead"></p>
+      <ul class="mpoints">
+        <li data-c="mp1"></li>
+        <li data-c="mp2"></li>
+        <li data-c="mp3"></li>
+        <li data-c="mp4"></li>
+      </ul>
+      <div class="motion-brand">COULISSE® · MOTIONBLINDS</div>
+    </div>
+    <div class="motion-img" id="motionImg"></div>
+  </div>
+</section>
+
 <section class="config" id="config">
   <div class="wrap">
     <div class="center">
@@ -351,7 +319,6 @@
       <h2 data-i18n="cfg_title"></h2>
       <p class="lead" data-i18n="cfg_lead"></p>
     </div>
-
     <div class="config-card">
       <table class="quote">
         <thead>
@@ -361,7 +328,7 @@
             <th style="width:12%" data-i18n="th_width"></th>
             <th style="width:12%" data-i18n="th_height"></th>
             <th style="width:14%" data-i18n="th_op"></th>
-            <th style="width:15%" class="th-price" data-i18n="th_price"></th>
+            <th style="width:15%" data-i18n="th_price"></th>
             <th style="width:6%"></th>
           </tr>
         </thead>
@@ -369,7 +336,6 @@
       </table>
       <button class="add-row" onclick="addRow()" data-i18n="add_row"></button>
     </div>
-
     <div class="summary">
       <div class="lines" id="summaryLines"></div>
       <div>
@@ -378,7 +344,6 @@
       </div>
       <div class="summary-note" data-i18n="sum_note"></div>
     </div>
-
     <div class="config-ctas">
       <button class="btn btn-solid" onclick="openModal('reserve')" data-i18n="cta_reserve"></button>
       <button class="btn btn-outline" onclick="openModal('visit')" data-i18n="cta_visit"></button>
@@ -387,15 +352,25 @@
   </div>
 </section>
 
-<!-- ================= VISIT ================= -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker" data-c="galKicker"></div>
+      <h2 data-c="galTitle"></h2>
+      <p class="lead" data-c="galLead"></p>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
 <section id="visit">
   <div class="wrap visit-grid">
     <div>
       <div class="kicker" data-i18n="visit_kicker"></div>
-      <h2 data-i18n="visit_title"></h2>
-      <p class="lead" data-i18n="visit_lead"></p>
+      <h2 data-c="visitTitle"></h2>
+      <p class="lead" data-c="visitLead"></p>
       <div class="visit-info">
-        <div><b data-i18n="v_addr_l"></b> <span data-i18n="v_addr"></span></div>
+        <div><b data-i18n="v_addr_l"></b> <span data-c="visitAddr"></span></div>
         <div><b data-i18n="v_consult_l"></b> <span data-i18n="v_consult"></span></div>
         <div><b data-i18n="v_service_l"></b> <span data-i18n="v_service"></span></div>
       </div>
@@ -403,108 +378,155 @@
         <button class="btn btn-solid" onclick="openModal('visit')" data-i18n="v_btn"></button>
       </div>
     </div>
-    <div class="visit-img"></div>
+    <div class="visit-img" id="visitImg"></div>
   </div>
 </section>
 
-<!-- ================= פס שירותים ================= -->
 <div class="services">
   <div class="services-row">
     <div class="srv">
       <svg viewBox="0 0 64 64"><path d="M32 6C21 6 13 14.5 13 25c0 13 19 33 19 33s19-20 19-33C51 14.5 43 6 32 6z"/><path d="M25 28v-6l7-5 7 5v6h-4v-5h-6v5z"/></svg>
-      <b data-i18n="srv1t"></b>
-      <p data-i18n="srv1p"></p>
+      <b data-i18n="srv1t"></b><p data-i18n="srv1p"></p>
     </div>
     <div class="srv">
       <svg viewBox="0 0 64 64"><circle cx="24" cy="34" r="14"/><path d="M24 30v8M20 34h8M38 34h16M38 28v12M46 28v12M54 28v12"/></svg>
-      <b data-i18n="srv2t"></b>
-      <p data-i18n="srv2p"></p>
+      <b data-i18n="srv2t"></b><p data-i18n="srv2p"></p>
     </div>
     <div class="srv">
       <svg viewBox="0 0 64 64"><path d="M14 20h36v10H14zM18 30v6M26 30v4M34 30v6M42 30v4M14 20l4-8h28l4 8"/></svg>
-      <b data-i18n="srv3t"></b>
-      <p data-i18n="srv3p"></p>
+      <b data-i18n="srv3t"></b><p data-i18n="srv3p"></p>
     </div>
     <div class="srv">
       <svg viewBox="0 0 64 64"><path d="M12 26h22v14H12zM34 30h10l8-4v18l-8-4H34zM16 40v8M28 40v8"/></svg>
-      <b data-i18n="srv4t"></b>
-      <p data-i18n="srv4p"></p>
+      <b data-i18n="srv4t"></b><p data-i18n="srv4p"></p>
     </div>
   </div>
 </div>
 
 <footer>
   <div class="flogo">MIRIAM<small>HOUSE OF DESIGN</small></div>
-  <div data-i18n="footer1"></div>
+  <div data-c="visitAddr"></div>
   <div style="margin-top:6px; opacity:.6" data-i18n="footer2"></div>
+  <div style="margin-top:10px"><a class="terms-link" onclick="openTerms()" data-i18n="terms_link"></a></div>
   <div class="admin-link"><button onclick="openAdmin()">⚙ פאנל ניהול</button></div>
 </footer>
-
-<!-- ================= MODAL לידים ================= -->
+<!-- מודאל לידים + תשלום -->
 <div class="modal-bg" id="modalBg" onclick="if(event.target===this) closeModal()">
   <div class="modal">
     <button class="close-x" onclick="closeModal()">×</button>
     <h3 id="modalTitle"></h3>
     <p id="modalText"></p>
-    <input type="text" data-i18n-ph="ph_name">
-    <input type="tel" data-i18n-ph="ph_phone">
-    <input type="text" data-i18n-ph="ph_apt">
+    <div id="payBox" class="pay-box" style="display:none">
+      <div class="amt" id="payAmt"></div>
+      <small data-i18n="pay_note"></small>
+    </div>
+    <input type="text" id="leadName" data-i18n-ph="ph_name">
+    <input type="tel" id="leadPhone" data-i18n-ph="ph_phone">
+    <input type="text" id="leadApt" data-i18n-ph="ph_apt">
     <button class="btn btn-solid" id="modalBtn" onclick="submitModal()"></button>
+    <div class="applepay-hint" id="apHint" style="display:none">
+      <svg width="34" height="16" viewBox="0 0 34 16" fill="currentColor"><path d="M6.1 2.6c.4-.5.7-1.2.6-1.9-.6 0-1.3.4-1.8.9-.4.5-.7 1.2-.6 1.9.7 0 1.4-.4 1.8-.9zm.6 1.1c-1 0-1.8.6-2.3.6-.5 0-1.2-.6-2-.6C1.4 3.7.4 4.4-.1 5.5c-1 1.8-.3 4.5.7 6 .5.7 1.1 1.5 1.9 1.5.7 0 1-.5 1.9-.5s1.1.5 1.9.5c.8 0 1.3-.7 1.8-1.4.6-.8.8-1.6.8-1.7 0 0-1.6-.6-1.6-2.4 0-1.5 1.2-2.2 1.3-2.3-.7-1-1.8-1.5-2.9-1.5z" transform="translate(3,1)"/></svg>
+      <span data-i18n="pay_ap"></span>
+    </div>
   </div>
 </div>
 
-<!-- ================= פאנל ניהול ================= -->
+<!-- מודאל תקנון -->
+<div class="modal-bg" id="termsBg" onclick="if(event.target===this) closeTerms()">
+  <div class="modal wide">
+    <button class="close-x" onclick="closeTerms()">×</button>
+    <h3 data-c="termsTitle" style="text-align:center"></h3>
+    <div class="terms-body" id="termsBody"></div>
+  </div>
+</div>
+
+<!-- לייטבוקס גלריה -->
+<div class="lightbox" id="lightbox" onclick="if(event.target===this) closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()">×</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<!-- פאנל ניהול -->
 <div class="admin-bg" id="adminBg" onclick="closeAdmin()"></div>
 <aside class="admin" id="adminPanel">
   <button class="close-x" onclick="closeAdmin()">×</button>
   <h3>פאנל ניהול</h3>
-  <div class="sub">ניהול מוצרים ומחירים. יחידת החיוב (מ״ר / מטר רץ) פועלת מאחורי הקלעים ואינה מוצגת ללקוח. הנתונים נשמרים בדפדפן — בהמשך יחובר למאנדיי.</div>
+  <div class="sub">כל שינוי נשמר מיידית בתצוגה שלך. כדי שכל הגולשים יראו — עבור ללשונית «פרסום».</div>
 
-  <table>
-    <thead>
-      <tr><th>מוצר</th><th style="width:100px">חיוב לפי</th><th style="width:78px">מחיר ₪</th><th style="width:64px; text-align:center">חשמלי?</th><th style="width:36px"></th></tr>
-    </thead>
-    <tbody id="adminRows"></tbody>
-  </table>
-
-  <h4>הוספת מוצר חדש</h4>
-  <div class="new-product">
-    <input type="text" id="np-name" placeholder="שם המוצר">
-    <select id="np-unit">
-      <option value="sqm">מ״ר</option>
-      <option value="rm">מטר רץ</option>
-    </select>
-    <input type="number" id="np-price" placeholder="מחיר ₪" min="0">
-    <label style="display:flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap">
-      <input type="checkbox" id="np-electric" style="width:auto" checked> חשמלי
-    </label>
-    <button onclick="addProduct()">+ הוספה</button>
+  <div class="atabs">
+    <button class="on" onclick="showTab(this,'t-prices')">מחירים</button>
+    <button onclick="showTab(this,'t-content')">טקסטים ותמונות</button>
+    <button onclick="showTab(this,'t-gallery')">גלריה</button>
+    <button onclick="showTab(this,'t-terms')">תקנון</button>
+    <button onclick="showTab(this,'t-pay')">תשלום</button>
+    <button onclick="showTab(this,'t-pub')">פרסום</button>
   </div>
 
-  <h4>תוספות חשמלי (אוטומטי)</h4>
-  <div class="global" style="grid-template-columns:1fr 1fr 1fr; margin-top:0">
-    <div>
-      <label>מנוע — מוצרי מ״ר ₪</label>
-      <input type="number" id="adm-motor-sqm" min="0">
+  <div class="apane on" id="t-prices">
+    <table>
+      <thead><tr><th>מוצר</th><th style="width:100px">חיוב לפי</th><th style="width:78px">מחיר ₪</th><th style="width:60px;text-align:center">חשמלי?</th><th style="width:36px"></th></tr></thead>
+      <tbody id="adminRows"></tbody>
+    </table>
+    <h4>הוספת מוצר חדש</h4>
+    <div class="new-product">
+      <input type="text" id="np-name" placeholder="שם המוצר">
+      <select id="np-unit"><option value="sqm">מ״ר</option><option value="rm">מטר רץ</option></select>
+      <input type="number" id="np-price" placeholder="מחיר ₪" min="0">
+      <label style="display:flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap"><input type="checkbox" id="np-electric" style="width:auto" checked> חשמלי</label>
+      <button onclick="addProduct()">+ הוספה</button>
     </div>
-    <div>
-      <label>מנוע — מוצרי מטר רץ ₪</label>
-      <input type="number" id="adm-motor-rm" min="0">
+    <h4>תוספות חשמלי (אוטומטי)</h4>
+    <div class="global" style="grid-template-columns:1fr 1fr 1fr; margin-top:0">
+      <div><label>מנוע — מוצרי מ״ר ₪</label><input type="number" id="adm-motor-sqm" min="0"></div>
+      <div><label>מנוע — מוצרי מטר רץ ₪</label><input type="number" id="adm-motor-rm" min="0"></div>
+      <div><label>מסילה חשמלית — ₪ למטר רץ</label><input type="number" id="adm-track-rm" min="0"></div>
     </div>
-    <div>
-      <label>מסילה חשמלית — ₪ למטר רץ</label>
-      <input type="number" id="adm-track-rm" min="0">
+    <div class="global">
+      <div><label>הובלה והתקנה — ₪ למטר רוחב</label><input type="number" id="adm-install" min="0"></div>
+      <div><label>חיוב מינימלי לפריט (מטר / מ״ר)</label><input type="number" id="adm-min" min="0" step="0.1"></div>
     </div>
   </div>
 
-  <div class="global">
-    <div>
-      <label>הובלה והתקנה — ₪ למטר רוחב</label>
-      <input type="number" id="adm-install" min="0">
+  <div class="apane" id="t-content"></div>
+
+  <div class="apane" id="t-gallery">
+    <div class="sub">גריד הפרויקטים בדף. אפשר להעלות תמונות מהמחשב (נדחסות אוטומטית) או להדביק קישור.</div>
+    <div id="galAdmin"></div>
+    <h4>הוספת תמונות</h4>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center">
+      <button class="abtn" onclick="document.getElementById('galFiles').click()">העלאת תמונות מהמחשב</button>
+      <input type="file" id="galFiles" accept="image/*" multiple style="display:none" onchange="addGalleryFiles(this.files)">
+      <input type="text" id="galUrl" placeholder="או הדביקו קישור לתמונה" style="flex:1; min-width:180px">
+      <button class="abtn abtn-ghost" onclick="addGalleryUrl()">הוספה מקישור</button>
     </div>
-    <div>
-      <label>חיוב מינימלי לפריט (מטר / מ״ר)</label>
-      <input type="number" id="adm-min" min="0" step="0.1">
+  </div>
+
+  <div class="apane" id="t-terms">
+    <label class="flabel">כותרת התקנון</label>
+    <input type="text" id="adm-terms-title">
+    <label class="flabel">תוכן התקנון</label>
+    <textarea id="adm-terms" style="min-height:300px"></textarea>
+  </div>
+
+  <div class="apane" id="t-pay">
+    <label class="flabel">סכום מקדמה (₪)</label>
+    <input type="number" id="adm-pay-amount" min="0">
+    <label class="flabel">קישור לעמוד סליקה (Apple Pay / אשראי) — יופעל בלחיצה על «מעבר לתשלום»</label>
+    <input type="text" id="adm-pay-url" placeholder="https://... (ריק = מצב דמו)">
+    <div class="sub" style="margin-top:10px">כשריק, הכפתור יציג הודעת דמו. אחרי חיבור הסליקה שלך (משולם / Grow / קארדקום וכו׳) פשוט הדביקו כאן את הקישור.</div>
+  </div>
+
+  <div class="apane" id="t-pub">
+    <div class="pub-steps">
+      <b>איך מפרסמים שינויים לכל הגולשים:</b><br>
+      1. לחצו «הורדת קובץ מעודכן» — יירד קובץ index.html עם כל התוכן, התמונות והמחירים העדכניים.<br>
+      2. היכנסו לריפו ב-GitHub → Add file → Upload files.<br>
+      3. גררו את הקובץ ולחצו Commit changes. תוך דקה האתר מתעדכן.<br>
+      <span style="color:var(--gray)">אפשר גם לבקש ממני (Claude) להעלות בשבילכם.</span>
+    </div>
+    <div style="margin-top:16px">
+      <button class="abtn" onclick="exportSite()">⬇ הורדת קובץ מעודכן (index.html)</button>
     </div>
   </div>
 
@@ -514,171 +536,232 @@
   </div>
   <div class="saved-flash" id="savedFlash"></div>
 </aside>
-
 <script>
 /* ============================================================
-   הגדרות ברירת מחדל — unit: 'sqm' = מ״ר | 'rm' = מטר רץ
+   ברירות מחדל — מתעדכנות אוטומטית בעת «פרסום» מהפאנל
    ============================================================ */
-const DEFAULT_CONFIG = {
-  products: {
-    roller:    { label:'וילון גלילה',          en:'Roller Blind',        unit:'sqm', price:120, hasElectric:true  },
-    dblroller: { label:'דאבל רולר (יום/לילה)', en:'Double Roller',       unit:'sqm', price:150, hasElectric:true  },
-    fabric:    { label:'וילון בד',              en:'Fabric Curtain',      unit:'rm',  price:220, hasElectric:true  },
-    roman:     { label:'וילון רומאי',           en:'Roman Shade',         unit:'sqm', price:190, hasElectric:true  },
-    duette:    { label:'וילון דואט (חלת דבש)', en:'Duette (Honeycomb)',  unit:'sqm', price:210, hasElectric:true  },
-    venetian:  { label:'תריס ונציאני',          en:'Venetian Blind',      unit:'sqm', price:140, hasElectric:false },
-    woodven:   { label:'תריס ונציאני עץ',      en:'Wood Venetian',       unit:'sqm', price:260, hasElectric:false },
-    vertical:  { label:'וילונות ורטיקלים',     en:'Vertical Blinds',     unit:'sqm', price:130, hasElectric:false },
+const PRICES_DEFAULT = /*PJSON*/{
+  "products": {
+    "roller":    { "label":"וילון גלילה",          "en":"Roller Blind",       "unit":"sqm", "price":120, "hasElectric":true  },
+    "dblroller": { "label":"דאבל רולר (יום/לילה)", "en":"Double Roller",      "unit":"sqm", "price":150, "hasElectric":true  },
+    "fabric":    { "label":"וילון בד",              "en":"Fabric Curtain",     "unit":"rm",  "price":220, "hasElectric":true  },
+    "roman":     { "label":"וילון רומאי",           "en":"Roman Shade",        "unit":"sqm", "price":190, "hasElectric":true  },
+    "duette":    { "label":"וילון דואט (חלת דבש)", "en":"Duette (Honeycomb)", "unit":"sqm", "price":210, "hasElectric":true  },
+    "venetian":  { "label":"תריס ונציאני",          "en":"Venetian Blind",     "unit":"sqm", "price":140, "hasElectric":false },
+    "woodven":   { "label":"תריס ונציאני עץ",      "en":"Wood Venetian",      "unit":"sqm", "price":260, "hasElectric":false },
+    "vertical":  { "label":"וילונות ורטיקלים",     "en":"Vertical Blinds",    "unit":"sqm", "price":130, "hasElectric":false }
   },
-  motorSqm: 1200,   /* תוספת מנוע למוצרי מ״ר */
-  motorRm: 1000,    /* תוספת מנוע למוצרי מטר רץ (וילון בד) */
-  trackRm: 170,     /* מסילה חשמלית — ₪ למטר רץ */
-  installRate: 60,
-  minCharge: 1
-};
-const STORAGE_KEY = 'miriam-towers-prices-v3';
+  "motorSqm": 1200, "motorRm": 1000, "trackRm": 170, "installRate": 60, "minCharge": 1
+}/*PJSONEND*/;
 
-/* ============ תרגומים ============ */
+const CONTENT_DEFAULT = /*CJSON*/{
+  "heroKicker": "הטבה בלעדית לדיירי הפרויקט",
+  "heroTitle": "מגדלי כיכר המדינה",
+  "heroLoc": "תל אביב־יפו · כיכר המדינה",
+  "heroSub": "וילונות ופתרונות הצללה בהתאמה אישית לדירתכם החדשה — במחירי פרויקט מיוחדים, כולל ייעוץ, מדידה והתקנה מקצועית.",
+  "aboutTitle": "החלון שלכם, היצירה שלנו",
+  "aboutLead": "בית עיצוב ישראלי המתמחה בווילונות ופתרונות הצללה בהתאמה אישית, הממשיך את המסורת והניסיון של וילונות מרים אורגון. אנו משלבים עיצוב מוקפד, טכנולוגיה מתקדמת וחומרי גלם מהאיכות הגבוהה ביותר — לבתים פרטיים, משרדים ופרויקטים אדריכליים.",
+  "check1": "איכות ללא פשרות — תפירה מקצועית וגימור מושלם, עמידות לאורך שנים",
+  "check2": "ייצור כחול־לבן — כל מוצרינו מיוצרים בישראל בטכנולוגיות חדשניות",
+  "check3": "מחירים הוגנים — ולדיירי מגדלי כיכר המדינה: תמחור פרויקט בלעדי",
+  "check4": "אחריות רשמית ומלאה — שירות והתקנה בפריסה ארצית",
+  "aboutImg": "https://www.miriam.co.il/cdn/shop/files/WhatsApp_2024-08-25_18.02.06_94cc69a5.jpg?v=1725979388&width=900",
+  "featKicker": "פרויקט נבחר",
+  "featTitle": "מלון היאכטה · פתאל, מרינה הרצליה",
+  "featText": "בפרויקט הדגל האחרון שלנו נבחרנו ללוות את מלון היאכטה של רשת פתאל במרינה הרצליה — פרויקט מלונאות יוקרתי שבו כל חדר פונה אל הים. תכננו, תפרנו והתקנו מאות פתרונות הצללה בהתאמה מלאה לסטנדרט המלונאי המחמיר: בדים עמידים, גימור מושלם ולוחות זמנים מדויקים. זה הניסיון שאנחנו מביאים גם לדירה שלכם במגדלי כיכר המדינה.",
+  "featImg": "https://www.miriam.co.il/cdn/shop/files/3bdba103a9f2882d665a347d017b1b31_c15c8287-7ae3-4558-9343-164c4447c847.webp?v=1768863300&width=1200",
+  "motionKicker": "וילונות חשמליים חכמים",
+  "motionTitle": "מנועי MotionBlinds מבית Coulisse",
+  "motionLead": "אנחנו עובדים עם Coulisse ההולנדית — מהמובילות בעולם בפתרונות הצללה — ומתקינים את מנועי ה-MotionBlinds שלה: הדור החדש של וילונות חשמליים חכמים, שקטים במיוחד ופשוטים לתפעול. המנוע מוסתר בתוך הגלגלת, בלי כבלים גלויים ובלי רעש.",
+  "mp1": "שקט במיוחד — פעולה חלקה וכמעט בלתי נשמעת",
+  "mp2": "שליטה מהנייד, משלט או בפקודת קול",
+  "mp3": "תואם בית חכם — Apple Home, Google ו-Alexa (Matter)",
+  "mp4": "סוללה נטענת USB-C או חיבור קבוע — התקנה נקייה בכל חלון",
+  "motionImg": "https://www.miriam.co.il/cdn/shop/files/EVE_Motionblinds_Richmond-0100_8a6573d4-2c76-4dd0-9930-84fc068a8a9b.jpg?v=1774957432&width=1200",
+  "galKicker": "הפרויקטים שלנו",
+  "galTitle": "בתים שכבר בחרו בנו",
+  "galLead": "מבחר פרויקטים של בתים פרטיים, מלונות ומשרדים — עיצוב, תפירה והתקנה של Miriam House of Design.",
+  "gallery": [
+    { "src": "https://www.miriam.co.il/cdn/shop/files/3bdba103a9f2882d665a347d017b1b31_c15c8287-7ae3-4558-9343-164c4447c847.webp?v=1768863300&width=900", "cap": "מלונאות · צמרות המרינה" },
+    { "src": "https://www.miriam.co.il/cdn/shop/files/968c7153-91f1-4ea6-ae8b-f266806fd53d.jpg?v=1733087197&width=900", "cap": "הדירה התל אביבית · שירלי דן" },
+    { "src": "https://www.miriam.co.il/cdn/shop/files/PHOTO-2026-01-19-21-11-10.jpg?v=1768849900&width=900", "cap": "בית בכפר · שירלי דן" },
+    { "src": "https://www.miriam.co.il/cdn/shop/files/WhatsApp_2024-08-25_18.02.06_94cc69a5.jpg?v=1725979388&width=900", "cap": "בית פרטי · מירב שלום" },
+    { "src": "https://www.miriam.co.il/cdn/shop/files/10_f6d54f30-0cd9-490b-b074-964c45522fc9.png?v=1690217110&width=900", "cap": "הדירה בריינס · המעצבות" },
+    { "src": "https://www.miriam.co.il/cdn/shop/files/rotchils_22_e26e380d-4d70-492e-8165-65d40390c956.jpg?v=1772556532&width=900", "cap": "משרדים · רוטשילד 22, תל אביב" }
+  ],
+  "visitTitle": "בואו להתרשם מקרוב",
+  "visitLead": "באולם התצוגה שלנו תמצאו קולקציה רחבה של בדים איכותיים ממיטב היצרנים בעולם — בדי וילונות, בדי האפלה, בדים חצי־שקופים וטקסטורליים. תקבלו ייעוץ מקצועי ואישי, ללא עלות, באווירה משפחתית חמה.",
+  "visitAddr": "לח״י 2, בני ברק — מתחם דן דיזיין סנטר",
+  "visitImg": "https://www.miriam.co.il/cdn/shop/files/naturals_trimmings_dekoma_22.04.14_60868_7dd6e24e-d700-40d1-88e3-3545c0278093.webp?v=1768839581&width=900",
+  "termsTitle": "תקנון ותנאי שימוש",
+  "termsText": "1. כללי\nהאתר מופעל על ידי MIRIAM House of Design (להלן: «החברה»). השימוש באתר ובמחשבון הצעת המחיר כפוף לתנאים אלה.\n\n2. ההטבה\nהמחירים המוצגים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה בלבד, ובתוקף עד להודעה חדשה. החברה רשאית לעדכן את המחירון בכל עת.\n\n3. הצעת המחיר\nהחישוב באתר מהווה הערכה בלבד על בסיס המידות שהוזנו על ידי הלקוח. ההצעה הסופית תיקבע לאחר מדידה מקצועית בדירה על ידי מודד מטעם החברה. כל המחירים לפני מע״מ אלא אם צוין אחרת.\n\n4. שריון מחיר ומקדמה\nשריון המחיר מתבצע באמצעות תשלום מקדמה. המקדמה מתקזזת במלואה מסכום ההזמנה הסופי. ביטול בהתאם לחוק הגנת הצרכן, התשמ״א-1981 — ניתן לבטל עסקה בתוך 14 יום ממועד התשלום ולקבל החזר מלא, בניכוי דמי ביטול כדין.\n\n5. אספקה והתקנה\nמועדי האספקה וההתקנה ייקבעו מול הלקוח לאחר המדידה. החברה מתחייבת לעמידה בלוחות הזמנים שיסוכמו בהזמנה הסופית.\n\n6. אחריות\nעל כל המוצרים חלה אחריות יצרן רשמית ומלאה בהתאם לתעודת האחריות שתימסר עם ההתקנה.\n\n7. פרטיות\nהפרטים הנמסרים באתר משמשים ליצירת קשר ולטיפול בהזמנה בלבד, ולא יועברו לצד שלישי למעט לצורך השלמת העסקה.\n\n8. יצירת קשר\nלשאלות ובירורים: אולם התצוגה — לח״י 2, בני ברק, מתחם דן דיזיין סנטר.",
+  "payAmount": 400,
+  "payUrl": ""
+}/*CJSONEND*/;
+
+const PRICES_KEY = 'miriam-towers-prices-v4';
+const CONTENT_KEY = 'miriam-towers-content-v1';
+const ADMIN_HASH = '2e7b4cdf720c0d4e19c6cbcba53f4ca099fd1094c36303cd9e7194b559511daf';
+
+function loadJSON(key, def) {
+  try { const s = localStorage.getItem(key); if (s) return Object.assign(JSON.parse(JSON.stringify(def)), JSON.parse(s)); } catch(e) {}
+  return JSON.parse(JSON.stringify(def));
+}
+let CFG = loadJSON(PRICES_KEY, PRICES_DEFAULT);
+let CONTENT = loadJSON(CONTENT_KEY, CONTENT_DEFAULT);
+function persist() {
+  try {
+    localStorage.setItem(PRICES_KEY, JSON.stringify(CFG));
+    localStorage.setItem(CONTENT_KEY, JSON.stringify(CONTENT));
+  } catch(e) {}
+}
+
+/* ============ תרגומים (טקסטים קבועים + fallback אנגלית לתוכן) ============ */
 const I18N = {
   he: {
-    nav_quote:'הצעת מחיר', nav_showroom:'אולם התצוגה', nav_cta:'להטבת הדיירים',
-    hero_kicker:'הטבה בלעדית לדיירי הפרויקט',
-    hero_title:'מגדלי כיכר המדינה',
-    hero_loc:'תל אביב־יפו · כיכר המדינה',
-    hero_sub:'וילונות ופתרונות הצללה בהתאמה אישית לדירתכם החדשה — במחירי פרויקט מיוחדים, כולל ייעוץ, מדידה והתקנה מקצועית.',
+    nav_quote:'הצעת מחיר', nav_projects:'פרויקטים', nav_showroom:'אולם התצוגה', nav_cta:'להטבת הדיירים',
     stat_towers:'מגדלי מגורים', stat_units:'יחידות דיור', stat_floors:'קומות',
     hero_cta1:'בנו הצעת מחיר לדירה שלכם', hero_cta2:'לתיאום פגישה באולם התצוגה',
-    about_title:'החלון שלכם, היצירה שלנו',
-    about_lead:'בית עיצוב ישראלי המתמחה בווילונות ופתרונות הצללה בהתאמה אישית, הממשיך את המסורת והניסיון של וילונות מרים אורגון. אנו משלבים עיצוב מוקפד, טכנולוגיה מתקדמת וחומרי גלם מהאיכות הגבוהה ביותר — לבתים פרטיים, משרדים ופרויקטים אדריכליים.',
-    check1:'איכות ללא פשרות — תפירה מקצועית וגימור מושלם, עמידות לאורך שנים',
-    check2:'ייצור כחול־לבן — כל מוצרינו מיוצרים בישראל בטכנולוגיות חדשניות',
-    check3:'מחירים הוגנים — ולדיירי מגדלי כיכר המדינה: תמחור פרויקט בלעדי',
-    check4:'אחריות רשמית ומלאה — שירות והתקנה בפריסה ארצית',
-    cfg_kicker:'הטבת דיירי מגדלי כיכר המדינה',
-    cfg_title:'בנו הצעת מחיר לדירה שלכם',
+    cfg_kicker:'הטבת דיירי מגדלי כיכר המדינה', cfg_title:'בנו הצעת מחיר לדירה שלכם',
     cfg_lead:'בחרו מוצר, ציינו את החלל והזינו מידות — המחיר מחושב מיידית לפי מחירון הפרויקט הבלעדי.',
     th_product:'מוצר', th_room:'חלל', th_width:'רוחב (ס״מ)', th_height:'גובה (ס״מ)', th_op:'הפעלה', th_price:'מחיר (לפני מע״מ)',
-    ph_width:'רוחב', ph_height:'גובה',
-    op_manual:'ידני', op_electric:'חשמלי',
-    add_row:'+ הוסיפו חלון נוסף',
-    sum_title:'סה״כ הזמנה',
+    ph_width:'רוחב', ph_height:'גובה', op_manual:'ידני', op_electric:'חשמלי',
+    add_row:'+ הוסיפו חלון נוסף', sum_title:'סה״כ הזמנה',
     sum_note:'המחירים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה, לפני מע״מ. הובלה והתקנה מחושבות לפי סך רוחבי החלונות. ההצעה כפופה למדידה מקצועית בדירה.',
     empty_sum:'הזינו רוחב וגובה כדי לראות את סיכום ההזמנה',
-    inst_line:'הובלה והתקנה ({m} מ׳ רוחב)',
-    excl_vat:'לפני מע״מ',
-    elec_add_sqm:'כולל תוספת מנוע {x} · לפני מע״מ',
-    elec_add_rm:'כולל מנוע ומסילה חשמלית {x} · לפני מע״מ',
+    inst_line:'הובלה והתקנה ({m} מ׳ רוחב)', excl_vat:'לפני מע״מ',
+    elec_add_sqm:'כולל תוספת מנוע {x} · לפני מע״מ', elec_add_rm:'כולל מנוע ומסילה חשמלית {x} · לפני מע״מ',
     total_sub:'לפני מע״מ · כולל הובלה והתקנה',
     cta_reserve:'שריינו את מחיר ההזמנה', cta_visit:'תיאום פגישה באולם התצוגה',
     cta_sub:'שריון המחיר מתבצע באמצעות מקדמה סמלית המתקזזת מסכום ההזמנה הסופי.',
-    visit_kicker:'אולם התצוגה', visit_title:'בואו להתרשם מקרוב',
-    visit_lead:'באולם התצוגה שלנו תמצאו קולקציה רחבה של בדים איכותיים ממיטב היצרנים בעולם — בדי וילונות, בדי האפלה, בדים חצי־שקופים וטקסטורליים. תקבלו ייעוץ מקצועי ואישי, ללא עלות, באווירה משפחתית חמה.',
-    v_addr_l:'כתובת:', v_addr:'לח״י 2, בני ברק — מתחם דן דיזיין סנטר',
-    v_consult_l:'ייעוץ מקצועי:', v_consult:'חינם וללא התחייבות',
-    v_service_l:'שירות והתקנה:', v_service:'בפריסה ארצית',
-    v_btn:'לתיאום פגישה',
+    visit_kicker:'אולם התצוגה',
+    v_addr_l:'כתובת:', v_consult_l:'ייעוץ מקצועי:', v_consult:'חינם וללא התחייבות',
+    v_service_l:'שירות והתקנה:', v_service:'בפריסה ארצית', v_btn:'לתיאום פגישה',
     srv1t:'אולם התצוגה', srv1p:'יחד עם הצוות המקצועי שלנו נבחר באולם התצוגה את העיצוב, הבד ושיטת ההתקנה המתאימה לבית שלכם',
     srv2t:'מדידה מקצועית', srv2p:'מודד מקצועי מטעמנו מגיע לדירתכם במגדל למדידה מדויקת של כל חלון — ללא עלות',
     srv3t:'ייעוץ אישי', srv3p:'אצלנו בחברה קיים שירות ליעוץ ומדידה אצלכם בבית לאחר ביצוע ההזמנה, לוודא שהכל מדויק',
     srv4t:'התקנה מקצועית', srv4p:'לאחר ההזמנה תקבלו שירות התקנה מקצועי מצוות המומחים שלנו, עם אחריות רשמית ומלאה',
-    footer1:'לח״י 2, בני ברק · מתחם דן דיזיין סנטר',
     footer2:'ההטבה בתוקף לדיירי מגדלי כיכר המדינה בלבד · © 2026 MIRIAM',
+    terms_link:'תקנון ותנאי שימוש',
     ph_name:'שם מלא', ph_phone:'טלפון', ph_apt:'מגדל / קומה / דירה',
     m_visit_t:'תיאום פגישה באולם התצוגה',
-    m_visit_x:'לח״י 2, בני ברק — מתחם דן דיזיין סנטר. השאירו פרטים ונחזור אליכם לתיאום מועד.',
+    m_visit_x:'השאירו פרטים ונחזור אליכם לתיאום מועד.',
     m_visit_b:'שלחו בקשה לתיאום',
     m_res_t:'שריון מחיר ההזמנה',
-    m_res_x:'השאירו פרטים ותועברו לעמוד תשלום מאובטח להסדרת מקדמה סמלית, המתקזזת מסכום ההזמנה הסופי.',
-    m_res_b:'המשיכו לשריון המחיר',
+    m_res_x:'השאירו פרטים והמשיכו לתשלום מקדמה מאובטח. המקדמה מתקזזת מסכום ההזמנה הסופי.',
+    m_res_b:'מעבר לתשלום מאובטח',
+    pay_note:'מקדמה לשריון המחיר · מתקזזת מההזמנה', pay_ap:'תשלום מהיר ומאובטח — Apple Pay ואשראי',
     a_visit:'דמו: הבקשה תישלח למאנדיי ונציג יחזור ללקוח לתיאום.',
-    a_res:'דמו: מכאן הלקוח יעבור לעמוד תשלום מקדמה, וההזמנה תיפתח אוטומטית במאנדיי.',
+    a_res:'דמו: כאן ייפתח עמוד הסליקה (Apple Pay / אשראי). חברו קישור סליקה בפאנל הניהול ← לשונית תשלום.',
     rooms:{ living:'סלון', kitchen:'מטבח', bedroom:'חדר שינה', mamad:'ממ״ד', kids:'חדר ילדים', dining:'פינת אוכל', office:'חדר עבודה', other:'אחר' }
   },
   en: {
-    nav_quote:'Get a Quote', nav_showroom:'Showroom', nav_cta:'Residents’ Offer',
-    hero_kicker:'Exclusive offer for project residents',
-    hero_title:'Kikar Hamedina Towers',
-    hero_loc:'Tel Aviv-Yafo · Kikar Hamedina',
-    hero_sub:'Custom-made curtains and shading solutions for your new residence — at exclusive project pricing, including consultation, professional measurement and installation.',
+    nav_quote:'Get a Quote', nav_projects:'Projects', nav_showroom:'Showroom', nav_cta:'Residents’ Offer',
     stat_towers:'Residential towers', stat_units:'Residences', stat_floors:'Floors',
     hero_cta1:'Build your quote', hero_cta2:'Book a showroom visit',
-    about_title:'Your window, our craft',
-    about_lead:'An Israeli house of design specializing in custom curtains and shading solutions, continuing the tradition and expertise of Miriam Orgon. We combine meticulous design, advanced technology and premium materials — for private homes, offices and architectural projects.',
-    check1:'Uncompromising quality — professional tailoring and flawless finish, built to last',
-    check2:'Made in Israel — all our products are manufactured locally with innovative technology',
-    check3:'Fair pricing — with exclusive project rates for Kikar Hamedina Towers residents',
-    check4:'Full official warranty — nationwide service and installation',
-    cfg_kicker:'Kikar Hamedina Towers residents’ offer',
-    cfg_title:'Build a quote for your apartment',
+    cfg_kicker:'Kikar Hamedina Towers residents’ offer', cfg_title:'Build a quote for your apartment',
     cfg_lead:'Choose a product, select the room and enter dimensions — pricing is calculated instantly per the exclusive project price list.',
     th_product:'Product', th_room:'Room', th_width:'Width (cm)', th_height:'Height (cm)', th_op:'Operation', th_price:'Price (excl. VAT)',
-    ph_width:'Width', ph_height:'Height',
-    op_manual:'Manual', op_electric:'Motorized',
-    add_row:'+ Add another window',
-    sum_title:'ORDER TOTAL',
+    ph_width:'Width', ph_height:'Height', op_manual:'Manual', op_electric:'Motorized',
+    add_row:'+ Add another window', sum_title:'ORDER TOTAL',
     sum_note:'Prices are exclusive project rates for Kikar Hamedina Towers residents, excluding VAT. Delivery & installation are calculated by total window width. Quote is subject to professional on-site measurement.',
     empty_sum:'Enter width and height to see your order summary',
-    inst_line:'Delivery & installation ({m} m width)',
-    excl_vat:'excl. VAT',
-    elec_add_sqm:'incl. motor add-on {x} · excl. VAT',
-    elec_add_rm:'incl. motor & electric track {x} · excl. VAT',
+    inst_line:'Delivery & installation ({m} m width)', excl_vat:'excl. VAT',
+    elec_add_sqm:'incl. motor add-on {x} · excl. VAT', elec_add_rm:'incl. motor & electric track {x} · excl. VAT',
     total_sub:'excl. VAT · incl. delivery & installation',
     cta_reserve:'Reserve your price', cta_visit:'Book a showroom visit',
     cta_sub:'Price reservation is secured with a small deposit, credited toward your final order.',
-    visit_kicker:'THE SHOWROOM', visit_title:'Come see it up close',
-    visit_lead:'Our showroom features a wide collection of premium fabrics from the world’s leading manufacturers — curtain fabrics, blackout, semi-sheer and textured weaves. Enjoy personal, professional consultation, free of charge, in a warm family atmosphere.',
-    v_addr_l:'Address:', v_addr:'2 Lehi St., Bnei Brak — Dan Design Center',
-    v_consult_l:'Consultation:', v_consult:'Free, with no obligation',
-    v_service_l:'Service & installation:', v_service:'Nationwide',
-    v_btn:'Book a visit',
+    visit_kicker:'THE SHOWROOM',
+    v_addr_l:'Address:', v_consult_l:'Consultation:', v_consult:'Free, with no obligation',
+    v_service_l:'Service & installation:', v_service:'Nationwide', v_btn:'Book a visit',
     srv1t:'The Showroom', srv1p:'Together with our professional team, choose the design, fabric and installation method that suit your home',
     srv2t:'Professional Measurement', srv2p:'Our professional surveyor visits your apartment in the tower for precise measurement of every window — free of charge',
     srv3t:'Personal Consultation', srv3p:'We provide in-home consultation and verification after your order is placed, to make sure everything is exact',
     srv4t:'Professional Installation', srv4p:'After your order, our expert team provides professional installation with a full official warranty',
-    footer1:'2 Lehi St., Bnei Brak · Dan Design Center',
     footer2:'Offer valid for Kikar Hamedina Towers residents only · © 2026 MIRIAM',
+    terms_link:'Terms & Conditions',
     ph_name:'Full name', ph_phone:'Phone', ph_apt:'Tower / Floor / Apt.',
-    m_visit_t:'Book a showroom visit',
-    m_visit_x:'2 Lehi St., Bnei Brak — Dan Design Center. Leave your details and we’ll get back to you to schedule.',
+    m_visit_t:'Book a showroom visit', m_visit_x:'Leave your details and we’ll get back to you to schedule.',
     m_visit_b:'Send request',
     m_res_t:'Reserve your price',
-    m_res_x:'Leave your details and you’ll be taken to a secure payment page for a small deposit, credited toward your final order.',
-    m_res_b:'Continue to reserve',
+    m_res_x:'Leave your details and continue to a secure deposit payment. The deposit is credited toward your final order.',
+    m_res_b:'Continue to secure payment',
+    pay_note:'Deposit to reserve your price · credited to your order', pay_ap:'Fast & secure — Apple Pay and credit card',
     a_visit:'Demo: the request will be sent to monday and a representative will call to schedule.',
-    a_res:'Demo: the customer proceeds to a deposit payment page, and an order is opened automatically in monday.',
-    rooms:{ living:'Living room', kitchen:'Kitchen', bedroom:'Bedroom', mamad:'Safe room', kids:'Kids’ room', dining:'Dining area', office:'Home office', other:'Other' }
+    a_res:'Demo: the payment page (Apple Pay / credit) opens here. Connect your checkout link in the admin panel → Payment tab.',
+    rooms:{ living:'Living room', kitchen:'Kitchen', bedroom:'Bedroom', mamad:'Safe room', kids:'Kids’ room', dining:'Dining area', office:'Home office', other:'Other' },
+    /* fallback אנגלית לתוכן הניתן לעריכה */
+    c: {
+      heroKicker:'Exclusive offer for project residents', heroTitle:'Kikar Hamedina Towers', heroLoc:'Tel Aviv-Yafo · Kikar Hamedina',
+      heroSub:'Custom-made curtains and shading solutions for your new residence — at exclusive project pricing, including consultation, professional measurement and installation.',
+      aboutTitle:'Your window, our craft',
+      aboutLead:'An Israeli house of design specializing in custom curtains and shading solutions, continuing the tradition and expertise of Miriam Orgon. We combine meticulous design, advanced technology and premium materials — for private homes, offices and architectural projects.',
+      check1:'Uncompromising quality — professional tailoring and flawless finish, built to last',
+      check2:'Made in Israel — all our products are manufactured locally with innovative technology',
+      check3:'Fair pricing — with exclusive project rates for Kikar Hamedina Towers residents',
+      check4:'Full official warranty — nationwide service and installation',
+      featKicker:'FEATURED PROJECT', featTitle:'The Yacht Hotel · Fattal, Herzliya Marina',
+      featText:'In our latest flagship project, we were selected to outfit the Fattal Group’s yacht hotel at the Herzliya Marina — a luxury hospitality project where every room faces the sea. We designed, tailored and installed hundreds of shading solutions to the most demanding hotel standard: durable fabrics, flawless finish and precise timelines. That is the experience we bring to your apartment at Kikar Hamedina Towers.',
+      motionKicker:'SMART MOTORIZED CURTAINS', motionTitle:'MotionBlinds motors by Coulisse',
+      motionLead:'We work with Coulisse of the Netherlands — a global leader in window coverings — and install its MotionBlinds motors: the new generation of smart motorized shades, exceptionally quiet and effortless to operate. The motor hides inside the tube — no visible cables, no noise.',
+      mp1:'Exceptionally quiet — smooth, nearly silent operation',
+      mp2:'Control from your phone, remote or voice',
+      mp3:'Smart-home ready — Apple Home, Google and Alexa (Matter)',
+      mp4:'USB-C rechargeable battery or wired power — clean installation on any window',
+      galKicker:'OUR PROJECTS', galTitle:'Homes that chose us',
+      galLead:'A selection of private homes, hotels and office projects — designed, tailored and installed by Miriam House of Design.',
+      visitTitle:'Come see it up close',
+      visitLead:'Our showroom features a wide collection of premium fabrics from the world’s leading manufacturers — curtain fabrics, blackout, semi-sheer and textured weaves. Enjoy personal, professional consultation, free of charge, in a warm family atmosphere.',
+      visitAddr:'2 Lehi St., Bnei Brak — Dan Design Center',
+      termsTitle:'Terms & Conditions'
+    }
   }
 };
 let LANG = 'he';
 function t(key) { return I18N[LANG][key]; }
+function c(key) { return LANG === 'en' ? (I18N.en.c[key] ?? CONTENT[key]) : CONTENT[key]; }
 function go(id) { document.getElementById(id).scrollIntoView(); }
-
-let CFG = loadConfig();
-function loadConfig() {
-  try { const s = localStorage.getItem(STORAGE_KEY); if (s) return JSON.parse(s); } catch(e) {}
-  return JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+</script>
+<script>
+/* ============ רינדור תוכן ============ */
+function applyContent() {
+  document.querySelectorAll('[data-c]').forEach(el => { el.textContent = c(el.dataset.c) ?? ''; });
+  document.getElementById('aboutImg').style.backgroundImage = `url('${CONTENT.aboutImg}')`;
+  document.getElementById('featImg').style.backgroundImage = `url('${CONTENT.featImg}')`;
+  document.getElementById('motionImg').style.backgroundImage = `url('${CONTENT.motionImg}')`;
+  document.getElementById('visitImg').style.backgroundImage = `url('${CONTENT.visitImg}')`;
+  renderGallery();
+  document.getElementById('termsBody').textContent = CONTENT.termsText;
 }
-function persistConfig() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(CFG)); } catch(e) {}
+function renderGallery() {
+  const grid = document.getElementById('galleryGrid');
+  grid.innerHTML = (CONTENT.gallery || []).map((g,i) => `
+    <div class="gitem" onclick="openLightbox(${i})">
+      <img src="${g.src}" loading="lazy" alt="${g.cap || ''}">
+      ${g.cap ? `<div class="cap">${g.cap}</div>` : ''}
+    </div>`).join('');
 }
-function prodLabel(p) { return LANG==='en' ? (p.en || p.label) : p.label; }
+function openLightbox(i) {
+  const g = CONTENT.gallery[i];
+  if (!g) return;
+  document.getElementById('lbImg').src = g.src;
+  document.getElementById('lbCap').textContent = g.cap || '';
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
 
 /* ============ טבלת הזמנה ============ */
 const tbody = document.getElementById('rows');
 const ROOM_KEYS = ['living','kitchen','bedroom','mamad','kids','dining','office','other'];
-
+function prodLabel(p) { return LANG==='en' ? (p.en || p.label) : p.label; }
 function productOptions(sel) {
-  return Object.entries(CFG.products)
-    .map(([k,v]) => `<option value="${k}" ${k===sel?'selected':''}>${prodLabel(v)}</option>`).join('');
+  return Object.entries(CFG.products).map(([k,v]) => `<option value="${k}" ${k===sel?'selected':''}>${prodLabel(v)}</option>`).join('');
 }
-function roomOptions(sel) {
-  return ROOM_KEYS.map(k => `<option value="${k}" ${k===sel?'selected':''}>${t('rooms')[k]}</option>`).join('');
-}
+function roomOptions(sel) { return ROOM_KEYS.map(k => `<option value="${k}" ${k===sel?'selected':''}>${t('rooms')[k]}</option>`).join(''); }
 function typeOptions(sel) {
   return `<option value="manual" ${sel==='manual'?'selected':''}>${t('op_manual')}</option>
           <option value="electric" ${sel==='electric'?'selected':''}>${t('op_electric')}</option>`;
 }
-
 function addRow(preset) {
   const tr = document.createElement('tr');
   tr.innerHTML = `
@@ -688,7 +771,7 @@ function addRow(preset) {
     <td><input type="number" min="20" max="500" placeholder="${t('ph_height')}" class="f-h" oninput="calc()"></td>
     <td><select class="f-type" onchange="calc()">${typeOptions()}</select></td>
     <td class="price-cell">—</td>
-    <td><button class="row-remove" title="×" onclick="removeRow(this)">×</button></td>`;
+    <td><button class="row-remove" onclick="removeRow(this)">×</button></td>`;
   tbody.appendChild(tr);
   if (preset) {
     if (preset.room) tr.querySelector('.f-room').value = preset.room;
@@ -697,7 +780,6 @@ function addRow(preset) {
   }
   onProductChange(tr.querySelector('.f-product'));
 }
-
 function onProductChange(sel) {
   const tr = sel.closest('tr');
   const p = CFG.products[sel.value];
@@ -706,22 +788,15 @@ function onProductChange(sel) {
   if (!p.hasElectric) typeSel.value = 'manual';
   calc();
 }
-
-/* תוספת חשמלי אוטומטית: מ״ר → מנוע בלבד | מטר רץ → מסילה חשמלית לפי רוחב + מנוע */
 function electricAddon(p, w) {
-  return p.unit === 'rm'
-    ? (w/100) * CFG.trackRm + CFG.motorRm
-    : CFG.motorSqm;
+  return p.unit === 'rm' ? (w/100) * CFG.trackRm + CFG.motorRm : CFG.motorSqm;
 }
-
 function removeRow(btn) {
   if (tbody.children.length <= 1) return;
   btn.closest('tr').remove();
   calc();
 }
-
 function fmt(n) { return '₪' + Math.round(n).toLocaleString(LANG==='en'?'en-US':'he-IL'); }
-
 function calc() {
   let subtotal = 0, widthSum = 0;
   const lines = [];
@@ -734,50 +809,44 @@ function calc() {
     const type = tr.querySelector('.f-type').value;
     const cell = tr.querySelector('.price-cell');
     if (w > 0 && h > 0) {
-      const qty = p.unit === 'rm'
-        ? Math.max(w/100, CFG.minCharge)
-        : Math.max((w/100)*(h/100), CFG.minCharge);
+      const qty = p.unit === 'rm' ? Math.max(w/100, CFG.minCharge) : Math.max((w/100)*(h/100), CFG.minCharge);
       const base = qty * p.price;
       const addon = (type==='electric' && p.hasElectric) ? electricAddon(p, w) : 0;
       const price = base + addon;
       subtotal += price;
       widthSum += w/100;
-      cell.innerHTML = fmt(price)
-        + (addon > 0
-            ? `<small>${(p.unit==='rm' ? t('elec_add_rm') : t('elec_add_sqm')).replace('{x}', fmt(addon))}</small>`
-            : `<small>${t('excl_vat')}</small>`);
+      cell.innerHTML = fmt(price) + (addon > 0
+        ? `<small>${(p.unit==='rm' ? t('elec_add_rm') : t('elec_add_sqm')).replace('{x}', fmt(addon))}</small>`
+        : `<small>${t('excl_vat')}</small>`);
       lines.push({ label:`${prodLabel(p)} · ${t('rooms')[roomKey]} (${type==='electric'?t('op_electric'):t('op_manual')})`, price });
     } else {
       cell.textContent = '—';
     }
   });
-
   const install = widthSum > 0 ? widthSum * CFG.installRate : 0;
   const total = subtotal + install;
-
   const box = document.getElementById('summaryLines');
   box.innerHTML = lines.length
     ? lines.map(l=>`<div><span>${l.label}</span><span>${fmt(l.price)}</span></div>`).join('')
       + `<div class="inst"><span>${t('inst_line').replace('{m}', widthSum.toFixed(1))}</span><span>${fmt(install)}</span></div>`
     : `<div style="color:#999">${t('empty_sum')}</div>`;
   document.getElementById('totalOut').innerHTML = total > 0
-    ? fmt(total) + `<small>${t('total_sub')}</small>`
-    : `₪0<small>${t('excl_vat')}</small>`;
+    ? fmt(total) + `<small>${t('total_sub')}</small>` : `₪0<small>${t('excl_vat')}</small>`;
 }
 
 /* ============ שפה ============ */
 function applyI18n() {
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
   document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
-  /* עדכון בוררים קיימים בטבלה */
   [...tbody.children].forEach(tr => {
     const ps = tr.querySelector('.f-product'); ps.innerHTML = productOptions(ps.value);
     const rs = tr.querySelector('.f-room'); rs.innerHTML = roomOptions(rs.value);
-    const ts = tr.querySelector('.f-type'); const cur = ts.value; ts.innerHTML = typeOptions(cur);
+    const ts = tr.querySelector('.f-type'); ts.innerHTML = typeOptions(ts.value);
     tr.querySelector('.f-w').placeholder = t('ph_width');
     tr.querySelector('.f-h').placeholder = t('ph_height');
     onProductChange(ps);
   });
+  applyContent();
   calc();
 }
 function toggleLang() {
@@ -788,28 +857,38 @@ function toggleLang() {
   applyI18n();
 }
 
-/* ============ פאנל ניהול ============ */
-function renderAdmin() {
-  const box = document.getElementById('adminRows');
-  box.innerHTML = Object.entries(CFG.products).map(([k,p]) => `
-    <tr data-key="${k}">
-      <td><input type="text" class="a-name" value="${p.label}"></td>
-      <td><select class="a-unit">
-        <option value="sqm" ${p.unit==='sqm'?'selected':''}>מ״ר</option>
-        <option value="rm" ${p.unit==='rm'?'selected':''}>מטר רץ</option>
-      </select></td>
-      <td><input type="number" class="a-price" value="${p.price}" min="0"></td>
-      <td style="text-align:center"><input type="checkbox" class="a-electric" style="width:auto" ${p.hasElectric?'checked':''} title="קיימת גרסה חשמלית"></td>
-      <td><button class="del" title="מחיקת מוצר" onclick="deleteProduct('${k}')">×</button></td>
-    </tr>`).join('');
-  document.getElementById('adm-motor-sqm').value = CFG.motorSqm;
-  document.getElementById('adm-motor-rm').value = CFG.motorRm;
-  document.getElementById('adm-track-rm').value = CFG.trackRm;
-  document.getElementById('adm-install').value = CFG.installRate;
-  document.getElementById('adm-min').value = CFG.minCharge;
+/* ============ מודאלים ============ */
+let currentModal = null;
+function openModal(kind) {
+  currentModal = kind;
+  const pfx = kind === 'visit' ? 'm_visit' : 'm_res';
+  document.getElementById('modalTitle').textContent = t(pfx + '_t');
+  document.getElementById('modalText').textContent = t(pfx + '_x');
+  document.getElementById('modalBtn').textContent = t(pfx + '_b');
+  const isPay = kind === 'reserve';
+  document.getElementById('payBox').style.display = isPay ? 'block' : 'none';
+  document.getElementById('apHint').style.display = isPay ? 'flex' : 'none';
+  if (isPay) document.getElementById('payAmt').textContent = fmt(CONTENT.payAmount || 400);
+  document.getElementById('modalBg').classList.add('open');
 }
-/* סיסמת פאנל ניהול — נשמרת כ-hash בלבד. ברירת מחדל: miriam2026 */
-const ADMIN_HASH = '2e7b4cdf720c0d4e19c6cbcba53f4ca099fd1094c36303cd9e7194b559511daf';
+function closeModal() { document.getElementById('modalBg').classList.remove('open'); }
+function submitModal() {
+  const name = document.getElementById('leadName').value.trim();
+  const phone = document.getElementById('leadPhone').value.trim();
+  if (!name || !phone) { alert(LANG==='en' ? 'Please fill in name and phone' : 'נא למלא שם וטלפון'); return; }
+  closeModal();
+  if (currentModal === 'reserve') {
+    if (CONTENT.payUrl) { window.open(CONTENT.payUrl, '_blank'); }
+    else { alert(t('a_res')); }
+  } else {
+    alert(t('a_visit'));
+  }
+}
+function openTerms() { document.getElementById('termsBg').classList.add('open'); }
+function closeTerms() { document.getElementById('termsBg').classList.remove('open'); }
+</script>
+<script>
+/* ============ פאנל ניהול ============ */
 async function sha256(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
@@ -831,6 +910,156 @@ function closeAdmin() {
   document.getElementById('adminBg').classList.remove('open');
   document.getElementById('adminPanel').classList.remove('open');
 }
+function showTab(btn, id) {
+  document.querySelectorAll('.atabs button').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.apane').forEach(p => p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+}
+
+/* --- שדות תוכן הניתנים לעריכה --- */
+const FIELDS = [
+  { h:'אזור ראשי (Hero)' },
+  { k:'heroKicker', l:'תגית עליונה', t:'text' },
+  { k:'heroTitle', l:'כותרת ראשית', t:'text' },
+  { k:'heroLoc', l:'מיקום', t:'text' },
+  { k:'heroSub', l:'פסקת פתיחה', t:'area' },
+  { h:'אודות' },
+  { k:'aboutTitle', l:'כותרת', t:'text' },
+  { k:'aboutLead', l:'פסקה', t:'area' },
+  { k:'check1', l:'נקודה 1', t:'text' }, { k:'check2', l:'נקודה 2', t:'text' },
+  { k:'check3', l:'נקודה 3', t:'text' }, { k:'check4', l:'נקודה 4', t:'text' },
+  { k:'aboutImg', l:'תמונת אודות', t:'img' },
+  { h:'פרויקט נבחר — מלון היאכטה' },
+  { k:'featKicker', l:'תגית', t:'text' },
+  { k:'featTitle', l:'כותרת', t:'text' },
+  { k:'featText', l:'תיאור', t:'area' },
+  { k:'featImg', l:'תמונת הפרויקט', t:'img' },
+  { h:'מנועים חכמים — Coulisse MotionBlinds' },
+  { k:'motionKicker', l:'תגית', t:'text' },
+  { k:'motionTitle', l:'כותרת', t:'text' },
+  { k:'motionLead', l:'פסקה', t:'area' },
+  { k:'mp1', l:'יתרון 1', t:'text' }, { k:'mp2', l:'יתרון 2', t:'text' },
+  { k:'mp3', l:'יתרון 3', t:'text' }, { k:'mp4', l:'יתרון 4', t:'text' },
+  { k:'motionImg', l:'תמונה', t:'img' },
+  { h:'גלריה — כותרות' },
+  { k:'galKicker', l:'תגית', t:'text' },
+  { k:'galTitle', l:'כותרת', t:'text' },
+  { k:'galLead', l:'פסקה', t:'area' },
+  { h:'אולם התצוגה' },
+  { k:'visitTitle', l:'כותרת', t:'text' },
+  { k:'visitLead', l:'פסקה', t:'area' },
+  { k:'visitAddr', l:'כתובת', t:'text' },
+  { k:'visitImg', l:'תמונת האולם', t:'img' }
+];
+
+function imgFieldHTML(k) {
+  return `<div class="img-field">
+    <img class="thumb" id="thumb-${k}" src="${CONTENT[k] || ''}">
+    <input type="text" id="c-${k}" value="${(CONTENT[k]||'').replace(/"/g,'&quot;')}" oninput="document.getElementById('thumb-${k}').src=this.value">
+    <button class="abtn abtn-ghost" onclick="pickImage('${k}')">העלאה</button>
+    <input type="file" id="file-${k}" accept="image/*" style="display:none" onchange="fileToField(this,'${k}')">
+  </div>`;
+}
+function renderContentPane() {
+  const pane = document.getElementById('t-content');
+  pane.innerHTML = FIELDS.map(f => {
+    if (f.h) return `<h4>${f.h}</h4>`;
+    if (f.t === 'img') return `<label class="flabel">${f.l}</label>` + imgFieldHTML(f.k);
+    if (f.t === 'area') return `<label class="flabel">${f.l}</label><textarea id="c-${f.k}">${CONTENT[f.k]||''}</textarea>`;
+    return `<label class="flabel">${f.l}</label><input type="text" id="c-${f.k}" value="${(CONTENT[f.k]||'').replace(/"/g,'&quot;')}">`;
+  }).join('');
+}
+function pickImage(k) { document.getElementById('file-' + k).click(); }
+function fileToField(input, k) {
+  compressFile(input.files[0], dataUrl => {
+    document.getElementById('c-' + k).value = dataUrl;
+    document.getElementById('thumb-' + k).src = dataUrl;
+    flash('✓ התמונה נטענה — לחצו שמירה');
+  });
+}
+/* דחיסת תמונה לרוחב מקס׳ 1200px, JPEG */
+function compressFile(file, cb) {
+  if (!file) return;
+  const img = new Image();
+  img.onload = () => {
+    const max = 1200;
+    const scale = Math.min(1, max / img.width);
+    const cv = document.createElement('canvas');
+    cv.width = Math.round(img.width * scale);
+    cv.height = Math.round(img.height * scale);
+    cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+    cb(cv.toDataURL('image/jpeg', 0.82));
+  };
+  img.src = URL.createObjectURL(file);
+}
+
+/* --- גלריה --- */
+function renderGalleryAdmin() {
+  const box = document.getElementById('galAdmin');
+  box.innerHTML = (CONTENT.gallery || []).map((g,i) => `
+    <div class="gal-admin-item">
+      <img src="${g.src}">
+      <input type="text" value="${(g.cap||'').replace(/"/g,'&quot;')}" placeholder="כיתוב (אופציונלי)" oninput="CONTENT.gallery[${i}].cap=this.value">
+      <button class="del" title="למעלה" onclick="moveGal(${i},-1)">↑</button>
+      <button class="del" title="למטה" onclick="moveGal(${i},1)">↓</button>
+      <button class="del" title="מחיקה" onclick="delGal(${i})">×</button>
+    </div>`).join('') || '<div class="sub">אין תמונות עדיין</div>';
+}
+function moveGal(i, d) {
+  const g = CONTENT.gallery;
+  const j = i + d;
+  if (j < 0 || j >= g.length) return;
+  [g[i], g[j]] = [g[j], g[i]];
+  renderGalleryAdmin();
+}
+function delGal(i) {
+  CONTENT.gallery.splice(i, 1);
+  renderGalleryAdmin();
+}
+function addGalleryUrl() {
+  const v = document.getElementById('galUrl').value.trim();
+  if (!v) return;
+  CONTENT.gallery.push({ src: v, cap: '' });
+  document.getElementById('galUrl').value = '';
+  renderGalleryAdmin();
+}
+function addGalleryFiles(files) {
+  [...files].forEach(f => compressFile(f, dataUrl => {
+    CONTENT.gallery.push({ src: dataUrl, cap: '' });
+    renderGalleryAdmin();
+  }));
+}
+
+/* --- מחירים --- */
+function renderPricesPane() {
+  const box = document.getElementById('adminRows');
+  box.innerHTML = Object.entries(CFG.products).map(([k,p]) => `
+    <tr data-key="${k}">
+      <td><input type="text" class="a-name" value="${p.label}"></td>
+      <td><select class="a-unit">
+        <option value="sqm" ${p.unit==='sqm'?'selected':''}>מ״ר</option>
+        <option value="rm" ${p.unit==='rm'?'selected':''}>מטר רץ</option>
+      </select></td>
+      <td><input type="number" class="a-price" value="${p.price}" min="0"></td>
+      <td style="text-align:center"><input type="checkbox" class="a-electric" style="width:auto" ${p.hasElectric?'checked':''}></td>
+      <td><button class="del" onclick="deleteProduct('${k}')">×</button></td>
+    </tr>`).join('');
+  document.getElementById('adm-motor-sqm').value = CFG.motorSqm;
+  document.getElementById('adm-motor-rm').value = CFG.motorRm;
+  document.getElementById('adm-track-rm').value = CFG.trackRm;
+  document.getElementById('adm-install').value = CFG.installRate;
+  document.getElementById('adm-min').value = CFG.minCharge;
+}
+function renderAdmin() {
+  renderPricesPane();
+  renderContentPane();
+  renderGalleryAdmin();
+  document.getElementById('adm-terms-title').value = CONTENT.termsTitle;
+  document.getElementById('adm-terms').value = CONTENT.termsText;
+  document.getElementById('adm-pay-amount').value = CONTENT.payAmount;
+  document.getElementById('adm-pay-url').value = CONTENT.payUrl || '';
+}
 function collectAdmin() {
   document.querySelectorAll('#adminRows tr').forEach(tr => {
     const p = CFG.products[tr.dataset.key];
@@ -845,6 +1074,15 @@ function collectAdmin() {
   CFG.trackRm = parseFloat(document.getElementById('adm-track-rm').value) || 0;
   CFG.installRate = parseFloat(document.getElementById('adm-install').value) || 0;
   CFG.minCharge = parseFloat(document.getElementById('adm-min').value) || 0;
+  FIELDS.forEach(f => {
+    if (!f.k) return;
+    const el = document.getElementById('c-' + f.k);
+    if (el) CONTENT[f.k] = el.value;
+  });
+  CONTENT.termsTitle = document.getElementById('adm-terms-title').value;
+  CONTENT.termsText = document.getElementById('adm-terms').value;
+  CONTENT.payAmount = parseFloat(document.getElementById('adm-pay-amount').value) || 400;
+  CONTENT.payUrl = document.getElementById('adm-pay-url').value.trim();
 }
 function refreshQuoteSelects() {
   [...tbody.children].forEach(tr => {
@@ -856,25 +1094,25 @@ function refreshQuoteSelects() {
 }
 function saveAdmin() {
   collectAdmin();
-  persistConfig();
+  persist();
   refreshQuoteSelects();
-  flash('✓ נשמר ועודכן במחשבון');
+  applyContent();
+  flash('✓ נשמר ועודכן בדף. לפרסום לכל הגולשים — לשונית «פרסום»');
 }
 function addProduct() {
   const name = document.getElementById('np-name').value.trim();
   if (!name) { flash('יש להזין שם מוצר', true); return; }
-  collectAdmin(); /* לא לאבד עריכות פתוחות */
-  const key = 'p' + Date.now();
-  CFG.products[key] = {
+  collectAdmin();
+  CFG.products['p' + Date.now()] = {
     label: name,
     unit: document.getElementById('np-unit').value,
     price: parseFloat(document.getElementById('np-price').value) || 0,
     hasElectric: document.getElementById('np-electric').checked
   };
-  persistConfig();
+  persist();
   document.getElementById('np-name').value = '';
   document.getElementById('np-price').value = '';
-  renderAdmin();
+  renderPricesPane();
   refreshQuoteSelects();
   flash('✓ המוצר נוסף');
 }
@@ -882,39 +1120,45 @@ function deleteProduct(key) {
   if (Object.keys(CFG.products).length <= 1) return;
   collectAdmin();
   delete CFG.products[key];
-  persistConfig();
-  renderAdmin();
+  persist();
+  renderPricesPane();
   refreshQuoteSelects();
   flash('✓ המוצר הוסר');
 }
 function resetAdmin() {
-  CFG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
-  persistConfig();
+  if (!confirm('לאפס את כל התוכן והמחירים לברירת המחדל?')) return;
+  CFG = JSON.parse(JSON.stringify(PRICES_DEFAULT));
+  CONTENT = JSON.parse(JSON.stringify(CONTENT_DEFAULT));
+  persist();
   renderAdmin();
   refreshQuoteSelects();
+  applyContent();
   flash('✓ אופס לברירת מחדל');
 }
 function flash(msg, err) {
   const f = document.getElementById('savedFlash');
   f.textContent = msg;
   f.style.color = err ? '#a33' : '#1d7a3e';
-  setTimeout(()=>{ f.textContent=''; }, 2500);
+  setTimeout(()=>{ f.textContent=''; }, 3000);
 }
 
-/* ============ מודאל לידים ============ */
-let currentModal = null;
-function openModal(kind) {
-  currentModal = kind;
-  const pfx = kind === 'visit' ? 'm_visit' : 'm_res';
-  document.getElementById('modalTitle').textContent = t(pfx + '_t');
-  document.getElementById('modalText').textContent = t(pfx + '_x');
-  document.getElementById('modalBtn').textContent = t(pfx + '_b');
-  document.getElementById('modalBg').classList.add('open');
-}
-function closeModal() { document.getElementById('modalBg').classList.remove('open'); }
-function submitModal() {
-  closeModal();
-  alert(currentModal === 'reserve' ? t('a_res') : t('a_visit'));
+/* --- פרסום: יצירת index.html מעודכן --- */
+function exportSite() {
+  collectAdmin();
+  persist();
+  fetch(location.href.split('#')[0])
+    .then(r => r.text())
+    .then(src => {
+      src = src.replace(/\/\*PJSON\*\/[\s\S]*?\/\*PJSONEND\*\//, '/*PJSON*/' + JSON.stringify(CFG, null, 1) + '/*PJSONEND*/');
+      src = src.replace(/\/\*CJSON\*\/[\s\S]*?\/\*CJSONEND\*\//, '/*CJSON*/' + JSON.stringify(CONTENT, null, 1) + '/*CJSONEND*/');
+      const blob = new Blob([src], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'index.html';
+      a.click();
+      flash('✓ הקובץ ירד — העלו אותו ל-GitHub');
+    })
+    .catch(() => flash('הייצוא עובד רק מהאתר החי (לא מקובץ מקומי)', true));
 }
 
 /* ============ אתחול ============ */
@@ -922,5 +1166,10 @@ applyI18n();
 addRow({ room:'living', w:400, h:260 });
 addRow({ room:'bedroom', w:240, h:260 });
 </script>
+
+
+
+
+
 </body>
 </html>
