@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MIRIAM · מגדלי כיכר המדינה — הטבה בלעדית לדיירים</title>
+<meta name="description" content="הטבה בלעדית לדיירי מגדלי כיכר המדינה: וילונות ופתרונות הצללה מעוצבים בהתאמה אישית במחירי פרויקט, כולל ייעוץ, מדידה והתקנה מקצועית. MIRIAM House of Design.">
+<meta property="og:title" content="מגדלי כיכר המדינה · הטבה בלעדית לדיירים — MIRIAM">
+<meta property="og:description" content="בנו הצעת מחיר לוילונות הדירה החדשה שלכם תוך דקה — מחירי פרויקט בלעדיים, מדידה והתקנה מקצועית.">
+<meta property="og:image" content="https://cdn-cms2.ashtrom.co.il/media/ogvpxcj3/images-projects-2026-02-03t105353398.png">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Archivo:wght@700;800&display=swap" rel="stylesheet">
 <style>
@@ -252,9 +257,9 @@
       <div class="loc" data-c="heroLoc"></div>
       <p class="sub" data-c="heroSub"></p>
       <div class="stats">
-        <div class="stat"><b>3</b><span data-i18n="stat_towers"></span></div>
-        <div class="stat"><b>453</b><span data-i18n="stat_units"></span></div>
-        <div class="stat"><b>40</b><span data-i18n="stat_floors"></span></div>
+        <div class="stat"><b data-c="stat1n"></b><span data-c="stat1l"></span></div>
+        <div class="stat"><b data-c="stat2n"></b><span data-c="stat2l"></span></div>
+        <div class="stat"><b data-c="stat3n"></b><span data-c="stat3l"></span></div>
       </div>
       <div class="hero-actions">
         <button class="btn btn-solid" onclick="go('config')" data-i18n="hero_cta1"></button>
@@ -399,15 +404,15 @@
   <div class="services-row">
     <div class="srv">
       <img class="sicon" src="https://www.miriam.co.il/cdn/shop/files/1.png" alt="">
-      <b data-i18n="srv1t"></b><p data-i18n="srv1p"></p>
+      <b data-c="srv1t"></b><p data-c="srv1p"></p>
     </div>
     <div class="srv">
       <img class="sicon" src="https://www.miriam.co.il/cdn/shop/files/3.png" alt="">
-      <b data-i18n="srv2t"></b><p data-i18n="srv2p"></p>
+      <b data-c="srv2t"></b><p data-c="srv2p"></p>
     </div>
     <div class="srv">
       <img class="sicon" src="https://www.miriam.co.il/cdn/shop/files/2.png" alt="">
-      <b data-i18n="srv3t"></b><p data-i18n="srv3p"></p>
+      <b data-c="srv3t"></b><p data-c="srv3p"></p>
     </div>
   </div>
 </div>
@@ -578,6 +583,15 @@ const CONTENT_DEFAULT = /*CJSON*/{
   "heroTitle": "מגדלי כיכר המדינה",
   "heroLoc": "תל אביב־יפו · כיכר המדינה",
   "heroSub": "וילונות ופתרונות הצללה מעוצבים בהתאמה אישית לדירתכם החדשה — במחירי פרויקט מיוחדים, כולל ייעוץ, מדידה והתקנה מקצועית.",
+  "stat1n": "3", "stat1l": "מגדלי מגורים",
+  "stat2n": "453", "stat2l": "יחידות דיור",
+  "stat3n": "40", "stat3l": "קומות",
+  "srv1t": "אולם התצוגה",
+  "srv1p": "יחד עם הצוות המקצועי שלנו נוכל באולם התצוגה לבחור לכם את העיצוב, הבד ושיטת ההתקנה המתאימה ביותר לבית שלכם",
+  "srv2t": "מדידה מקצועית",
+  "srv2p": "אצלנו בחברה קיים השירות ליעוץ ומדידה אצלכם בבית לאחר ביצוע ההזמנה. נבדוק את התאורה וההצללה הכי נכונה ונוודא שהכל מדויק",
+  "srv3t": "התקנה מקצועית",
+  "srv3p": "תנו למקצוענים שלנו לעשות את מה שהם עושים הכי טוב. לאחר ההזמנה ניתן להזמין שירות התקנה מקצועי מצוות המומחים שלנו",
   "aboutTitle": "החלון שלכם, היצירה שלנו",
   "aboutLead": "בית עיצוב ישראלי המתמחה בווילונות ופתרונות הצללה בהתאמה אישית, הממשיך את המסורת והניסיון של וילונות מרים אורגון. אנו משלבים עיצוב מוקפד, טכנולוגיה מתקדמת וחומרי גלם מהאיכות הגבוהה ביותר — לבתים פרטיים, משרדים ופרויקטים אדריכליים.",
   "check1": "איכות ללא פשרות — תפירה מקצועית וגימור מושלם, עמידות לאורך שנים",
@@ -586,7 +600,7 @@ const CONTENT_DEFAULT = /*CJSON*/{
   "check4": "אחריות רשמית ומלאה — שירות והתקנה בפריסה ארצית",
   "aboutImg": "https://www.miriam.co.il/cdn/shop/files/WhatsApp_2024-08-25_18.02.06_94cc69a5.jpg?v=1725979388&width=900",
   "featKicker": "פרויקט נבחר",
-  "featTitle": "מלון היאכטה · פתאל, מרינה הרצליה",
+  "featTitle": "THE YACHT — By Fattal · Limited Edition",
   "featText": "בפרויקט הדגל האחרון שלנו נבחרנו ללוות את מלון היאכטה של רשת פתאל במרינה הרצליה — פרויקט מלונאות יוקרתי שבו כל חדר פונה אל הים. תכננו, תפרנו והתקנו מאות פתרונות הצללה בהתאמה מלאה לסטנדרט המלונאי המחמיר: בדים עמידים, גימור מושלם ולוחות זמנים מדויקים. זה הניסיון שאנחנו מביאים גם לדירה שלכם במגדלי כיכר המדינה.",
   "featImg": "https://www.miriam.co.il/cdn/shop/files/3bdba103a9f2882d665a347d017b1b31_c15c8287-7ae3-4558-9343-164c4447c847.webp?v=1768863300&width=1200",
   "motionKicker": "וילונות חשמליים חכמים",
@@ -607,6 +621,8 @@ const CONTENT_DEFAULT = /*CJSON*/{
     { "src": "https://www.miriam.co.il/cdn/shop/files/NAXOS-0200-Window-Double-Roller.jpg?v=1775390724&width=900", "cap": "דאבל רולר" },
     { "src": "https://www.miriam.co.il/cdn/shop/files/1773598891_0.jpg?v=1775025241&width=900", "cap": "תריס ונציאני עץ" },
     { "src": "https://www.miriam.co.il/cdn/shop/files/HONEYCOMB1.jpg?v=1775391624&width=900", "cap": "דואט Honeycomb" },
+    { "src": "https://www.miriam.co.il/cdn/shop/files/Large-web-RF-Bhutan-0200-sand-Roman-L_2024-11-29-090714_ipim.webp?v=1774945381&width=900", "cap": "רומאי קלאסי" },
+    { "src": "https://www.miriam.co.il/cdn/shop/files/2661e238-e7a8-44c2-94d9-cf890db9da90-at800.jpg?v=1775391987&width=900", "cap": "רומאי רך" },
     { "src": "https://www.miriam.co.il/cdn/shop/files/Home-decor_Web-R.jpg?v=1774945931&width=900", "cap": "וילונות פאנלים" }
   ],
   "galKicker": "הפרויקטים שלנו",
@@ -628,13 +644,13 @@ const CONTENT_DEFAULT = /*CJSON*/{
   "leadEmail": "mor@miriam.co.il",
   "visitImg": "https://www.miriam.co.il/cdn/shop/files/1.-showroom.jpg?width=1400",
   "termsTitle": "תקנון ותנאי שימוש",
-  "termsText": "1. כללי\nהאתר מופעל על ידי MIRIAM House of Design (להלן: «החברה»). השימוש באתר ובמחשבון הצעת המחיר כפוף לתנאים אלה.\n\n2. ההטבה\nהמחירים המוצגים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה בלבד, ובתוקף עד להודעה חדשה. החברה רשאית לעדכן את המחירון בכל עת.\n\n3. הצעת המחיר\nהחישוב באתר מהווה הערכה בלבד על בסיס המידות שהוזנו על ידי הלקוח. ההצעה הסופית תיקבע לאחר מדידה מקצועית בדירה על ידי מודד מטעם החברה. כל המחירים לפני מע״מ אלא אם צוין אחרת.\n\n4. שריון מחיר ומקדמה\nשריון המחיר מתבצע באמצעות תשלום מקדמה. המקדמה מתקזזת במלואה מסכום ההזמנה הסופי. ביטול בהתאם לחוק הגנת הצרכן, התשמ״א-1981 — ניתן לבטל עסקה בתוך 14 יום ממועד התשלום ולקבל החזר מלא, בניכוי דמי ביטול כדין.\n\n5. אספקה והתקנה\nמועדי האספקה וההתקנה ייקבעו מול הלקוח לאחר המדידה. החברה מתחייבת לעמידה בלוחות הזמנים שיסוכמו בהזמנה הסופית.\n\n6. אחריות\nעל כל המוצרים חלה אחריות יצרן רשמית ומלאה בהתאם לתעודת האחריות שתימסר עם ההתקנה.\n\n7. פרטיות\nהפרטים הנמסרים באתר משמשים ליצירת קשר ולטיפול בהזמנה בלבד, ולא יועברו לצד שלישי למעט לצורך השלמת העסקה.\n\n8. יצירת קשר\nלשאלות ובירורים: אולם התצוגה — לח״י 2, בני ברק, מתחם דן דיזיין סנטר.\nטלפון: 03-5509795 · מייל: office@miriam.co.il",
+  "termsText": "1. כללי\nהאתר מופעל על ידי MIRIAM House of Design (להלן: «החברה»). השימוש באתר ובמחשבון הצעת המחיר כפוף לתנאים אלה.\n\n2. ההטבה\nהמחירים המוצגים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה בלבד, ובתוקף עד להודעה חדשה. החברה רשאית לעדכן את המחירון בכל עת.\n\n3. הצעת המחיר\nהחישוב באתר מהווה הערכה בלבד על בסיס המידות שהוזנו על ידי הלקוח. ההצעה הסופית תיקבע לאחר מדידה מקצועית בדירה על ידי מודד מטעם החברה. כל המחירים כוללים מע״מ אלא אם צוין אחרת.\n\n4. שריון מחיר ומקדמה\nשריון המחיר מתבצע באמצעות תשלום מקדמה. המקדמה מתקזזת במלואה מסכום ההזמנה הסופי. ביטול בהתאם לחוק הגנת הצרכן, התשמ״א-1981 — ניתן לבטל עסקה בתוך 14 יום ממועד התשלום ולקבל החזר מלא, בניכוי דמי ביטול כדין.\n\n5. אספקה והתקנה\nמועדי האספקה וההתקנה ייקבעו מול הלקוח לאחר המדידה. החברה מתחייבת לעמידה בלוחות הזמנים שיסוכמו בהזמנה הסופית.\n\n6. אחריות\nעל כל המוצרים חלה אחריות יצרן רשמית ומלאה בהתאם לתעודת האחריות שתימסר עם ההתקנה.\n\n7. פרטיות\nהפרטים הנמסרים באתר משמשים ליצירת קשר ולטיפול בהזמנה בלבד, ולא יועברו לצד שלישי למעט לצורך השלמת העסקה.\n\n8. יצירת קשר\nלשאלות ובירורים: אולם התצוגה — לח״י 2, בני ברק, מתחם דן דיזיין סנטר.\nטלפון: 03-5509795 · מייל: office@miriam.co.il",
   "payAmount": 400,
   "payUrl": ""
 }/*CJSONEND*/;
 
 const PRICES_KEY = 'miriam-towers-prices-v4';
-const CONTENT_KEY = 'miriam-towers-content-v2';
+const CONTENT_KEY = 'miriam-towers-content-v3';
 const ADMIN_HASH = '2e7b4cdf720c0d4e19c6cbcba53f4ca099fd1094c36303cd9e7194b559511daf';
 
 function loadJSON(key, def) {
@@ -658,14 +674,14 @@ const I18N = {
     hero_cta1:'בנו הצעת מחיר לדירה שלכם', hero_cta2:'לתיאום פגישה באולם התצוגה',
     cfg_kicker:'הטבת דיירי מגדלי כיכר המדינה', cfg_title:'בנו הצעת מחיר לדירה שלכם',
     cfg_lead:'בחרו מוצר, ציינו את החלל והזינו מידות — המחיר מחושב מיידית לפי מחירון הפרויקט הבלעדי.',
-    th_product:'מוצר', th_room:'חלל', th_width:'רוחב (ס״מ)', th_height:'גובה (ס״מ)', th_op:'הפעלה', th_price:'מחיר (לפני מע״מ)',
+    th_product:'מוצר', th_room:'חלל', th_width:'רוחב (ס״מ)', th_height:'גובה (ס״מ)', th_op:'הפעלה', th_price:'מחיר (כולל מע״מ)',
     ph_width:'רוחב', ph_height:'גובה', op_manual:'ידני', op_electric:'חשמלי',
     add_row:'+ הוסיפו חלון נוסף', sum_title:'סה״כ הזמנה',
-    sum_note:'המחירים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה, לפני מע״מ. הובלה והתקנה מחושבות לפי סך רוחבי החלונות. ההצעה כפופה למדידה מקצועית בדירה.',
+    sum_note:'המחירים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה, כוללים מע״מ. הובלה והתקנה מחושבות לפי סך רוחבי החלונות. ההצעה כפופה למדידה מקצועית בדירה.',
     empty_sum:'הזינו רוחב וגובה כדי לראות את סיכום ההזמנה',
-    inst_line:'הובלה והתקנה ({m} מ׳ רוחב)', excl_vat:'לפני מע״מ',
-    elec_add_sqm:'כולל תוספת מנוע {x} · לפני מע״מ', elec_add_rm:'כולל מנוע ומסילה חשמלית {x} · לפני מע״מ',
-    total_sub:'לפני מע״מ · כולל הובלה והתקנה',
+    inst_line:'הובלה והתקנה ({m} מ׳ רוחב)', excl_vat:'כולל מע״מ',
+    elec_add_sqm:'כולל תוספת מנוע {x} · כולל מע״מ', elec_add_rm:'כולל מנוע ומסילה חשמלית {x} · כולל מע״מ',
+    total_sub:'כולל מע״מ · כולל הובלה והתקנה',
     cta_reserve:'שריינו את מחיר ההזמנה', cta_visit:'תיאום פגישה באולם התצוגה',
     cta_sub:'שריון המחיר מתבצע באמצעות מקדמה סמלית המתקזזת מסכום ההזמנה הסופי.',
     visit_kicker:'אולם התצוגה',
@@ -693,14 +709,14 @@ const I18N = {
     hero_cta1:'Build your quote', hero_cta2:'Book a showroom visit',
     cfg_kicker:'Kikar Hamedina Towers residents’ offer', cfg_title:'Build a quote for your apartment',
     cfg_lead:'Choose a product, select the room and enter dimensions — pricing is calculated instantly per the exclusive project price list.',
-    th_product:'Product', th_room:'Room', th_width:'Width (cm)', th_height:'Height (cm)', th_op:'Operation', th_price:'Price (excl. VAT)',
+    th_product:'Product', th_room:'Room', th_width:'Width (cm)', th_height:'Height (cm)', th_op:'Operation', th_price:'Price (incl. VAT)',
     ph_width:'Width', ph_height:'Height', op_manual:'Manual', op_electric:'Motorized',
     add_row:'+ Add another window', sum_title:'ORDER TOTAL',
-    sum_note:'Prices are exclusive project rates for Kikar Hamedina Towers residents, excluding VAT. Delivery & installation are calculated by total window width. Quote is subject to professional on-site measurement.',
+    sum_note:'Prices are exclusive project rates for Kikar Hamedina Towers residents, including VAT. Delivery & installation are calculated by total window width. Quote is subject to professional on-site measurement.',
     empty_sum:'Enter width and height to see your order summary',
-    inst_line:'Delivery & installation ({m} m width)', excl_vat:'excl. VAT',
-    elec_add_sqm:'incl. motor add-on {x} · excl. VAT', elec_add_rm:'incl. motor & electric track {x} · excl. VAT',
-    total_sub:'excl. VAT · incl. delivery & installation',
+    inst_line:'Delivery & installation ({m} m width)', excl_vat:'incl. VAT',
+    elec_add_sqm:'incl. motor add-on {x} · incl. VAT', elec_add_rm:'incl. motor & electric track {x} · incl. VAT',
+    total_sub:'incl. VAT · incl. delivery & installation',
     cta_reserve:'Reserve your price', cta_visit:'Book a showroom visit',
     cta_sub:'Price reservation is secured with a small deposit, credited toward your final order.',
     visit_kicker:'THE SHOWROOM',
@@ -730,7 +746,11 @@ const I18N = {
       check2:'Made in Israel — all our products are manufactured locally with innovative technology',
       check3:'Fair pricing — with exclusive project rates for Kikar Hamedina Towers residents',
       check4:'Full official warranty — nationwide service and installation',
-      featKicker:'FEATURED PROJECT', featTitle:'The Yacht Hotel · Fattal, Herzliya Marina',
+      featKicker:'FEATURED PROJECT', featTitle:'THE YACHT — By Fattal · Limited Edition',
+      stat1n:'3', stat1l:'Residential towers', stat2n:'453', stat2l:'Residences', stat3n:'40', stat3l:'Floors',
+      srv1t:'The Showroom', srv1p:'Together with our professional team, choose the design, fabric and installation method that suit your home best',
+      srv2t:'Professional Measurement', srv2p:'We provide in-home consultation and measurement after your order is placed — verifying light, shading and precision',
+      srv3t:'Professional Installation', srv3p:'Let our professionals do what they do best — expert installation by our specialist team after your order',
       featText:'In our latest flagship project, we were selected to outfit the Fattal Group’s yacht hotel at the Herzliya Marina — a luxury hospitality project where every room faces the sea. We designed, tailored and installed hundreds of shading solutions to the most demanding hotel standard: durable fabrics, flawless finish and precise timelines. That is the experience we bring to your apartment at Kikar Hamedina Towers.',
       motionKicker:'SMART MOTORIZED CURTAINS', motionTitle:'MotionBlinds motors by Coulisse',
       motionLead:'We work with Coulisse of the Netherlands — a global leader in window coverings — and install its MotionBlinds motors: the new generation of smart motorized shades, exceptionally quiet and effortless to operate. The motor hides inside the tube — no visible cables, no noise.',
@@ -772,10 +792,11 @@ function renderGallery() {
 }
 function renderGrid(elId, listKey) {
   const grid = document.getElementById(elId);
+  const showCap = listKey !== 'gallery'; /* בפרויקטים — תמונות נקיות בלי טקסט */
   grid.innerHTML = (CONTENT[listKey] || []).map((g,i) => `
     <div class="gitem" onclick="openLightbox('${listKey}',${i})">
       <img src="${g.src}" loading="lazy" alt="${g.cap || ''}">
-      ${g.cap ? `<div class="cap">${g.cap}</div>` : ''}
+      ${showCap && g.cap ? `<div class="cap">${g.cap}</div>` : ''}
     </div>`).join('');
 }
 function openLightbox(listKey, i) {
@@ -994,6 +1015,13 @@ const FIELDS = [
   { k:'heroTitle', l:'כותרת ראשית', t:'text' },
   { k:'heroLoc', l:'מיקום', t:'text' },
   { k:'heroSub', l:'פסקת פתיחה', t:'area' },
+  { k:'stat1n', l:'נתון 1 — מספר', t:'text' }, { k:'stat1l', l:'נתון 1 — תיאור', t:'text' },
+  { k:'stat2n', l:'נתון 2 — מספר', t:'text' }, { k:'stat2l', l:'נתון 2 — תיאור', t:'text' },
+  { k:'stat3n', l:'נתון 3 — מספר', t:'text' }, { k:'stat3l', l:'נתון 3 — תיאור', t:'text' },
+  { h:'פס שירותים (מעל הפוטר)' },
+  { k:'srv1t', l:'שירות 1 — כותרת', t:'text' }, { k:'srv1p', l:'שירות 1 — טקסט', t:'area' },
+  { k:'srv2t', l:'שירות 2 — כותרת', t:'text' }, { k:'srv2p', l:'שירות 2 — טקסט', t:'area' },
+  { k:'srv3t', l:'שירות 3 — כותרת', t:'text' }, { k:'srv3p', l:'שירות 3 — טקסט', t:'area' },
   { h:'אודות' },
   { k:'aboutTitle', l:'כותרת', t:'text' },
   { k:'aboutLead', l:'פסקה', t:'area' },
