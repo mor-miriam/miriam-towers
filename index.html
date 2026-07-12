@@ -150,7 +150,8 @@
   footer .flogo { font-family:'Archivo',sans-serif; font-weight:800; color:var(--white); font-size:20px; letter-spacing:.02em; margin-bottom:2px; }
   footer .flogo small { display:block; font-size:11px; letter-spacing:.06em; }
   footer a.terms-link { color:rgba(255,255,255,.6); text-decoration:underline; cursor:pointer; }
-  footer .admin-link { margin-top:22px; }
+  footer .admin-link { margin-top:22px; display:none; }
+  footer .admin-link.show { display:block; }
   footer .admin-link button { background:none; border:none; color:rgba(255,255,255,.35); font-family:inherit; font-size:12px; cursor:pointer; letter-spacing:.08em; }
   footer .admin-link button:hover { color:rgba(255,255,255,.7); }
 
@@ -489,7 +490,7 @@
   <div data-c="visitAddr"></div>
   <div style="margin-top:6px; opacity:.6" data-i18n="footer2"></div>
   <div style="margin-top:10px"><a class="terms-link" onclick="openTerms()" data-i18n="terms_link"></a></div>
-  <div class="admin-link"><button onclick="openAdmin()">⚙ פאנל ניהול</button></div>
+  <div class="admin-link" id="adminLink"><button onclick="openAdmin()">⚙ פאנל ניהול</button></div>
 </footer>
 <!-- וואטסאפ צף -->
 <a id="waBtn" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
@@ -733,13 +734,13 @@ const CONTENT_DEFAULT = /*CJSON*/{
   "waMsg": "היי, אני דייר/ת במגדלי כיכר המדינה ואשמח לפרטים על הטבת הוילונות",
   "visitImg": "https://www.miriam.co.il/cdn/shop/files/1.-showroom.jpg?width=1400",
   "termsTitle": "תקנון ותנאי שימוש",
-  "termsText": "1. כללי\nהאתר מופעל על ידי MIRIAM House of Design (להלן: «החברה»). השימוש באתר ובמחשבון הצעת המחיר כפוף לתנאים אלה.\n\n2. ההטבה\nהמחירים המוצגים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה בלבד, ובתוקף עד להודעה חדשה. החברה רשאית לעדכן את המחירון בכל עת.\n\n3. הצעת המחיר\nהחישוב באתר מהווה הערכה בלבד על בסיס המידות שהוזנו על ידי הלקוח. ההצעה הסופית תיקבע לאחר מדידה מקצועית בדירה על ידי מודד מטעם החברה. כל המחירים כוללים מע״מ אלא אם צוין אחרת.\n\n4. שריון מחיר ותשלום מקדמה\nשריון המחיר מתבצע באמצעות תשלום מקדמה מאובטח. סכום המקדמה מתקזז במלואו מסכום ההזמנה הסופית. לאחר התשלום תישלח ללקוח הודעת אישור, ונציג מטעמנו יצור קשר לתיאום מדידה מקצועית בדירה. שריון המחיר מקבע את מחירי הפרויקט עבור הלקוח. ביטול — בהתאם לחוק הגנת הצרכן, התשמ״א-1981: ניתן לבטל את העסקה בתוך 14 יום ממועד התשלום ולקבל החזר מלא של המקדמה, בניכוי דמי ביטול כדין.\n\n5. אספקה והתקנה\nמועדי האספקה וההתקנה ייקבעו מול הלקוח לאחר המדידה. החברה מתחייבת לעמידה בלוחות הזמנים שיסוכמו בהזמנה הסופית.\n\n6. אחריות\nעל כל המוצרים חלה אחריות יצרן רשמית ומלאה בהתאם לתעודת האחריות שתימסר עם ההתקנה.\n\n7. פרטיות\nהפרטים הנמסרים באתר משמשים ליצירת קשר ולטיפול בהזמנה בלבד, ולא יועברו לצד שלישי למעט לצורך השלמת העסקה.\n\n8. יצירת קשר\nלשאלות ובירורים: אולם התצוגה — לח״י 2, בני ברק, מתחם דן דיזיין סנטר.\nטלפון: 03-5509795 · מייל: office@miriam.co.il",
+  "termsText": "1. כללי\nהאתר מופעל על ידי וילונות מרים עזרא בע״מ, ח.פ 516573516 — MIRIAM House of Design (להלן: «החברה»). השימוש באתר ובמחשבון הצעת המחיר כפוף לתנאים אלה.\n\n2. ההטבה\nהמחירים המוצגים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה בלבד, ובתוקף עד להודעה חדשה. החברה רשאית לעדכן את המחירון בכל עת.\n\n3. הצעת המחיר\nהחישוב באתר מהווה הערכה בלבד על בסיס המידות שהוזנו על ידי הלקוח. ההצעה הסופית תיקבע לאחר מדידה מקצועית בדירה על ידי מודד מטעם החברה. כל המחירים כוללים מע״מ אלא אם צוין אחרת.\n\n4. שריון מחיר ותשלום מקדמה\nשריון המחיר מתבצע באמצעות תשלום מקדמה מאובטח. סכום המקדמה מתקזז במלואו מסכום ההזמנה הסופית. לאחר התשלום תישלח ללקוח הודעת אישור, ונציג מטעמנו יצור קשר לתיאום מדידה מקצועית בדירה. שריון המחיר מקבע את מחירי הפרויקט עבור הלקוח. ביטול — בהתאם לחוק הגנת הצרכן, התשמ״א-1981: ניתן לבטל את העסקה בתוך 14 יום ממועד התשלום ולקבל החזר מלא של המקדמה, בניכוי דמי ביטול כדין.\n\n5. אספקה והתקנה\nמועדי האספקה וההתקנה ייקבעו מול הלקוח לאחר המדידה. החברה מתחייבת לעמידה בלוחות הזמנים שיסוכמו בהזמנה הסופית.\n\n6. אחריות\nעל כל המוצרים חלה אחריות יצרן רשמית ומלאה בהתאם לתעודת האחריות שתימסר עם ההתקנה.\n\n7. פרטיות\nהפרטים הנמסרים באתר משמשים ליצירת קשר ולטיפול בהזמנה בלבד, ולא יועברו לצד שלישי למעט לצורך השלמת העסקה.\n\n8. יצירת קשר\nלשאלות ובירורים: אולם התצוגה — לח״י 2, בני ברק, מתחם דן דיזיין סנטר.\nטלפון: 03-5509795 · מייל: office@miriam.co.il\nוילונות מרים עזרא בע״מ · ח.פ 516573516",
   "payAmount": 400,
   "payUrl": ""
 }/*CJSONEND*/;
 
 const PRICES_KEY = 'miriam-towers-prices-v4';
-const CONTENT_KEY = 'miriam-towers-content-v6';
+const CONTENT_KEY = 'miriam-towers-content-v7';
 /* שליחה למאנדיי דרך Make — ליד או הזמנה */
 function sendToMake(payload) {
   if (!CONTENT.webhookUrl) return Promise.resolve();
@@ -1468,6 +1469,12 @@ function sendOrderIfPaid() {
 }
 
 /* ============ אתחול ============ */
+/* כפתור פאנל הניהול מוסתר — נגיש רק בכתובת עם #admin בסוף */
+function checkAdminHash() {
+  if (location.hash === '#admin') document.getElementById('adminLink').classList.add('show');
+}
+window.addEventListener('hashchange', checkAdminHash);
+checkAdminHash();
 applyI18n();
 sendOrderIfPaid();
 /* שורות פתיחה ללא מידות — המחיר מופיע רק לאחר הזנת רוחב וגובה */
