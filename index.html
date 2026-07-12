@@ -225,18 +225,74 @@
   .pub-steps { font-size:13.5px; color:#333; background:#fafafa; border:1px solid var(--line); border-radius:10px; padding:16px; line-height:2; }
 
   @media (max-width:900px) {
-    nav { padding:12px 18px; }
-    .nav-right { gap:12px; }
+    nav { padding:12px 16px; }
+    .nav-right { gap:12px; font-size:13px; }
     .nav-right .hide-m { display:none; }
+    .logo-side img { height:36px; }
+    .logo-text .l1 { font-size:16px; }
+    .logo-text .l2 { font-size:10.5px; }
     section { padding:60px 18px; }
-    .hero { padding:110px 18px 48px; }
-    .hero-grid { grid-template-columns:1fr; gap:32px; }
-    .stats { gap:28px; }
-    .services-row { grid-template-columns:repeat(2,1fr); gap:32px 20px; }
-    .about-grid, .visit-grid { grid-template-columns:1fr; gap:36px; }
-    .summary { grid-template-columns:1fr; padding:26px 22px; }
+    .hero { padding:104px 18px 44px; }
+    .hero-grid { grid-template-columns:1fr; gap:30px; }
+    .hero h1 { font-size:clamp(36px,10vw,48px); }
+    .hero-kicker { font-size:14px; padding:9px 22px; }
+    .stats { gap:24px; justify-content:space-between; }
+    .stat b { font-size:28px; }
+    .hero-actions .btn { width:100%; text-align:center; }
+    .hero-img img { max-height:420px; }
+    .services-row { grid-template-columns:1fr; gap:34px; }
+    .about-grid, .visit-grid { grid-template-columns:1fr; gap:32px; }
+    .about-img { aspect-ratio:4/3; }
+    .summary { grid-template-columns:1fr; padding:24px 18px; gap:18px; }
+    .summary .lines div { gap:16px; max-width:none; }
+    .summary .total { font-size:34px; }
+    .config-ctas .btn { width:100%; text-align:center; }
     .gallery-grid { grid-template-columns:repeat(2,1fr); gap:8px; }
     .new-product { grid-template-columns:1fr 1fr; }
+    .wa-float { width:52px; height:52px; bottom:16px; left:16px; }
+    .modal { padding:32px 22px; }
+  }
+
+  /* ===== מובייל: טבלת המחשבון הופכת לכרטיסים ===== */
+  @media (max-width:760px) {
+    .config-card { overflow-x:visible; border:none; background:none; }
+    table.quote { min-width:0; display:block; }
+    table.quote thead { display:none; }
+    table.quote tbody { display:block; }
+    table.quote tr {
+      display:grid; grid-template-columns:1fr 1fr; gap:10px;
+      background:var(--white); border:1px solid var(--line); border-radius:14px;
+      padding:44px 14px 14px; margin-bottom:12px; position:relative;
+    }
+    table.quote td { display:block; border:none; padding:0; }
+    table.quote td:nth-child(1) { grid-column:1 / -1; }   /* מוצר */
+    table.quote td:nth-child(2) { grid-column:1 / -1; }   /* חלל */
+    table.quote td:nth-child(3) { grid-column:1 / 2; }    /* רוחב */
+    table.quote td:nth-child(4) { grid-column:2 / 3; }    /* גובה */
+    table.quote td:nth-child(5) { grid-column:1 / -1; }   /* הפעלה */
+    td.price-cell {
+      grid-column:1 / -1; min-width:0; padding:10px 2px 0; text-align:start;
+      border-top:1px solid var(--line) !important; margin-top:2px;
+      display:flex; justify-content:space-between; align-items:baseline; gap:10px;
+    }
+    td.price-cell::before { content:'מחיר'; font-size:12.5px; color:var(--gray); font-weight:400; }
+    html[lang=en] td.price-cell::before { content:'Price'; }
+    td.price-cell small { text-align:end; }
+    table.quote td:nth-child(7) { position:absolute; top:6px; inset-inline-start:6px; }
+    .row-remove { font-size:20px; padding:8px 12px; }
+    .add-row { width:calc(100% - 0px); margin:4px 0 0; padding:14px; }
+    /* מניעת זום אוטומטי ב-iOS בעת הקלדה */
+    .quote select, .quote input, .modal input { font-size:16px; }
+    .cta-sub { font-size:14px; padding:0 6px; }
+    .feat-img, .motion-img { aspect-ratio:16/11; }
+    footer { padding:44px 18px 32px; }
+  }
+
+  @media (max-width:420px) {
+    .nav-cta { padding:8px 14px; font-size:12.5px; }
+    .lang-btn { padding:6px 10px; }
+    .gallery-grid { gap:6px; }
+    .stats { gap:14px; }
   }
 </style>
 </head>
