@@ -154,6 +154,17 @@
   footer .admin-link button { background:none; border:none; color:rgba(255,255,255,.35); font-family:inherit; font-size:12px; cursor:pointer; letter-spacing:.08em; }
   footer .admin-link button:hover { color:rgba(255,255,255,.7); }
 
+  /* כפתור וואטסאפ צף */
+  .wa-float {
+    position:fixed; bottom:22px; left:22px; z-index:150;
+    width:58px; height:58px; border-radius:50%; background:#25D366;
+    display:none; align-items:center; justify-content:center;
+    box-shadow:0 6px 22px rgba(37,211,102,.45); transition:transform .2s ease;
+  }
+  .wa-float:hover { transform:scale(1.08); }
+  .wa-float svg { width:32px; height:32px; fill:#fff; }
+  html[dir=ltr] .wa-float { left:auto; right:22px; }
+
   .modal-bg { position:fixed; inset:0; background:rgba(17,17,17,.45); z-index:200; display:none; align-items:center; justify-content:center; padding:24px; }
   .modal-bg.open { display:flex; }
   .modal { background:var(--white); border-radius:10px; max-width:460px; width:100%; padding:40px 36px; text-align:center; position:relative; max-height:88vh; overflow-y:auto; }
@@ -424,6 +435,11 @@
   <div style="margin-top:10px"><a class="terms-link" onclick="openTerms()" data-i18n="terms_link"></a></div>
   <div class="admin-link"><button onclick="openAdmin()">⚙ פאנל ניהול</button></div>
 </footer>
+<!-- וואטסאפ צף -->
+<a id="waBtn" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.5c1.7.9 3.6 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.8 0-3.5-.5-5-1.3l-.4-.2-4.9.9.9-4.7-.2-.4C5.5 17.8 5 16.4 5 15 5 9 9.9 4 16 4s11 5 11 11-4.9 10-11 10zm5.6-7.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.7-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.5-.4z"/></svg>
+</a>
+
 <!-- מודאל לידים + תשלום -->
 <div class="modal-bg" id="modalBg" onclick="if(event.target===this) closeModal()">
   <div class="modal">
@@ -538,6 +554,12 @@
     <input type="text" id="adm-pay-url" placeholder="https://... (ריק = מצב דמו)">
     <label class="flabel">מייל לקבלת בקשות תיאום פגישה</label>
     <input type="text" id="adm-lead-email">
+    <label class="flabel">מייל לוח מאנדיי (Create items via email) — כל ליד ייפתח כפריט בלוח</label>
+    <input type="text" id="adm-monday-email" placeholder="something@boards.monday.com">
+    <label class="flabel">מספר וואטסאפ לכפתור הצף (פורמט בינלאומי, למשל 972501234567)</label>
+    <input type="text" id="adm-wa-number" placeholder="ריק = הכפתור מוסתר">
+    <label class="flabel">הודעת פתיחה בוואטסאפ</label>
+    <input type="text" id="adm-wa-msg">
     <div class="sub" style="margin-top:10px">כשקישור הסליקה ריק, הכפתור מציג הודעת דמו. שליחת המיילים דרך FormSubmit — בפעם הראשונה יישלח אליכם מייל אימות חד־פעמי שיש לאשר.</div>
   </div>
 
@@ -642,6 +664,9 @@ const CONTENT_DEFAULT = /*CJSON*/{
   "pmName": "מור",
   "pmEmail": "mor@miriam.co.il",
   "leadEmail": "mor@miriam.co.il",
+  "mondayEmail": "",
+  "waNumber": "",
+  "waMsg": "היי, אני דייר/ת במגדלי כיכר המדינה ואשמח לפרטים על הטבת הוילונות",
   "visitImg": "https://www.miriam.co.il/cdn/shop/files/1.-showroom.jpg?width=1400",
   "termsTitle": "תקנון ותנאי שימוש",
   "termsText": "1. כללי\nהאתר מופעל על ידי MIRIAM House of Design (להלן: «החברה»). השימוש באתר ובמחשבון הצעת המחיר כפוף לתנאים אלה.\n\n2. ההטבה\nהמחירים המוצגים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה בלבד, ובתוקף עד להודעה חדשה. החברה רשאית לעדכן את המחירון בכל עת.\n\n3. הצעת המחיר\nהחישוב באתר מהווה הערכה בלבד על בסיס המידות שהוזנו על ידי הלקוח. ההצעה הסופית תיקבע לאחר מדידה מקצועית בדירה על ידי מודד מטעם החברה. כל המחירים כוללים מע״מ אלא אם צוין אחרת.\n\n4. שריון מחיר ומקדמה\nשריון המחיר מתבצע באמצעות תשלום מקדמה. המקדמה מתקזזת במלואה מסכום ההזמנה הסופי. ביטול בהתאם לחוק הגנת הצרכן, התשמ״א-1981 — ניתן לבטל עסקה בתוך 14 יום ממועד התשלום ולקבל החזר מלא, בניכוי דמי ביטול כדין.\n\n5. אספקה והתקנה\nמועדי האספקה וההתקנה ייקבעו מול הלקוח לאחר המדידה. החברה מתחייבת לעמידה בלוחות הזמנים שיסוכמו בהזמנה הסופית.\n\n6. אחריות\nעל כל המוצרים חלה אחריות יצרן רשמית ומלאה בהתאם לתעודת האחריות שתימסר עם ההתקנה.\n\n7. פרטיות\nהפרטים הנמסרים באתר משמשים ליצירת קשר ולטיפול בהזמנה בלבד, ולא יועברו לצד שלישי למעט לצורך השלמת העסקה.\n\n8. יצירת קשר\nלשאלות ובירורים: אולם התצוגה — לח״י 2, בני ברק, מתחם דן דיזיין סנטר.\nטלפון: 03-5509795 · מייל: office@miriam.co.il",
@@ -650,7 +675,7 @@ const CONTENT_DEFAULT = /*CJSON*/{
 }/*CJSONEND*/;
 
 const PRICES_KEY = 'miriam-towers-prices-v4';
-const CONTENT_KEY = 'miriam-towers-content-v3';
+const CONTENT_KEY = 'miriam-towers-content-v4';
 const ADMIN_HASH = '2e7b4cdf720c0d4e19c6cbcba53f4ca099fd1094c36303cd9e7194b559511daf';
 
 function loadJSON(key, def) {
@@ -785,6 +810,14 @@ function applyContent() {
   document.getElementById('visitImg').style.backgroundImage = `url('${CONTENT.visitImg}')`;
   renderGallery();
   document.getElementById('termsBody').textContent = CONTENT.termsText;
+  /* וואטסאפ צף — מוצג רק כשמוגדר מספר */
+  const wa = document.getElementById('waBtn');
+  if (CONTENT.waNumber) {
+    wa.href = 'https://wa.me/' + CONTENT.waNumber.replace(/\D/g,'') + '?text=' + encodeURIComponent(CONTENT.waMsg || '');
+    wa.style.display = 'flex';
+  } else {
+    wa.style.display = 'none';
+  }
 }
 function renderGallery() {
   renderGrid('galleryGrid', 'gallery');
@@ -953,13 +986,13 @@ function submitModal() {
   fetch('https://formsubmit.co/ajax/' + encodeURIComponent(CONTENT.leadEmail || 'mor@miriam.co.il'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify({
-      _subject: 'בקשת תיאום פגישה — דף נחיתה מגדלי כיכר המדינה',
+    body: JSON.stringify(Object.assign({
+      _subject: 'ליד חדש: ' + name + ' — מגדלי כיכר המדינה',
       'שם מלא': name,
       'טלפון': phone,
       'מגדל / קומה / דירה': apt || '-',
       'מקור': 'דף נחיתה — מגדלי כיכר המדינה'
-    })
+    }, CONTENT.mondayEmail ? { _cc: CONTENT.mondayEmail } : {}))
   })
   .then(r => r.json())
   .then(() => {
@@ -1168,6 +1201,9 @@ function renderAdmin() {
   document.getElementById('adm-pay-amount').value = CONTENT.payAmount;
   document.getElementById('adm-pay-url').value = CONTENT.payUrl || '';
   document.getElementById('adm-lead-email').value = CONTENT.leadEmail || '';
+  document.getElementById('adm-monday-email').value = CONTENT.mondayEmail || '';
+  document.getElementById('adm-wa-number').value = CONTENT.waNumber || '';
+  document.getElementById('adm-wa-msg').value = CONTENT.waMsg || '';
 }
 function collectAdmin() {
   document.querySelectorAll('#adminRows tr').forEach(tr => {
@@ -1193,6 +1229,9 @@ function collectAdmin() {
   CONTENT.payAmount = parseFloat(document.getElementById('adm-pay-amount').value) || 400;
   CONTENT.payUrl = document.getElementById('adm-pay-url').value.trim();
   CONTENT.leadEmail = document.getElementById('adm-lead-email').value.trim() || 'mor@miriam.co.il';
+  CONTENT.mondayEmail = document.getElementById('adm-monday-email').value.trim();
+  CONTENT.waNumber = document.getElementById('adm-wa-number').value.trim();
+  CONTENT.waMsg = document.getElementById('adm-wa-msg').value.trim();
 }
 function refreshQuoteSelects() {
   [...tbody.children].forEach(tr => {
