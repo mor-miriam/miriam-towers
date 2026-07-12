@@ -133,7 +133,7 @@
   .summary .total small { font-size:14px; font-weight:300; color:var(--gray); display:block; }
   .summary-note { grid-column:1 / -1; font-size:12.5px; color:var(--gray); border-top:1px solid var(--line); padding-top:14px; }
   .config-ctas { display:flex; gap:12px; justify-content:center; margin-top:36px; flex-wrap:wrap; }
-  .cta-sub { text-align:center; font-size:13px; color:var(--gray); margin-top:12px; }
+  .cta-sub { text-align:center; font-size:15px; color:#333; margin-top:14px; font-weight:400; }
 
   .visit-grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
   .visit-info { display:grid; gap:6px; margin-top:24px; font-size:15.5px; color:#333; }
@@ -512,9 +512,10 @@
       <div><label>מנוע — מוצרי מטר רץ ₪</label><input type="number" id="adm-motor-rm" min="0"></div>
       <div><label>מסילה חשמלית — ₪ למטר רץ</label><input type="number" id="adm-track-rm" min="0"></div>
     </div>
-    <div class="global">
+    <div class="global" style="grid-template-columns:1fr 1fr 1fr">
       <div><label>הובלה והתקנה — ₪ למטר רוחב</label><input type="number" id="adm-install" min="0"></div>
       <div><label>חיוב מינימלי לפריט (מטר / מ״ר)</label><input type="number" id="adm-min" min="0" step="0.1"></div>
+      <div><label>מע״מ %</label><input type="number" id="adm-vat" min="0" step="0.5"></div>
     </div>
   </div>
 
@@ -554,8 +555,10 @@
     <input type="text" id="adm-pay-url" placeholder="https://... (ריק = מצב דמו)">
     <label class="flabel">מייל לקבלת בקשות תיאום פגישה</label>
     <input type="text" id="adm-lead-email">
-    <label class="flabel">מייל לוח מאנדיי (Create items via email) — כל ליד ייפתח כפריט בלוח</label>
-    <input type="text" id="adm-monday-email" placeholder="something@boards.monday.com">
+    <label class="flabel">מייל לוח לידים במאנדיי — כל ליד ייפתח כפריט בלוח</label>
+    <input type="text" id="adm-monday-email" placeholder="something@mx.monday.com">
+    <label class="flabel">מייל לוח הצעות מחיר במאנדיי — הזמנות אחרי תשלום ייפתחו גם שם</label>
+    <input type="text" id="adm-quotes-email" placeholder="something@mx.monday.com">
     <label class="flabel">מספר וואטסאפ לכפתור הצף (פורמט בינלאומי, למשל 972501234567)</label>
     <input type="text" id="adm-wa-number" placeholder="ריק = הכפתור מוסתר">
     <label class="flabel">הודעת פתיחה בוואטסאפ</label>
@@ -597,7 +600,7 @@ const PRICES_DEFAULT = /*PJSON*/{
     "woodven":   { "label":"תריס ונציאני עץ",      "en":"Wood Venetian",      "unit":"sqm", "price":260, "hasElectric":false },
     "vertical":  { "label":"וילונות ורטיקלים",     "en":"Vertical Blinds",    "unit":"sqm", "price":130, "hasElectric":false }
   },
-  "motorSqm": 1200, "motorRm": 1000, "trackRm": 170, "installRate": 60, "minCharge": 1
+  "motorSqm": 1200, "motorRm": 1000, "trackRm": 170, "installRate": 60, "minCharge": 1, "vatRate": 18
 }/*PJSONEND*/;
 
 const CONTENT_DEFAULT = /*CJSON*/{
@@ -663,19 +666,20 @@ const CONTENT_DEFAULT = /*CJSON*/{
   "visitAddr": "לח״י 2, בני ברק — מתחם דן דיזיין סנטר",
   "pmName": "מור",
   "pmEmail": "mor@miriam.co.il",
-  "leadEmail": "mor@miriam.co.il",
-  "mondayEmail": "",
-  "waNumber": "",
+  "leadEmail": "office@miriam.co.il",
+  "mondayEmail": "miriamorgon-force_board_1574449599_6ed66be12f1e779abb07__63905784@euc1.mx.monday.com",
+  "quotesEmail": "",
+  "waNumber": "972775521871",
   "waMsg": "היי, אני דייר/ת במגדלי כיכר המדינה ואשמח לפרטים על הטבת הוילונות",
   "visitImg": "https://www.miriam.co.il/cdn/shop/files/1.-showroom.jpg?width=1400",
   "termsTitle": "תקנון ותנאי שימוש",
-  "termsText": "1. כללי\nהאתר מופעל על ידי MIRIAM House of Design (להלן: «החברה»). השימוש באתר ובמחשבון הצעת המחיר כפוף לתנאים אלה.\n\n2. ההטבה\nהמחירים המוצגים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה בלבד, ובתוקף עד להודעה חדשה. החברה רשאית לעדכן את המחירון בכל עת.\n\n3. הצעת המחיר\nהחישוב באתר מהווה הערכה בלבד על בסיס המידות שהוזנו על ידי הלקוח. ההצעה הסופית תיקבע לאחר מדידה מקצועית בדירה על ידי מודד מטעם החברה. כל המחירים כוללים מע״מ אלא אם צוין אחרת.\n\n4. שריון מחיר ומקדמה\nשריון המחיר מתבצע באמצעות תשלום מקדמה. המקדמה מתקזזת במלואה מסכום ההזמנה הסופי. ביטול בהתאם לחוק הגנת הצרכן, התשמ״א-1981 — ניתן לבטל עסקה בתוך 14 יום ממועד התשלום ולקבל החזר מלא, בניכוי דמי ביטול כדין.\n\n5. אספקה והתקנה\nמועדי האספקה וההתקנה ייקבעו מול הלקוח לאחר המדידה. החברה מתחייבת לעמידה בלוחות הזמנים שיסוכמו בהזמנה הסופית.\n\n6. אחריות\nעל כל המוצרים חלה אחריות יצרן רשמית ומלאה בהתאם לתעודת האחריות שתימסר עם ההתקנה.\n\n7. פרטיות\nהפרטים הנמסרים באתר משמשים ליצירת קשר ולטיפול בהזמנה בלבד, ולא יועברו לצד שלישי למעט לצורך השלמת העסקה.\n\n8. יצירת קשר\nלשאלות ובירורים: אולם התצוגה — לח״י 2, בני ברק, מתחם דן דיזיין סנטר.\nטלפון: 03-5509795 · מייל: office@miriam.co.il",
+  "termsText": "1. כללי\nהאתר מופעל על ידי MIRIAM House of Design (להלן: «החברה»). השימוש באתר ובמחשבון הצעת המחיר כפוף לתנאים אלה.\n\n2. ההטבה\nהמחירים המוצגים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה בלבד, ובתוקף עד להודעה חדשה. החברה רשאית לעדכן את המחירון בכל עת.\n\n3. הצעת המחיר\nהחישוב באתר מהווה הערכה בלבד על בסיס המידות שהוזנו על ידי הלקוח. ההצעה הסופית תיקבע לאחר מדידה מקצועית בדירה על ידי מודד מטעם החברה. כל המחירים כוללים מע״מ אלא אם צוין אחרת.\n\n4. שריון מחיר ותשלום מקדמה\nשריון המחיר מתבצע באמצעות תשלום מקדמה מאובטח. סכום המקדמה מתקזז במלואו מסכום ההזמנה הסופית. לאחר התשלום תישלח ללקוח הודעת אישור, ונציג מטעמנו יצור קשר לתיאום מדידה מקצועית בדירה. שריון המחיר מקבע את מחירי הפרויקט עבור הלקוח. ביטול — בהתאם לחוק הגנת הצרכן, התשמ״א-1981: ניתן לבטל את העסקה בתוך 14 יום ממועד התשלום ולקבל החזר מלא של המקדמה, בניכוי דמי ביטול כדין.\n\n5. אספקה והתקנה\nמועדי האספקה וההתקנה ייקבעו מול הלקוח לאחר המדידה. החברה מתחייבת לעמידה בלוחות הזמנים שיסוכמו בהזמנה הסופית.\n\n6. אחריות\nעל כל המוצרים חלה אחריות יצרן רשמית ומלאה בהתאם לתעודת האחריות שתימסר עם ההתקנה.\n\n7. פרטיות\nהפרטים הנמסרים באתר משמשים ליצירת קשר ולטיפול בהזמנה בלבד, ולא יועברו לצד שלישי למעט לצורך השלמת העסקה.\n\n8. יצירת קשר\nלשאלות ובירורים: אולם התצוגה — לח״י 2, בני ברק, מתחם דן דיזיין סנטר.\nטלפון: 03-5509795 · מייל: office@miriam.co.il",
   "payAmount": 400,
   "payUrl": ""
 }/*CJSONEND*/;
 
 const PRICES_KEY = 'miriam-towers-prices-v4';
-const CONTENT_KEY = 'miriam-towers-content-v4';
+const CONTENT_KEY = 'miriam-towers-content-v5';
 const ADMIN_HASH = '2e7b4cdf720c0d4e19c6cbcba53f4ca099fd1094c36303cd9e7194b559511daf';
 
 function loadJSON(key, def) {
@@ -699,14 +703,15 @@ const I18N = {
     hero_cta1:'בנו הצעת מחיר לדירה שלכם', hero_cta2:'לתיאום פגישה באולם התצוגה',
     cfg_kicker:'הטבת דיירי מגדלי כיכר המדינה', cfg_title:'בנו הצעת מחיר לדירה שלכם',
     cfg_lead:'בחרו מוצר, ציינו את החלל והזינו מידות — המחיר מחושב מיידית לפי מחירון הפרויקט הבלעדי.',
-    th_product:'מוצר', th_room:'חלל', th_width:'רוחב (ס״מ)', th_height:'גובה (ס״מ)', th_op:'הפעלה', th_price:'מחיר (כולל מע״מ)',
+    th_product:'מוצר', th_room:'חלל', th_width:'רוחב (ס״מ)', th_height:'גובה (ס״מ)', th_op:'הפעלה', th_price:'מחיר (לפני מע״מ)',
     ph_width:'רוחב', ph_height:'גובה', op_manual:'ידני', op_electric:'חשמלי',
-    add_row:'+ הוסיפו חלון נוסף', sum_title:'סה״כ הזמנה',
-    sum_note:'המחירים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה, כוללים מע״מ. הובלה והתקנה מחושבות לפי סך רוחבי החלונות. ההצעה כפופה למדידה מקצועית בדירה.',
+    add_row:'+ הוסיפו חלון נוסף', sum_title:'סה״כ לתשלום',
+    sum_note:'המחירים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה. הובלה והתקנה מחושבות לפי סך רוחבי החלונות. ההצעה כפופה למדידה מקצועית בדירה.',
     empty_sum:'הזינו רוחב וגובה כדי לראות את סיכום ההזמנה',
-    inst_line:'הובלה והתקנה ({m} מ׳ רוחב)', excl_vat:'כולל מע״מ',
-    elec_add_sqm:'כולל תוספת מנוע {x} · כולל מע״מ', elec_add_rm:'כולל מנוע ומסילה חשמלית {x} · כולל מע״מ',
-    total_sub:'כולל מע״מ · כולל הובלה והתקנה',
+    inst_line:'הובלה והתקנה ({m} מ׳ רוחב)', excl_vat:'לפני מע״מ',
+    elec_add_sqm:'כולל תוספת מנוע {x} · לפני מע״מ', elec_add_rm:'כולל מנוע ומסילה חשמלית {x} · לפני מע״מ',
+    sub_ex:'סה״כ ביניים (לפני מע״מ)', vat_line:'מע״מ ({p}%)',
+    total_sub:'כולל מע״מ, הובלה והתקנה',
     cta_reserve:'שריינו את מחיר ההזמנה', cta_visit:'תיאום פגישה באולם התצוגה',
     cta_sub:'שריון המחיר מתבצע באמצעות מקדמה סמלית המתקזזת מסכום ההזמנה הסופי.',
     visit_kicker:'אולם התצוגה',
@@ -734,14 +739,15 @@ const I18N = {
     hero_cta1:'Build your quote', hero_cta2:'Book a showroom visit',
     cfg_kicker:'Kikar Hamedina Towers residents’ offer', cfg_title:'Build a quote for your apartment',
     cfg_lead:'Choose a product, select the room and enter dimensions — pricing is calculated instantly per the exclusive project price list.',
-    th_product:'Product', th_room:'Room', th_width:'Width (cm)', th_height:'Height (cm)', th_op:'Operation', th_price:'Price (incl. VAT)',
+    th_product:'Product', th_room:'Room', th_width:'Width (cm)', th_height:'Height (cm)', th_op:'Operation', th_price:'Price (excl. VAT)',
     ph_width:'Width', ph_height:'Height', op_manual:'Manual', op_electric:'Motorized',
-    add_row:'+ Add another window', sum_title:'ORDER TOTAL',
-    sum_note:'Prices are exclusive project rates for Kikar Hamedina Towers residents, including VAT. Delivery & installation are calculated by total window width. Quote is subject to professional on-site measurement.',
+    add_row:'+ Add another window', sum_title:'TOTAL DUE',
+    sum_note:'Prices are exclusive project rates for Kikar Hamedina Towers residents. Delivery & installation are calculated by total window width. Quote is subject to professional on-site measurement.',
     empty_sum:'Enter width and height to see your order summary',
-    inst_line:'Delivery & installation ({m} m width)', excl_vat:'incl. VAT',
-    elec_add_sqm:'incl. motor add-on {x} · incl. VAT', elec_add_rm:'incl. motor & electric track {x} · incl. VAT',
-    total_sub:'incl. VAT · incl. delivery & installation',
+    inst_line:'Delivery & installation ({m} m width)', excl_vat:'excl. VAT',
+    elec_add_sqm:'incl. motor add-on {x} · excl. VAT', elec_add_rm:'incl. motor & electric track {x} · excl. VAT',
+    sub_ex:'Subtotal (excl. VAT)', vat_line:'VAT ({p}%)',
+    total_sub:'incl. VAT, delivery & installation',
     cta_reserve:'Reserve your price', cta_visit:'Book a showroom visit',
     cta_sub:'Price reservation is secured with a small deposit, credited toward your final order.',
     visit_kicker:'THE SHOWROOM',
@@ -888,7 +894,8 @@ function removeRow(btn) {
   calc();
 }
 function fmt(n) { return '₪' + Math.round(n).toLocaleString(LANG==='en'?'en-US':'he-IL'); }
-function calc() {
+/* חישוב ההזמנה — מחזיר את כל הנתונים לשימוש בסיכום ובמייל ההזמנה */
+function buildOrder() {
   let subtotal = 0, widthSum = 0;
   const lines = [];
   [...tbody.children].forEach(tr => {
@@ -909,20 +916,29 @@ function calc() {
       cell.innerHTML = fmt(price) + (addon > 0
         ? `<small>${(p.unit==='rm' ? t('elec_add_rm') : t('elec_add_sqm')).replace('{x}', fmt(addon))}</small>`
         : `<small>${t('excl_vat')}</small>`);
-      lines.push({ label:`${prodLabel(p)} · ${t('rooms')[roomKey]} (${type==='electric'?t('op_electric'):t('op_manual')})`, price });
+      lines.push({ label:`${prodLabel(p)} · ${t('rooms')[roomKey]} (${type==='electric'?t('op_electric'):t('op_manual')})`, dims:`${w}×${h}`, price });
     } else {
       cell.textContent = '—';
     }
   });
   const install = widthSum > 0 ? widthSum * CFG.installRate : 0;
-  const total = subtotal + install;
+  const subtotalEx = subtotal + install;
+  const vatRate = CFG.vatRate || 18;
+  const vat = subtotalEx * vatRate / 100;
+  const totalInc = subtotalEx + vat;
+  return { lines, widthSum, install, subtotalEx, vatRate, vat, totalInc };
+}
+function calc() {
+  const o = buildOrder();
   const box = document.getElementById('summaryLines');
-  box.innerHTML = lines.length
-    ? lines.map(l=>`<div><span>${l.label}</span><span>${fmt(l.price)}</span></div>`).join('')
-      + `<div class="inst"><span>${t('inst_line').replace('{m}', widthSum.toFixed(1))}</span><span>${fmt(install)}</span></div>`
+  box.innerHTML = o.lines.length
+    ? o.lines.map(l=>`<div><span>${l.label}</span><span>${fmt(l.price)}</span></div>`).join('')
+      + `<div class="inst"><span>${t('inst_line').replace('{m}', o.widthSum.toFixed(1))}</span><span>${fmt(o.install)}</span></div>`
+      + `<div class="inst"><span><b>${t('sub_ex')}</b></span><span><b>${fmt(o.subtotalEx)}</b></span></div>`
+      + `<div><span>${t('vat_line').replace('{p}', o.vatRate)}</span><span>${fmt(o.vat)}</span></div>`
     : `<div style="color:#999">${t('empty_sum')}</div>`;
-  document.getElementById('totalOut').innerHTML = total > 0
-    ? fmt(total) + `<small>${t('total_sub')}</small>` : `₪0<small>${t('excl_vat')}</small>`;
+  document.getElementById('totalOut').innerHTML = o.totalInc > 0
+    ? fmt(o.totalInc) + `<small>${t('total_sub')}</small>` : `₪0<small>${t('total_sub')}</small>`;
 }
 
 /* ============ שפה ============ */
@@ -950,11 +966,8 @@ function toggleLang() {
 
 /* ============ מודאלים ============ */
 let currentModal = null;
-/* שריון מחיר: אם מוגדר קישור סליקה — פתיחה ישירה של עמוד התשלום */
-function reserveClick() {
-  if (CONTENT.payUrl) { window.open(CONTENT.payUrl, '_blank'); }
-  else { openModal('reserve'); }
-}
+/* שריון מחיר: פרטים קצרים → תשלום. פרטי ההזמנה נשמרים ונשלחים כהזמנה רק אחרי תשלום */
+function reserveClick() { openModal('reserve'); }
 function openModal(kind) {
   currentModal = kind;
   const pfx = kind === 'visit' ? 'm_visit' : 'm_res';
@@ -974,8 +987,17 @@ function submitModal() {
   const apt = document.getElementById('leadApt').value.trim();
   if (!name || !phone) { alert(LANG==='en' ? 'Please fill in name and phone' : 'נא למלא שם וטלפון'); return; }
   if (currentModal === 'reserve') {
+    /* שמירת ההזמנה — תישלח כהזמנה חדשה רק אחרי חזרה מתשלום (?paid=1) */
+    const o = buildOrder();
+    try {
+      localStorage.setItem('miriam-pending-order', JSON.stringify({
+        name, phone, apt, ts: Date.now(),
+        lines: o.lines, install: o.install, subtotalEx: o.subtotalEx,
+        vatRate: o.vatRate, vat: o.vat, totalInc: o.totalInc
+      }));
+    } catch(e) {}
     closeModal();
-    if (CONTENT.payUrl) { window.open(CONTENT.payUrl, '_blank'); }
+    if (CONTENT.payUrl) { window.location.href = CONTENT.payUrl; }
     else { alert(t('a_res')); }
     return;
   }
@@ -1191,6 +1213,7 @@ function renderPricesPane() {
   document.getElementById('adm-track-rm').value = CFG.trackRm;
   document.getElementById('adm-install').value = CFG.installRate;
   document.getElementById('adm-min').value = CFG.minCharge;
+  document.getElementById('adm-vat').value = CFG.vatRate ?? 18;
 }
 function renderAdmin() {
   renderPricesPane();
@@ -1202,6 +1225,7 @@ function renderAdmin() {
   document.getElementById('adm-pay-url').value = CONTENT.payUrl || '';
   document.getElementById('adm-lead-email').value = CONTENT.leadEmail || '';
   document.getElementById('adm-monday-email').value = CONTENT.mondayEmail || '';
+  document.getElementById('adm-quotes-email').value = CONTENT.quotesEmail || '';
   document.getElementById('adm-wa-number').value = CONTENT.waNumber || '';
   document.getElementById('adm-wa-msg').value = CONTENT.waMsg || '';
 }
@@ -1219,6 +1243,7 @@ function collectAdmin() {
   CFG.trackRm = parseFloat(document.getElementById('adm-track-rm').value) || 0;
   CFG.installRate = parseFloat(document.getElementById('adm-install').value) || 0;
   CFG.minCharge = parseFloat(document.getElementById('adm-min').value) || 0;
+  CFG.vatRate = parseFloat(document.getElementById('adm-vat').value) || 18;
   FIELDS.forEach(f => {
     if (!f.k) return;
     const el = document.getElementById('c-' + f.k);
@@ -1230,6 +1255,7 @@ function collectAdmin() {
   CONTENT.payUrl = document.getElementById('adm-pay-url').value.trim();
   CONTENT.leadEmail = document.getElementById('adm-lead-email').value.trim() || 'mor@miriam.co.il';
   CONTENT.mondayEmail = document.getElementById('adm-monday-email').value.trim();
+  CONTENT.quotesEmail = document.getElementById('adm-quotes-email').value.trim();
   CONTENT.waNumber = document.getElementById('adm-wa-number').value.trim();
   CONTENT.waMsg = document.getElementById('adm-wa-msg').value.trim();
 }
@@ -1310,8 +1336,41 @@ function exportSite() {
     .catch(() => flash('הייצוא עובד רק מהאתר החי (לא מקובץ מקומי)', true));
 }
 
+/* ============ הזמנה חדשה אחרי תשלום (חזרה מ-PayPlus עם ?paid=1) ============ */
+function sendOrderIfPaid() {
+  if (!location.search.includes('paid=1')) return;
+  let order = null;
+  try { order = JSON.parse(localStorage.getItem('miriam-pending-order')); } catch(e) {}
+  history.replaceState(null, '', location.pathname);
+  if (!order) return;
+  const detail = order.lines.map(l => `• ${l.label} · ${l.dims} ס״מ — ₪${Math.round(l.price)}`).join('\n')
+    + `\n• הובלה והתקנה — ₪${Math.round(order.install)}`
+    + `\nסה״כ לפני מע״מ: ₪${Math.round(order.subtotalEx)}`
+    + `\nמע״מ ${order.vatRate}%: ₪${Math.round(order.vat)}`
+    + `\nסה״כ כולל מע״מ: ₪${Math.round(order.totalInc)}`
+    + `\nשולמה מקדמה: ₪${CONTENT.payAmount || 400} (מתקזזת מההזמנה)`;
+  const cc = [CONTENT.mondayEmail, CONTENT.quotesEmail].filter(Boolean).join(',');
+  fetch('https://formsubmit.co/ajax/' + encodeURIComponent(CONTENT.leadEmail || 'office@miriam.co.il'), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(Object.assign({
+      _subject: 'הזמנה חדשה — שריון מחיר: ' + order.name + ' · מגדלי כיכר המדינה',
+      'שם מלא': order.name,
+      'טלפון': order.phone,
+      'מגדל / קומה / דירה': order.apt || '-',
+      'פירוט ההזמנה': detail,
+      'סטטוס': 'שולמה מקדמה — לשריין מחיר ולתאם מדידה',
+      'מקור': 'דף נחיתה — מגדלי כיכר המדינה'
+    }, cc ? { _cc: cc } : {}))
+  }).finally(() => {
+    try { localStorage.removeItem('miriam-pending-order'); } catch(e) {}
+    alert('תודה! המקדמה התקבלה והמחיר שלכם שוריין. נציג מטעמנו יצור קשר לתיאום מדידה מקצועית.');
+  });
+}
+
 /* ============ אתחול ============ */
 applyI18n();
+sendOrderIfPaid();
 /* שורות פתיחה ללא מידות — המחיר מופיע רק לאחר הזנת רוחב וגובה */
 addRow({ room:'living' });
 addRow({ room:'bedroom' });
