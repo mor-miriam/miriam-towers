@@ -512,8 +512,9 @@
       <div><label>מנוע — מוצרי מטר רץ ₪</label><input type="number" id="adm-motor-rm" min="0"></div>
       <div><label>מסילה חשמלית — ₪ למטר רץ</label><input type="number" id="adm-track-rm" min="0"></div>
     </div>
-    <div class="global" style="grid-template-columns:1fr 1fr 1fr">
+    <div class="global" style="grid-template-columns:1fr 1fr">
       <div><label>הובלה והתקנה — ₪ למטר רוחב</label><input type="number" id="adm-install" min="0"></div>
+      <div><label>מדידה מקצועית — ₪ קבוע להזמנה</label><input type="number" id="adm-measure" min="0"></div>
       <div><label>חיוב מינימלי לפריט (מטר / מ״ר)</label><input type="number" id="adm-min" min="0" step="0.1"></div>
       <div><label>מע״מ %</label><input type="number" id="adm-vat" min="0" step="0.5"></div>
     </div>
@@ -602,7 +603,7 @@ const PRICES_DEFAULT = /*PJSON*/{
     "woodven":   { "label":"תריס ונציאני עץ",      "en":"Wood Venetian",      "unit":"sqm", "price":260, "hasElectric":false },
     "vertical":  { "label":"וילונות ורטיקלים",     "en":"Vertical Blinds",    "unit":"sqm", "price":130, "hasElectric":false }
   },
-  "motorSqm": 1200, "motorRm": 1000, "trackRm": 170, "installRate": 60, "minCharge": 1, "vatRate": 18
+  "motorSqm": 1200, "motorRm": 1000, "trackRm": 170, "installRate": 60, "measureFee": 150, "minCharge": 1, "vatRate": 18
 }/*PJSONEND*/;
 
 const CONTENT_DEFAULT = /*CJSON*/{
@@ -722,7 +723,7 @@ const I18N = {
     empty_sum:'הזינו רוחב וגובה כדי לראות את סיכום ההזמנה',
     inst_line:'הובלה והתקנה ({m} מ׳ רוחב)', excl_vat:'לפני מע״מ',
     elec_add_sqm:'כולל תוספת מנוע {x} · לפני מע״מ', elec_add_rm:'כולל מנוע ומסילה חשמלית {x} · לפני מע״מ',
-    sub_ex:'סה״כ ביניים (לפני מע״מ)', vat_line:'מע״מ ({p}%)',
+    measure_line:'מדידה מקצועית', sub_ex:'סה״כ ביניים (לפני מע״מ)', vat_line:'מע״מ ({p}%)',
     total_sub:'כולל מע״מ, הובלה והתקנה',
     cta_reserve:'שריינו את מחיר ההזמנה', cta_visit:'תיאום פגישה באולם התצוגה',
     cta_sub:'שריון המחיר מתבצע באמצעות מקדמה סמלית המתקזזת מסכום ההזמנה הסופי.',
@@ -758,7 +759,7 @@ const I18N = {
     empty_sum:'Enter width and height to see your order summary',
     inst_line:'Delivery & installation ({m} m width)', excl_vat:'excl. VAT',
     elec_add_sqm:'incl. motor add-on {x} · excl. VAT', elec_add_rm:'incl. motor & electric track {x} · excl. VAT',
-    sub_ex:'Subtotal (excl. VAT)', vat_line:'VAT ({p}%)',
+    measure_line:'Professional measurement', sub_ex:'Subtotal (excl. VAT)', vat_line:'VAT ({p}%)',
     total_sub:'incl. VAT, delivery & installation',
     cta_reserve:'Reserve your price', cta_visit:'Book a showroom visit',
     cta_sub:'Price reservation is secured with a small deposit, credited toward your final order.',
@@ -939,11 +940,12 @@ function buildOrder() {
     }
   });
   const install = widthSum > 0 ? widthSum * CFG.installRate : 0;
-  const subtotalEx = subtotal + install;
+  const measure = lines.length > 0 ? (CFG.measureFee ?? 150) : 0;
+  const subtotalEx = subtotal + install + measure;
   const vatRate = CFG.vatRate || 18;
   const vat = subtotalEx * vatRate / 100;
   const totalInc = subtotalEx + vat;
-  return { lines, widthSum, install, subtotalEx, vatRate, vat, totalInc };
+  return { lines, widthSum, install, measure, subtotalEx, vatRate, vat, totalInc };
 }
 function calc() {
   const o = buildOrder();
@@ -951,6 +953,7 @@ function calc() {
   box.innerHTML = o.lines.length
     ? o.lines.map(l=>`<div><span>${l.label}</span><span>${fmt(l.price)}</span></div>`).join('')
       + `<div class="inst"><span>${t('inst_line').replace('{m}', o.widthSum.toFixed(1))}</span><span>${fmt(o.install)}</span></div>`
+      + `<div><span>${t('measure_line')}</span><span>${fmt(o.measure)}</span></div>`
       + `<div class="inst"><span><b>${t('sub_ex')}</b></span><span><b>${fmt(o.subtotalEx)}</b></span></div>`
       + `<div><span>${t('vat_line').replace('{p}', o.vatRate)}</span><span>${fmt(o.vat)}</span></div>`
     : `<div style="color:#999">${t('empty_sum')}</div>`;
@@ -1009,8 +1012,8 @@ function submitModal() {
     try {
       localStorage.setItem('miriam-pending-order', JSON.stringify({
         name, phone, apt, ts: Date.now(),
-        lines: o.lines, install: o.install, subtotalEx: o.subtotalEx,
-        vatRate: o.vatRate, vat: o.vat, totalInc: o.totalInc
+        lines: o.lines, install: o.install, measure: o.measure, widthSum: o.widthSum,
+        subtotalEx: o.subtotalEx, vatRate: o.vatRate, vat: o.vat, totalInc: o.totalInc
       }));
     } catch(e) {}
     closeModal();
@@ -1230,6 +1233,7 @@ function renderPricesPane() {
   document.getElementById('adm-motor-rm').value = CFG.motorRm;
   document.getElementById('adm-track-rm').value = CFG.trackRm;
   document.getElementById('adm-install').value = CFG.installRate;
+  document.getElementById('adm-measure').value = CFG.measureFee ?? 150;
   document.getElementById('adm-min').value = CFG.minCharge;
   document.getElementById('adm-vat').value = CFG.vatRate ?? 18;
 }
@@ -1261,6 +1265,7 @@ function collectAdmin() {
   CFG.motorRm = parseFloat(document.getElementById('adm-motor-rm').value) || 0;
   CFG.trackRm = parseFloat(document.getElementById('adm-track-rm').value) || 0;
   CFG.installRate = parseFloat(document.getElementById('adm-install').value) || 0;
+  CFG.measureFee = parseFloat(document.getElementById('adm-measure').value) || 0;
   CFG.minCharge = parseFloat(document.getElementById('adm-min').value) || 0;
   CFG.vatRate = parseFloat(document.getElementById('adm-vat').value) || 18;
   FIELDS.forEach(f => {
@@ -1365,20 +1370,27 @@ function sendOrderIfPaid() {
   if (!order) return;
   const detail = order.lines.map(l => `• ${l.label} · ${l.dims} ס״מ — ₪${Math.round(l.price)}`).join('\n')
     + `\n• הובלה והתקנה — ₪${Math.round(order.install)}`
+    + `\n• מדידה מקצועית — ₪${Math.round(order.measure || 0)}`
     + `\nסה״כ לפני מע״מ: ₪${Math.round(order.subtotalEx)}`
     + `\nמע״מ ${order.vatRate}%: ₪${Math.round(order.vat)}`
     + `\nסה״כ כולל מע״מ: ₪${Math.round(order.totalInc)}`
     + `\nשולמה מקדמה: ₪${CONTENT.payAmount || 400} (מתקזזת מההזמנה)`;
   /* פתיחת הזמנה מלאה במאנדיי: ליד + הצעת מחיר + תת-פריט לכל חלון */
+  const vr = 1 + (order.vatRate || 18) / 100;
+  const orderLines = (order.lines || []).map(l => ({
+    product: l.product || l.label, room: l.room || '', dims: l.dims || '',
+    priceInc: Math.round(l.priceInc || l.price)
+  }));
+  /* הובלה והתקנה + מדידה מקצועית — כשורות (Subitems) בהצעת המחיר */
+  if (order.install > 0) orderLines.push({ product: 'הובלה והתקנה', room: '', dims: (order.widthSum || 0).toFixed(1) + ' מ׳ רוחב', priceInc: Math.round(order.install * vr) });
+  if (order.measure > 0) orderLines.push({ product: 'מדידה מקצועית', room: '', dims: '', priceInc: Math.round(order.measure * vr) });
   sendToMake({
     type:'order', name: order.name, phone: order.phone, apt: order.apt,
     deposit: CONTENT.payAmount || 400,
-    installEx: Math.round(order.install), subtotalEx: Math.round(order.subtotalEx),
+    installEx: Math.round(order.install), measureEx: Math.round(order.measure || 0),
+    subtotalEx: Math.round(order.subtotalEx),
     vat: Math.round(order.vat), totalInc: Math.round(order.totalInc),
-    lines: (order.lines || []).map(l => ({
-      product: l.product || l.label, room: l.room || '', dims: l.dims || '',
-      priceInc: Math.round(l.priceInc || l.price)
-    }))
+    lines: orderLines
   }).catch(()=>{});
   const cc = [CONTENT.mondayEmail, CONTENT.quotesEmail].filter(Boolean).join(',');
   fetch('https://formsubmit.co/ajax/' + encodeURIComponent(CONTENT.leadEmail || 'office@miriam.co.il'), {
