@@ -118,6 +118,8 @@
   td.price-cell { font-weight:600; font-size:15px; white-space:nowrap; text-align:left; min-width:104px; padding-left:16px; }
   html[dir=ltr] td.price-cell { text-align:right; padding-left:8px; padding-right:16px; }
   td.price-cell small { display:block; font-weight:300; font-size:11px; color:var(--gray); }
+  td.price-cell .orig { text-decoration:line-through; color:#b0413e; font-weight:400; font-size:13px; margin-inline-end:8px; }
+  .summary .lines .orig { text-decoration:line-through; color:#b0413e; font-weight:300; font-size:13px; margin-inline-end:6px; }
   .row-remove { background:none; border:none; cursor:pointer; color:#c5c5c5; font-size:17px; padding:6px 10px; transition:color .2s; }
   .row-remove:hover { color:#a33; }
   .add-row { margin:16px; background:none; border:1px solid var(--ink); color:var(--ink); font-family:inherit; font-size:14px; padding:11px 28px; border-radius:var(--radius); cursor:pointer; transition:all .2s; }
@@ -210,7 +212,7 @@
   .admin label.flabel { display:block; font-size:12px; color:var(--gray); margin:14px 0 5px; font-weight:500; }
   .admin .del { background:none; border:none; cursor:pointer; color:#c5c5c5; font-size:16px; padding:4px 8px; }
   .admin .del:hover { color:#a33; }
-  .new-product { display:grid; grid-template-columns:1.6fr 1fr .8fr auto auto; gap:8px; align-items:center; }
+  .new-product { display:grid; grid-template-columns:1.5fr .9fr .7fr .7fr auto auto; gap:8px; align-items:center; }
   .new-product button, .abtn { background:var(--ink); color:var(--white); border:none; border-radius:var(--radius); font-family:inherit; font-size:13px; padding:9px 16px; cursor:pointer; white-space:nowrap; }
   .abtn-ghost { background:none; border:1px solid var(--line); color:var(--ink); }
   .admin .global { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0 0; }
@@ -561,7 +563,7 @@
 
   <div class="apane on" id="t-prices">
     <table>
-      <thead><tr><th>מוצר</th><th style="width:100px">חיוב לפי</th><th style="width:78px">מחיר ₪</th><th style="width:60px;text-align:center">חשמלי?</th><th style="width:36px"></th></tr></thead>
+      <thead><tr><th>מוצר</th><th style="width:92px">חיוב לפי</th><th style="width:72px">מחיר ₪</th><th style="width:72px" title="מחיר לפני הנחה — 0 = כבוי">מקורי ₪</th><th style="width:56px;text-align:center">חשמלי?</th><th style="width:32px"></th></tr></thead>
       <tbody id="adminRows"></tbody>
     </table>
     <h4>הוספת מוצר חדש</h4>
@@ -569,6 +571,7 @@
       <input type="text" id="np-name" placeholder="שם המוצר">
       <select id="np-unit"><option value="sqm">מ״ר</option><option value="rm">מטר רץ</option></select>
       <input type="number" id="np-price" placeholder="מחיר ₪" min="0">
+      <input type="number" id="np-orig" placeholder="מקורי ₪" min="0" title="מחיר לפני הנחה (רשות)">
       <label style="display:flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap"><input type="checkbox" id="np-electric" style="width:auto" checked> חשמלי</label>
       <button onclick="addProduct()">+ הוספה</button>
     </div>
@@ -622,6 +625,8 @@
     <input type="text" id="adm-pay-url" placeholder="https://... (ריק = מצב דמו)">
     <label class="flabel">מייל לקבלת בקשות תיאום פגישה</label>
     <input type="text" id="adm-lead-email">
+    <label class="flabel">התראת ליד דרך שופיפיי — כתובת טופס יצירת קשר (ריק = כבוי)</label>
+    <input type="text" id="adm-shopify-url" placeholder="https://www.miriam.co.il/contact">
     <label class="flabel">Webhook למאנדיי (Make) — לידים והזמנות נפתחים אוטומטית בלוחות</label>
     <input type="text" id="adm-webhook-url" placeholder="https://hook.eu2.make.com/...">
     <label class="flabel">מייל לוח לידים (גיבוי — לא נדרש כש-Webhook פעיל)</label>
@@ -660,14 +665,14 @@
    ============================================================ */
 const PRICES_DEFAULT = /*PJSON*/{
   "products": {
-    "roller":    { "label":"וילון גלילה",          "en":"Roller Blind",       "unit":"sqm", "price":120, "hasElectric":true  },
-    "dblroller": { "label":"דאבל רולר (יום/לילה)", "en":"Double Roller",      "unit":"sqm", "price":150, "hasElectric":true  },
-    "fabric":    { "label":"וילון בד",              "en":"Fabric Curtain",     "unit":"rm",  "price":220, "hasElectric":true  },
-    "roman":     { "label":"וילון רומאי",           "en":"Roman Shade",        "unit":"sqm", "price":190, "hasElectric":true  },
-    "duette":    { "label":"וילון דואט (חלת דבש)", "en":"Duette (Honeycomb)", "unit":"sqm", "price":210, "hasElectric":true  },
-    "venetian":  { "label":"תריס ונציאני",          "en":"Venetian Blind",     "unit":"sqm", "price":140, "hasElectric":false },
-    "woodven":   { "label":"תריס ונציאני עץ",      "en":"Wood Venetian",      "unit":"sqm", "price":260, "hasElectric":false },
-    "vertical":  { "label":"וילונות ורטיקלים",     "en":"Vertical Blinds",    "unit":"sqm", "price":130, "hasElectric":false }
+    "roller":    { "label":"וילון גלילה",          "en":"Roller Blind",       "unit":"sqm", "price":120, "origPrice":0, "hasElectric":true  },
+    "dblroller": { "label":"דאבל רולר (יום/לילה)", "en":"Double Roller",      "unit":"sqm", "price":150, "origPrice":0, "hasElectric":true  },
+    "fabric":    { "label":"וילון בד",              "en":"Fabric Curtain",     "unit":"rm",  "price":220, "origPrice":0, "hasElectric":true  },
+    "roman":     { "label":"וילון רומאי",           "en":"Roman Shade",        "unit":"sqm", "price":190, "origPrice":0, "hasElectric":true  },
+    "duette":    { "label":"וילון דואט (חלת דבש)", "en":"Duette (Honeycomb)", "unit":"sqm", "price":210, "origPrice":0, "hasElectric":true  },
+    "venetian":  { "label":"תריס ונציאני",          "en":"Venetian Blind",     "unit":"sqm", "price":140, "origPrice":0, "hasElectric":false },
+    "woodven":   { "label":"תריס ונציאני עץ",      "en":"Wood Venetian",      "unit":"sqm", "price":260, "origPrice":0, "hasElectric":false },
+    "vertical":  { "label":"וילונות ורטיקלים",     "en":"Vertical Blinds",    "unit":"sqm", "price":130, "origPrice":0, "hasElectric":false }
   },
   "motorSqm": 1200, "motorRm": 1000, "trackRm": 170, "installRate": 60, "measureFee": 150, "minCharge": 1, "vatRate": 18
 }/*PJSONEND*/;
@@ -736,6 +741,7 @@ const CONTENT_DEFAULT = /*CJSON*/{
   "pmName": "מור",
   "pmEmail": "mor@miriam.co.il",
   "leadEmail": "office@miriam.co.il",
+  "shopifyContactUrl": "https://www.miriam.co.il/contact",
   "webhookUrl": "https://hook.eu2.make.com/jvo7b0q9at73f60imp4v0xcgik13brub",
   "mondayEmail": "",
   "quotesEmail": "",
@@ -743,13 +749,13 @@ const CONTENT_DEFAULT = /*CJSON*/{
   "waMsg": "היי, אני דייר/ת במגדלי כיכר המדינה ואשמח לפרטים על הטבת הוילונות",
   "visitImg": "https://www.miriam.co.il/cdn/shop/files/1.-showroom.jpg?width=1400",
   "termsTitle": "תקנון ותנאי שימוש",
-  "termsText": "1. כללי\nהאתר מופעל על ידי וילונות מרים עזרא בע״מ, ח.פ 516573516 — MIRIAM House of Design (להלן: «החברה»). השימוש באתר ובמחשבון הצעת המחיר כפוף לתנאים אלה.\n\n2. ההטבה\nהמחירים המוצגים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה בלבד, ובתוקף עד להודעה חדשה. החברה רשאית לעדכן את המחירון בכל עת.\n\n3. הצעת המחיר\nהחישוב באתר מהווה הערכה בלבד על בסיס המידות שהוזנו על ידי הלקוח. ההצעה הסופית תיקבע לאחר מדידה מקצועית בדירה על ידי מודד מטעם החברה. כל המחירים כוללים מע״מ אלא אם צוין אחרת.\n\n4. שריון מחיר ותשלום מקדמה\nשריון המחיר מתבצע באמצעות תשלום מקדמה מאובטח. סכום המקדמה מתקזז במלואו מסכום ההזמנה הסופית. לאחר התשלום תישלח ללקוח הודעת אישור, ונציג מטעמנו יצור קשר לתיאום מדידה מקצועית בדירה. שריון המחיר מקבע את מחירי הפרויקט עבור הלקוח. ביטול — בהתאם לחוק הגנת הצרכן, התשמ״א-1981: ניתן לבטל את העסקה בתוך 14 יום ממועד התשלום ולקבל החזר מלא של המקדמה, בניכוי דמי ביטול כדין.\n\n5. אספקה והתקנה\nמועדי האספקה וההתקנה ייקבעו מול הלקוח לאחר המדידה. החברה מתחייבת לעמידה בלוחות הזמנים שיסוכמו בהזמנה הסופית.\n\n6. אחריות\nעל כל המוצרים חלה אחריות יצרן רשמית ומלאה בהתאם לתעודת האחריות שתימסר עם ההתקנה.\n\n7. פרטיות\nהפרטים הנמסרים באתר משמשים ליצירת קשר ולטיפול בהזמנה בלבד, ולא יועברו לצד שלישי למעט לצורך השלמת העסקה.\n\n8. יצירת קשר\nלשאלות ובירורים: אולם התצוגה — לח״י 2, בני ברק, מתחם דן דיזיין סנטר.\nטלפון: 03-5509795 · מייל: office@miriam.co.il\nוילונות מרים עזרא בע״מ · ח.פ 516573516",
+  "termsText": "1. כללי\nהאתר מופעל על ידי וילונות מרים עזרא בע״מ, ח.פ 516573516 — MIRIAM House of Design (להלן: «החברה»). השימוש באתר ובמחשבון הצעת המחיר כפוף לתנאים אלה.\n\n2. ההטבה\nהמחירים המוצגים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה בלבד, ובתוקף עד להודעה חדשה. החברה רשאית לעדכן את המחירון בכל עת.\n\n3. הצעת המחיר\nהחישוב באתר מהווה הערכה בלבד על בסיס המידות שהוזנו על ידי הלקוח. ההצעה הסופית תיקבע לאחר מדידה מקצועית בדירה על ידי מודד מטעם החברה. כל המחירים כוללים מע״מ אלא אם צוין אחרת.\n\n3א. בדים ותמחור וילונות בד\n• וילונות בד דקורטיבי — הבדים הינם מתוך קטלוג הבדים MYTM, עד מחיר של 140 ₪ למטר בד. בד במחיר גבוה יותר — בתוספת תשלום בהתאם למחירון הקטלוג.\n• וילונות בד האפלה — הבדים הינם מתוך קטלוג הבדים MYTM, עד מחיר של 140 ₪ למטר בד. התמחור מחושב לפי תפירת בד פרוס, ביחס של 1.3 מטר בד לכל 1 מטר מסילה.\n\n4. שריון מחיר ותשלום מקדמה\nשריון המחיר מתבצע באמצעות תשלום מקדמה מאובטח. סכום המקדמה מתקזז במלואו מסכום ההזמנה הסופית. לאחר התשלום תישלח ללקוח הודעת אישור, ונציג מטעמנו יצור קשר לתיאום מדידה מקצועית בדירה. שריון המחיר מקבע את מחירי הפרויקט עבור הלקוח. ביטול — בהתאם לחוק הגנת הצרכן, התשמ״א-1981: ניתן לבטל את העסקה בתוך 14 יום ממועד התשלום ולקבל החזר מלא של המקדמה, בניכוי דמי ביטול כדין.\n\n5. אספקה והתקנה\nמועדי האספקה וההתקנה ייקבעו מול הלקוח לאחר המדידה. החברה מתחייבת לעמידה בלוחות הזמנים שיסוכמו בהזמנה הסופית.\n\n6. אחריות\nעל כל המוצרים חלה אחריות יצרן רשמית ומלאה בהתאם לתעודת האחריות שתימסר עם ההתקנה. על מנועי הוילונות החשמליים — 5 שנות אחריות מרגע ההתקנה.\n\n7. פרטיות\nהפרטים הנמסרים באתר משמשים ליצירת קשר ולטיפול בהזמנה בלבד, ולא יועברו לצד שלישי למעט לצורך השלמת העסקה.\n\n8. יצירת קשר\nלשאלות ובירורים: אולם התצוגה — לח״י 2, בני ברק, מתחם דן דיזיין סנטר.\nטלפון: 03-5509795 · מייל: office@miriam.co.il\nוילונות מרים עזרא בע״מ · ח.פ 516573516",
   "payAmount": 400,
   "payUrl": ""
 }/*CJSONEND*/;
 
 const PRICES_KEY = 'miriam-towers-prices-v4';
-const CONTENT_KEY = 'miriam-towers-content-v7';
+const CONTENT_KEY = 'miriam-towers-content-v8';
 /* שליחה למאנדיי דרך Make — ליד או הזמנה */
 function sendToMake(payload) {
   if (!CONTENT.webhookUrl) return Promise.resolve();
@@ -990,12 +996,16 @@ function buildOrder() {
       const base = qty * p.price;
       const addon = (type==='electric' && p.hasElectric) ? electricAddon(p, w) : 0;
       const price = base + addon;
+      /* מחיר מקורי לפני הנחת פרויקט — מוצג מחוק */
+      const origP = p.origPrice || 0;
+      const origTotal = origP > p.price ? qty * origP + addon : 0;
       subtotal += price;
       widthSum += w/100;
-      cell.innerHTML = fmt(price) + (addon > 0
+      cell.innerHTML = (origTotal > 0 ? `<span class="orig">${fmt(origTotal)}</span>` : '') + fmt(price) + (addon > 0
         ? `<small>${(p.unit==='rm' ? t('elec_add_rm') : t('elec_add_sqm')).replace('{x}', fmt(addon))}</small>`
         : `<small>${t('excl_vat')}</small>`);
       lines.push({
+        origTotal,
         label:`${prodLabel(p)} · ${t('rooms')[roomKey]} (${type==='electric'?t('op_electric'):t('op_manual')})`,
         product:`${p.label} — ${type==='electric'?'חשמלי':'ידני'}`,
         room: I18N.he.rooms[roomKey], dims:`${w}×${h}`, price,
@@ -1017,7 +1027,7 @@ function calc() {
   const o = buildOrder();
   const box = document.getElementById('summaryLines');
   box.innerHTML = o.lines.length
-    ? o.lines.map(l=>`<div><span>${l.label}</span><span>${fmt(l.price)}</span></div>`).join('')
+    ? o.lines.map(l=>`<div><span>${l.label}</span><span>${l.origTotal > 0 ? `<span class="orig">${fmt(l.origTotal)}</span>` : ''}${fmt(l.price)}</span></div>`).join('')
       + `<div class="inst"><span>${t('inst_line').replace('{m}', o.widthSum.toFixed(1))}</span><span>${fmt(o.install)}</span></div>`
       + `<div><span>${t('measure_line')}</span><span>${fmt(o.measure)}</span></div>`
       + `<div class="inst"><span><b>${t('sub_ex')}</b></span><span><b>${fmt(o.subtotalEx)}</b></span></div>`
@@ -1096,6 +1106,20 @@ function submitModal() {
   btn.disabled = true;
   btn.textContent = LANG==='en' ? 'Sending…' : 'שולח…';
   sendToMake({ type:'lead', name, phone, email, tower, floor, apt, notes:'בקשת תיאום פגישה מדף הנחיתה' }).catch(()=>{});
+  /* התראת ליד דרך שופיפיי — כמו טופס יצירת קשר באתר הראשי */
+  if (CONTENT.shopifyContactUrl) {
+    fetch(CONTENT.shopifyContactUrl, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        'form_type': 'contact', 'utf8': '✓',
+        'contact[name]': name,
+        'contact[email]': email || 'lead@miriam.co.il',
+        'contact[phone]': phone,
+        'contact[body]': 'ליד חדש — תיאום פגישה מדף הנחיתה מגדלי כיכר המדינה\n' + (aptFull || '') + '\nטלפון: ' + phone + (email ? '\nאימייל: ' + email : '')
+      }).toString()
+    }).catch(()=>{});
+  }
   fetch('https://formsubmit.co/ajax/' + encodeURIComponent(CONTENT.leadEmail || 'mor@miriam.co.il'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -1297,6 +1321,7 @@ function renderPricesPane() {
         <option value="rm" ${p.unit==='rm'?'selected':''}>מטר רץ</option>
       </select></td>
       <td><input type="number" class="a-price" value="${p.price}" min="0"></td>
+      <td><input type="number" class="a-orig" value="${p.origPrice || 0}" min="0" title="מחיר לפני הנחה — יוצג מחוק ללקוח. 0 = כבוי"></td>
       <td style="text-align:center"><input type="checkbox" class="a-electric" style="width:auto" ${p.hasElectric?'checked':''}></td>
       <td><button class="del" onclick="deleteProduct('${k}')">×</button></td>
     </tr>`).join('');
@@ -1317,6 +1342,7 @@ function renderAdmin() {
   document.getElementById('adm-pay-amount').value = CONTENT.payAmount;
   document.getElementById('adm-pay-url').value = CONTENT.payUrl || '';
   document.getElementById('adm-lead-email').value = CONTENT.leadEmail || '';
+  document.getElementById('adm-shopify-url').value = CONTENT.shopifyContactUrl || '';
   document.getElementById('adm-webhook-url').value = CONTENT.webhookUrl || '';
   document.getElementById('adm-monday-email').value = CONTENT.mondayEmail || '';
   document.getElementById('adm-quotes-email').value = CONTENT.quotesEmail || '';
@@ -1330,6 +1356,7 @@ function collectAdmin() {
     p.label = tr.querySelector('.a-name').value.trim() || p.label;
     p.unit = tr.querySelector('.a-unit').value;
     p.price = parseFloat(tr.querySelector('.a-price').value) || 0;
+    p.origPrice = parseFloat(tr.querySelector('.a-orig').value) || 0;
     p.hasElectric = tr.querySelector('.a-electric').checked;
   });
   CFG.motorSqm = parseFloat(document.getElementById('adm-motor-sqm').value) || 0;
@@ -1348,7 +1375,8 @@ function collectAdmin() {
   CONTENT.termsText = document.getElementById('adm-terms').value;
   CONTENT.payAmount = parseFloat(document.getElementById('adm-pay-amount').value) || 400;
   CONTENT.payUrl = document.getElementById('adm-pay-url').value.trim();
-  CONTENT.leadEmail = document.getElementById('adm-lead-email').value.trim() || 'mor@miriam.co.il';
+  CONTENT.leadEmail = document.getElementById('adm-lead-email').value.trim() || 'office@miriam.co.il';
+  CONTENT.shopifyContactUrl = document.getElementById('adm-shopify-url').value.trim();
   CONTENT.webhookUrl = document.getElementById('adm-webhook-url').value.trim();
   CONTENT.mondayEmail = document.getElementById('adm-monday-email').value.trim();
   CONTENT.quotesEmail = document.getElementById('adm-quotes-email').value.trim();
@@ -1378,11 +1406,13 @@ function addProduct() {
     label: name,
     unit: document.getElementById('np-unit').value,
     price: parseFloat(document.getElementById('np-price').value) || 0,
+    origPrice: parseFloat(document.getElementById('np-orig').value) || 0,
     hasElectric: document.getElementById('np-electric').checked
   };
   persist();
   document.getElementById('np-name').value = '';
   document.getElementById('np-price').value = '';
+  document.getElementById('np-orig').value = '';
   renderPricesPane();
   refreshQuoteSelects();
   flash('✓ המוצר נוסף');
