@@ -632,7 +632,9 @@
   <div class="apane" id="t-pay">
     <label class="flabel">סכום מקדמה (₪)</label>
     <input type="number" id="adm-pay-amount" min="0">
-    <label class="flabel">קישור סליקה PayPlus — «שריינו את המחיר» יפתח אותו ישירות</label>
+    <label class="flabel">PayPlus API (Make) — יצירת עמוד תשלום אישי לכל לקוח</label>
+    <input type="text" id="adm-pay-api" placeholder="https://hook.eu2.make.com/...">
+    <label class="flabel">קישור סליקה קבוע (גיבוי — אם ה-API לא זמין)</label>
     <input type="text" id="adm-pay-url" placeholder="https://... (ריק = מצב דמו)">
     <label class="flabel">מייל לקבלת בקשות תיאום פגישה</label>
     <input type="text" id="adm-lead-email">
@@ -762,7 +764,8 @@ const CONTENT_DEFAULT = /*CJSON*/{
   "termsTitle": "תקנון ותנאי שימוש",
   "termsText": "1. כללי\nהאתר מופעל על ידי וילונות מרים עזרא בע״מ, ח.פ 516573516 — MIRIAM House of Design (להלן: «החברה»). השימוש באתר ובמחשבון הצעת המחיר כפוף לתנאים אלה.\n\n2. ההטבה\nהמחירים המוצגים הינם מחירי פרויקט בלעדיים לדיירי מגדלי כיכר המדינה בלבד, ובתוקף עד להודעה חדשה. החברה רשאית לעדכן את המחירון בכל עת.\n\n3. הצעת המחיר\nהחישוב באתר מהווה הערכה בלבד על בסיס המידות שהוזנו על ידי הלקוח. ההצעה הסופית תיקבע לאחר מדידה מקצועית בדירה על ידי מודד מטעם החברה. כל המחירים כוללים מע״מ אלא אם צוין אחרת.\n\n3א. בדים ותמחור וילונות בד\n• וילונות בד דקורטיבי — הבדים הינם מתוך קטלוג הבדים MYTM, עד מחיר של 140 ₪ למטר בד. בד במחיר גבוה יותר — בתוספת תשלום בהתאם למחירון הקטלוג.\n• וילונות בד האפלה — הבדים הינם מתוך קטלוג הבדים MYTM, עד מחיר של 140 ₪ למטר בד. התמחור מחושב לפי תפירת בד פרוס, ביחס של 1.3 מטר בד לכל 1 מטר מסילה.\n\n4. שריון מחיר ותשלום מקדמה\nשריון המחיר מתבצע באמצעות תשלום מקדמה מאובטח. סכום המקדמה מתקזז במלואו מסכום ההזמנה הסופית. לאחר התשלום תישלח ללקוח הודעת אישור, ונציג מטעמנו יצור קשר לתיאום מדידה מקצועית בדירה. שריון המחיר מקבע את מחירי הפרויקט עבור הלקוח. ביטול — בהתאם לחוק הגנת הצרכן, התשמ״א-1981: ניתן לבטל את העסקה בתוך 14 יום ממועד התשלום ולקבל החזר מלא של המקדמה, בניכוי דמי ביטול כדין.\n\n5. אספקה והתקנה\nמועדי האספקה וההתקנה ייקבעו מול הלקוח לאחר המדידה. החברה מתחייבת לעמידה בלוחות הזמנים שיסוכמו בהזמנה הסופית.\n\n6. אחריות\nעל כל המוצרים חלה אחריות יצרן רשמית ומלאה בהתאם לתעודת האחריות שתימסר עם ההתקנה. על מנועי הוילונות החשמליים — 5 שנות אחריות מרגע ההתקנה.\n\n7. פרטיות\nהפרטים הנמסרים באתר משמשים ליצירת קשר ולטיפול בהזמנה בלבד, ולא יועברו לצד שלישי למעט לצורך השלמת העסקה.\n\n8. יצירת קשר\nלשאלות ובירורים: אולם התצוגה — לח״י 2, בני ברק, מתחם דן דיזיין סנטר.\nטלפון: 03-5509795 · מייל: office@miriam.co.il\nוילונות מרים עזרא בע״מ · ח.פ 516573516",
   "payAmount": 400,
-  "payUrl": ""
+  "payUrl": "",
+  "payApiUrl": "https://hook.eu2.make.com/a5h25ye4ft2azqjnam1byok1lupg5eqg"
 }/*CJSONEND*/;
 
 const PRICES_KEY = 'miriam-towers-prices-v4';
@@ -1107,6 +1110,33 @@ function submitModal() {
         subtotalEx: o.subtotalEx, vatRate: o.vatRate, vat: o.vat, totalInc: o.totalInc
       }));
     } catch(e) {}
+    /* יצירת לינק תשלום אישי דרך PayPlus (API) — עם נפילה חכמה ללינק קבוע/דמו */
+    if (CONTENT.payApiUrl) {
+      const btn = document.getElementById('modalBtn');
+      btn.disabled = true;
+      btn.textContent = LANG==='en' ? 'Preparing secure payment…' : 'מכינים עמוד תשלום מאובטח…';
+      fetch(CONTENT.payApiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: CONTENT.payAmount || 400,
+          name, phone, email,
+          orderRef: 'מגדלי כיכר המדינה · ' + name + (aptFull ? ' · ' + aptFull : '')
+        })
+      })
+      .then(r => r.json())
+      .then(j => {
+        if (j && j.link && j.link.indexOf('http') === 0) { window.location.href = j.link; }
+        else { throw new Error('no link'); }
+      })
+      .catch(() => {
+        btn.disabled = false;
+        btn.textContent = t('m_res_b');
+        if (CONTENT.payUrl) { window.location.href = CONTENT.payUrl; }
+        else { closeModal(); alert(t('a_res')); }
+      });
+      return;
+    }
     closeModal();
     if (CONTENT.payUrl) { window.location.href = CONTENT.payUrl; }
     else { alert(t('a_res')); }
@@ -1351,6 +1381,7 @@ function renderAdmin() {
   document.getElementById('adm-terms-title').value = CONTENT.termsTitle;
   document.getElementById('adm-terms').value = CONTENT.termsText;
   document.getElementById('adm-pay-amount').value = CONTENT.payAmount;
+  document.getElementById('adm-pay-api').value = CONTENT.payApiUrl || '';
   document.getElementById('adm-pay-url').value = CONTENT.payUrl || '';
   document.getElementById('adm-lead-email').value = CONTENT.leadEmail || '';
   document.getElementById('adm-shopify-url').value = CONTENT.shopifyContactUrl || '';
@@ -1385,6 +1416,7 @@ function collectAdmin() {
   CONTENT.termsTitle = document.getElementById('adm-terms-title').value;
   CONTENT.termsText = document.getElementById('adm-terms').value;
   CONTENT.payAmount = parseFloat(document.getElementById('adm-pay-amount').value) || 400;
+  CONTENT.payApiUrl = document.getElementById('adm-pay-api').value.trim();
   CONTENT.payUrl = document.getElementById('adm-pay-url').value.trim();
   CONTENT.leadEmail = document.getElementById('adm-lead-email').value.trim() || 'office@miriam.co.il';
   CONTENT.shopifyContactUrl = document.getElementById('adm-shopify-url').value.trim();
